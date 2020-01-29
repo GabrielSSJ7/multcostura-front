@@ -51,5 +51,11 @@ module.exports = {
     if (filesize > 100) ok = false;
     if (ok) return true;
     else return false;
+  },
+  getNameImageFromUrl(url) {
+    const splitted = url.split("/");
+    const image = splitted[splitted.length - 1];
+    const imageSplitted = image.split(".");
+    return imageSplitted[0];
   }
 };

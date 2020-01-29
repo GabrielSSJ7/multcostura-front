@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Link } from "../../../../routes";
+import { Link, Router } from "../../../../routes";
 import { Button } from "../../../static/styled-components/base";
 import {
   getCategories,
@@ -190,7 +190,9 @@ export default function ListCategories() {
             >
               <Button onClick={() => handleOpen(category)}>Editar</Button>
               <Button onClick={() => delCat(category.id)}>Apagar</Button>
-              <Link route={`/admin/banner/category/${category.id}`}>
+              <Link
+                route={`/admin/banner/category/${category.id}?name=${category.name}`}
+              >
                 <Button>Banner</Button>
               </Link>
             </CategoryContainer>

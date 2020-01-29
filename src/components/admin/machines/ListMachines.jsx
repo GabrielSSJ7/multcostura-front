@@ -2,45 +2,141 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { Router, Link } from "../../../../routes";
-import { Button } from "../../../static/styled-components/base";
-import { getMachines } from "../../../utils/machines";
+import { Button, Select, Input } from "../../../static/styled-components/base";
+import { getMachines, getOptions } from "../../../utils/machines";
 import { Creators as MachineCreators } from "../../../ducks/machines";
 import { Creators as UtilCreators } from "../../../ducks/utils";
+import Snackbar from "@material-ui/core/Snackbar";
+import Alert from "@material-ui/lab/Alert";
 
 export default function ListMachines() {
-  const [hideBtns, setHideBtns] = useState(true);
-  
-
-  const { message, messageType, messageColor } = useSelector(
-    state => state.Utils
-  );
+  const [state, setState] = useState({
+    category: null,
+    manufacturer: null,
+    search: ""
+  });
+  const [categories, setCategories] = useState([]);
+  const [manufacturers, setManufacturers] = useState([]);
   const { machines } = useSelector(state => state.Machine);
   const dispatch = useDispatch();
 
+  const [snackBar, setSnackBar] = useState({
+    result: "success",
+    open: false,
+    message: ""
+  });
+  function handleClose() {
+    setSnackBar({
+      ...snackBar,
+      open: false
+    });
+  }
+
   useEffect(() => {
-    function _getMachines() {
+    async function asyncFunc() {
+      getMachines(
+        function(err, machines) {
+          if (err) {
+            setSnackBar({
+              result: "error",
+              open: true,
+              message: err
+            });
+            dispatch(MachineCreators.loadMachines([]));
+            return;
+          }
+          dispatch(MachineCreators.loadMachines(machines));
+        },
+        {
+          category: state.category,
+          manufacturer: state.manufacturer,
+          search: state.search
+        }
+      );
+    }
+    asyncFunc();
+    return () => {};
+  }, [state]);
+
+  useEffect(() => {
+    function asyncFunc() {
       getMachines(function(err, machines) {
         if (err) {
-          dispatch(UtilCreators.changeMessage(err));
-          dispatch(UtilCreators.changeType(false));
-          dispatch(UtilCreators.changeColor("red"));
+          setSnackBar({
+            result: "error",
+            message: err,
+            open: true
+          });
           return;
         }
         dispatch(MachineCreators.loadMachines(machines));
       });
+      getOptions(function(err, data) {
+        if (err) {
+          setSnackBar({
+            result: "error",
+            open: true,
+            message: err
+          });
+          return;
+        }
+        setCategories(data.categories.data);
+        setManufacturers(data.manufacturers.data);
+      });
     }
-    _getMachines();
+    asyncFunc();
   }, []);
 
   return (
     <>
-      {hideBtns ? (
-        <>
-          <Button onClick={() => {}}>Filtrar por categorias</Button>
+      <Snackbar
+        open={snackBar.open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+      >
+        <Alert severity={snackBar.result}>{snackBar.message}</Alert>
+      </Snackbar>
 
-          <Button>Filtrar por fabricantes</Button>
-        </>
-      ) : null}
+      <div style={{ width: "100%", display: "block", margin: "auto" }}>
+        <Input
+          value={state.search}
+          type="text"
+          name="search"
+          id="search"
+          placeholder="Pesquise pelo nome"
+          onChange={e => setState({ ...state, search: e.target.value })}
+        />
+        <Select
+          value={state.category}
+          onChange={e => setState({ ...state, category: e.target.value })}
+        >
+          <option value="">Escolha uma categoria</option>
+          {categories.map(category => (
+            <option
+              selected={state.category == category.id ? category.id : false}
+              value={category.id}
+            >
+              {category.name}
+            </option>
+          ))}
+        </Select>
+
+        <Select
+          value={state.manufacturer}
+          onChange={e => setState({ ...state, manufacturer: e.target.value })}
+        >
+          <option value="">Escolha um fabricante</option>
+          {manufacturers.map(manu => (
+            <option
+              selected={state.manufacturer == manu.id ? manu.id : false}
+              value={manu.id}
+            >
+              {manu.name}
+            </option>
+          ))}
+        </Select>
+      </div>
+
       <Container>
         {machines.map(machine => (
           <Link
@@ -53,7 +149,7 @@ export default function ListMachines() {
                 <Title> {machine.name} </Title>
                 <Subtitle>{machine.description}</Subtitle>
               </div>
-              <Description>{machine.mainFeatures}</Description>
+              {/* <Description>{machine.mainFeatures}</Description> */}
             </CardContainer>
           </Link>
         ))}

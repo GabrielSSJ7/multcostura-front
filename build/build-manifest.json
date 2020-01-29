@@ -17,11 +17,11 @@
       "static/runtime/polyfills.js",
       "static/runtime/polyfills.js.map"
     ],
-    "/admin/machines": [
+    "/admin/banner/categories": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/next/dist/pages/_error": [
+    "/admin/categories": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]
