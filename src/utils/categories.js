@@ -13,8 +13,6 @@ export function getCategories(cb) {
 }
 
 export function deleteCategory(id, cb) {
-  console.log("del id => ", id);
-
   setApi()
     .delete(`/categories/${id}`)
     .then(response => {

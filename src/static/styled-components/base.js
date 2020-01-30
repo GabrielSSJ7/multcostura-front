@@ -16,6 +16,10 @@ export const Input = styled.input`
 `;
 
 export const Select = styled.select`
+  :hover {
+    border: 1px solid #960d03;
+  }
+  transition: .2s;
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -37,6 +41,10 @@ export const TextArea = styled.textarea`
 
 export const Button = styled.button`
   width: 100%;
+  :hover {
+    opacity: 0.8;
+  }
+  transition: 0.2s;
   background-color: #960d03;
   color: white;
   padding: 14px 20px;

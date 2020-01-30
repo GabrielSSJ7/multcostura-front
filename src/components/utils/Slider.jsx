@@ -4,7 +4,7 @@ import { Link } from "../../../routes";
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 400px;
+  height: ${props => props.height};
   overflow: hidden;
   display: -webkit-box;
   position: relative;
@@ -15,14 +15,18 @@ const Slide = styled.div`
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
-	width: 100%;
-	height: 400px;
+	width: ${props => props.width};
+	height: ${props => props.height};
 	transform: translateX(${props => props.translate}px);
 	transition: transform 0.4s ease-in-out;
 	position: relative;
 `;
 
 const ArrowLeft = styled.span`
+  :hover {
+    opacity: 0.8;
+  }
+  transition: 0.2s;
   position: absolute;
   z-index: 9;
   left: 0;
@@ -32,9 +36,13 @@ const ArrowLeft = styled.span`
   margin-top: -10px;
   border-top: 30px solid transparent;
   border-bottom: 30px solid transparent;
-  border-right: 30px solid white;
+  border-right: 30px solid #960d03;
 `;
 const ArrowRight = styled.span`
+  :hover {
+    opacity: 0.8;
+  }
+  transition: 0.2s;
   position: absolute;
   z-index: 9;
   right: 0;
@@ -46,10 +54,10 @@ const ArrowRight = styled.span`
   margin-top: -10px;
   border-top: 30px solid transparent;
   border-bottom: 30px solid transparent;
-  border-left: 30px solid white;
+  border-left: 30px solid #960d03;
 `;
 
-export default ({ link, images, autoSlide, slideCtrl, balls, arrows }) => {
+export default ({ link, images, autoSlide, slideCtrl, balls, arrows, height, slideWidth }) => {
   const [index, setIndex] = useState(1);
   const [translate, setTranslate] = useState(0);
   useEffect(() => {
@@ -102,7 +110,7 @@ export default ({ link, images, autoSlide, slideCtrl, balls, arrows }) => {
 
   return (
     <>
-      <Wrapper>
+      <Wrapper height={height}>
         {images ? (
           <>
             {arrows ? (
@@ -121,6 +129,8 @@ export default ({ link, images, autoSlide, slideCtrl, balls, arrows }) => {
                   key={i}
                   src={img}
                   translate={translate}
+                  height={height}
+                  width={slideWidth}
                 />
               ))}
             </>
