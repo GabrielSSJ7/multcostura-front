@@ -20,10 +20,6 @@
     "/admin/banner/categories": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
-    ],
-    "/admin/categories": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
     ]
   }
 }

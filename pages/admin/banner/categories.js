@@ -13,6 +13,7 @@ import {
 import FileInput from "../../../src/components/utils/FileInput";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
+import { changeFileName } from "../../../src/utils/images";
 
 import imageNotFound from "../../../src/static/images/image-404.jpg";
 
@@ -48,6 +49,8 @@ export default function BannerCategories() {
         key={inputIndex}
       />
     ]);
+    files.push(null)
+    setFiles(files)
     setSlideControl(images.length + 1);
     setSnackBar({
       open: true,
@@ -66,7 +69,7 @@ export default function BannerCategories() {
       })
     );
     const _files = files;
-    _files[index] = file;
+    _files[index] = changeFileName(file, index);
     setFiles(_files);
     setSlideControl(index + 1);
   }
@@ -100,12 +103,60 @@ export default function BannerCategories() {
     return () => {};
   }, []);
 
+  function makeBannerFirst() {
+    const ctrl = slideControl - 1;
+    let currentBanner = images[ctrl];
+    let firstBanner = images[0];
+    let currentFile = files[ctrl];
+    let firstFile = files[0];
+    setImages(images => {
+      const newImages = images;
+      newImages[0] = currentBanner;
+      newImages[ctrl] = firstBanner;
+      return newImages;
+    });
+    setFiles(files => {
+      const newFiles = files;
+      newFiles[0] = currentFile;
+      newFiles[ctrl] = firstFile;
+      return newFiles;
+    });
+    setSlideControl(1);
+  }
+
+  function saveSlide() {
+    let hasEmptyFile = false;
+    console.log("files=>", files);
+
+    files.forEach(file => {
+      if (!file) hasEmptyFile = true;
+    });
+    if (hasEmptyFile)
+      setSnackBar({
+        result: "error",
+        message: "Há banners sem imagens",
+        open: true
+      });
+    else{ 
+      if (files.length == 0) return setSnackBar({
+        result: "error",
+        message: "Há banners sem imagens",
+        open: true
+      });
+      setSnackBar({
+        result: "success",
+        message: "Sucesso",
+        open: true
+      });
+    }
+  }
+
   return (
     <Template>
       <Sidebar />
       <Snackbar
         open={snackBar.open}
-        autoHideDuration={1000}
+        autoHideDuration={1500}
         onClose={handleClose}
       >
         <Alert severity={snackBar.result}>{snackBar.message}</Alert>
@@ -125,24 +176,45 @@ export default function BannerCategories() {
 
           <Row w="100%" align="center">
             <Column style={{ width: "100%" }}>
-              <div
-                style={{
-                  height: "400px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flexDirection: "column"
-                }}
-              >
-                {images.length == 0 ? (
-                  <>
-                    <p>Você não adicionou nenhum banner a lista de banners.</p>
-                    <p>
-                      Clique no botão{" "}
-                      <strong>"Adicionar banner a lista"</strong>.
-                    </p>
-                  </>
-                ) : (
+              {images.length == 0 ? (
+                <>
+                  <div
+                    style={{
+                      height: "400px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      flexDirection: "column"
+                    }}
+                  >
+                    <>
+                      <p>
+                        Você ainda não adicionou nenhum banner a lista de
+                        banners.
+                      </p>
+                      <p>
+                        Clique no botão{" "}
+                        <strong>"Adicionar banner a lista"</strong>.
+                      </p>
+                    </>
+                  </div>
+                </>
+              ) : (
+                <>
+                  {slideControl - 1 != 0 ? (
+                    <Button
+                      style={{
+                        width: "50%",
+                        display: "block",
+                        margin: "10px auto"
+                      }}
+                      onClick={makeBannerFirst}
+                    >
+                      Tornar este banner o principal
+                    </Button>
+                  ) : (
+                    <span style={{ width: "20px", height: "64px" }}></span>
+                  )}
                   <div style={{ position: "relative", width: "100%" }}>
                     <ArrowLeft
                       onClick={() => {
@@ -169,39 +241,42 @@ export default function BannerCategories() {
                       slideWidth="100%"
                     />
                   </div>
-                )}
-              </div>
-              <div
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  flexWrap: "wrap",
-                  marginLeft: "5px",
-                  padding: "2px 0"
-                }}
-              >
-                {images.map((image, id) => (
-                  <ThumbnailBanner
+
+                  <div
                     style={{
-                      border: `${
-                        id == slideControl - 1 ? "2px solid #960d03" : "2px solid transparent"
-                      }`
-                    }}
-                    onClick={() => {
-                      setSlideControl(parseInt(id + 1));
+                      width: "100%",
+                      display: "flex",
+                      flexWrap: "wrap",
+                      marginLeft: "5px",
+                      padding: "2px 0"
                     }}
                   >
-                    <img src={image} style={{ width: "100%" }} />
-                  </ThumbnailBanner>
-                ))}
-              </div>
+                    {images.map((image, id) => (
+                      <ThumbnailBanner
+                        style={{
+                          border: `${
+                            id == slideControl - 1
+                              ? "2px solid #960d03"
+                              : "2px solid transparent"
+                          }`
+                        }}
+                        onClick={() => {
+                          setSlideControl(parseInt(id + 1));
+                        }}
+                      >
+                        <img src={image} style={{ width: "100%" }} />
+                      </ThumbnailBanner>
+                    ))}
+                  </div>
 
-              <h2 style={{ textAlign: "center" }}>
-                Posição do banner {slideControl}
-              </h2>
-              <h4 style={{ textAlign: "center" }}>
-                Total de banners {inputs.length}
-              </h4>
+                  <h2 style={{ textAlign: "center" }}>
+                    Posição do banner {slideControl}
+                  </h2>
+                  <h4 style={{ textAlign: "center" }}>
+                    Total de banners {inputs.length}
+                  </h4>
+                </>
+              )}
             </Column>
             <Column style={{ width: "100%" }}>
               <div
@@ -213,12 +288,16 @@ export default function BannerCategories() {
                 }}
               >
                 {inputs[slideControl - 1]}{" "}
-                <Button
-                  style={{ width: "30%" }}
-                  onClick={() => removeSlide(slideControl - 1)}
-                >
-                  Remover banner
-                </Button>
+                {images.length != 0 ? (
+                  <Button
+                    style={{ width: "30%" }}
+                    onClick={() => removeSlide(slideControl - 1)}
+                  >
+                    Remover banner
+                  </Button>
+                ) : (
+                  ""
+                )}
               </div>
 
               <Button
@@ -227,20 +306,21 @@ export default function BannerCategories() {
               >
                 Adicionar banner a lista
               </Button>
-              <div style={{ width: "50%", display: "block", margin: "0 auto" }}>
-                <p>Trocar de banner:</p>
-              </div>
-              <Select
-                style={{ width: "50%", margin: "0 auto", cursor: "pointer" }}
-                value={slideControl}
-                onChange={e => {
-                  setSlideControl(parseInt(e.target.value));
-                }}
-              >
-                {images.map((e, i) => (
-                  <option value={i + 1}>Banner {i + 1}</option>
-                ))}
-              </Select>
+
+              {images.length != 0 ? (
+                <Button
+                  style={{
+                    width: "50%",
+                    margin: "15px auto",
+                    display: "block"
+                  }}
+                  onClick={saveSlide}
+                >
+                  Salvar
+                </Button>
+              ) : (
+                ""
+              )}
             </Column>
           </Row>
         </Column>
