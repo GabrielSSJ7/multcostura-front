@@ -35,7 +35,7 @@ export default function BannerCategories() {
 
   function addSlide() {
     const inputIndex = images.length;
-    setImages([...images, imageNotFound]);
+    setImages([...images, { image: imageNotFound, pos: inputIndex, name: "" }]);
     setInputs([
       ...inputs,
       <FileInput
@@ -49,8 +49,8 @@ export default function BannerCategories() {
         key={inputIndex}
       />
     ]);
-    files.push(null)
-    setFiles(files)
+    files.push(null);
+    setFiles(files);
     setSlideControl(images.length + 1);
     setSnackBar({
       open: true,
@@ -60,16 +60,27 @@ export default function BannerCategories() {
   }
 
   function changeBannerImage(file, index) {
+    const newFile = changeFileName(
+      file,
+      Math.round(Math.random() * 100000 + 1) + "" + Date.now()
+    );
+
     setImages(images =>
       images.map((image, ind) => {
-        if (ind == index) {
-          return file ? URL.createObjectURL(file) : imageNotFound;
+        if (image.pos == index) {
+          return file
+            ? {
+                image: URL.createObjectURL(file),
+                pos: index,
+                name: newFile.name
+              }
+            : { image: imageNotFound, pos: index, name: file.name };
         }
         return image;
       })
     );
     const _files = files;
-    _files[index] = changeFileName(file, index);
+    _files[index] = newFile;
     setFiles(_files);
     setSlideControl(index + 1);
   }
@@ -111,8 +122,8 @@ export default function BannerCategories() {
     let firstFile = files[0];
     setImages(images => {
       const newImages = images;
-      newImages[0] = currentBanner;
-      newImages[ctrl] = firstBanner;
+      newImages[0] = { image: currentBanner.image, pos: 0 };
+      newImages[ctrl] = { image: firstBanner.image, pos: ctrl };
       return newImages;
     });
     setFiles(files => {
@@ -125,8 +136,10 @@ export default function BannerCategories() {
   }
 
   function saveSlide() {
+    console.log(" image -> ", images);
+    console.log(" files -> ", files);
+
     let hasEmptyFile = false;
-    console.log("files=>", files);
 
     files.forEach(file => {
       if (!file) hasEmptyFile = true;
@@ -137,12 +150,13 @@ export default function BannerCategories() {
         message: "Há banners sem imagens",
         open: true
       });
-    else{ 
-      if (files.length == 0) return setSnackBar({
-        result: "error",
-        message: "Há banners sem imagens",
-        open: true
-      });
+    else {
+      if (files.length == 0)
+        return setSnackBar({
+          result: "error",
+          message: "Há banners sem imagens",
+          open: true
+        });
       setSnackBar({
         result: "success",
         message: "Sucesso",
@@ -227,8 +241,6 @@ export default function BannerCategories() {
                     <ArrowRight
                       onClick={() => {
                         setSlideControl(sl => {
-                          console.log(typeof sl);
-
                           if (sl == images.length) return 1;
                           return sl + 1;
                         });
@@ -236,7 +248,7 @@ export default function BannerCategories() {
                     />
                     <Slide
                       slideCtrl={slideControl}
-                      images={images}
+                      images={images.map(image => image.image)}
                       height="400px"
                       slideWidth="100%"
                     />
@@ -264,7 +276,7 @@ export default function BannerCategories() {
                           setSlideControl(parseInt(id + 1));
                         }}
                       >
-                        <img src={image} style={{ width: "100%" }} />
+                        <img src={image.image} style={{ width: "100%" }} />
                       </ThumbnailBanner>
                     ))}
                   </div>
