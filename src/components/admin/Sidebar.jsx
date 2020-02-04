@@ -6,7 +6,7 @@ import {
   faList,
   faUsers,
   faCartPlus,
-  faMobile,
+  faNewspaper,
   faDoorOpen,
   faHome,
   faHandshake
@@ -23,8 +23,7 @@ export default () => (
     <hr style={{ width: "80%" }} />
     <DivItem onClick={() => navigate("home")}>
       <FontAwesomeIcon icon={faHome} size="2x" />
-
-      <NavLink>Início</NavLink>
+      <NavLink>Institucional</NavLink>
     </DivItem>
     <DivItem onClick={() => navigate("categories")}>
       <FontAwesomeIcon icon={faList} size="2x" />
@@ -46,10 +45,10 @@ export default () => (
 
       <NavLink>Máquinas</NavLink>
     </DivItem>
-    <DivItem>
-      <FontAwesomeIcon icon={faMobile} size="2x" />
+    <DivItem onClick={() => navigate("news")}>
+      <FontAwesomeIcon icon={faNewspaper} size="2x" />
 
-      <NavLink>Mobile</NavLink>
+      <NavLink>Notícias</NavLink>
     </DivItem>
     <DivItem onClick={() => logout()}>
       <FontAwesomeIcon icon={faDoorOpen} size="2x" />

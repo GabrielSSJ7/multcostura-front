@@ -14,10 +14,11 @@ import FileInput from "../../../src/components/utils/FileInput";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import { changeFileName } from "../../../src/utils/images";
+import { saveSlide, getSlide } from "../../../src/utils/banner";
 
 import imageNotFound from "../../../src/static/images/image-404.jpg";
 
-export default function BannerCategories() {
+export default function BannerCategories({ category }) {
   const [name, setName] = useState("");
   const [images, setImages] = useState([]);
   const [inputs, setInputs] = useState([]);
@@ -101,6 +102,10 @@ export default function BannerCategories() {
       inputs.splice(id, 1);
       return inputs;
     });
+    setFiles(files => {
+      files.splice(id, 1);
+      return files;
+    });
     setSlideControl(id == 0 ? id + 1 : id);
     setSnackBar({
       open: true,
@@ -111,6 +116,36 @@ export default function BannerCategories() {
 
   useEffect(() => {
     setName(router.query.name);
+    getSlide("banner", category, function(err, response) {
+      if (err) {
+        setSnackBar({
+          open: true,
+          message: err,
+          result: "error"
+        });
+        return;
+      }
+      const Inputs = [];
+      const Files = [];
+      for (let a = 0; a < response.length; a++) {
+        Inputs.push(
+          <FileInput
+            type="file"
+            handleChange={e => handleChange(e, a)}
+            labelInputFile={`Enviar Imagem`}
+            maxWidth="50%"
+            labelHeight="50px"
+            labelWidth="150px"
+            id={a}
+            key={a}
+          />
+        );
+        Files.push(a + 1);
+      }
+      setInputs(Inputs);
+      setFiles(Files);
+      setImages(response.map(banner => ({ ...banner, name: banner.name })));
+    });
     return () => {};
   }, []);
 
@@ -122,8 +157,16 @@ export default function BannerCategories() {
     let firstFile = files[0];
     setImages(images => {
       const newImages = images;
-      newImages[0] = { image: currentBanner.image, pos: 0 };
-      newImages[ctrl] = { image: firstBanner.image, pos: ctrl };
+      newImages[0] = {
+        image: currentBanner.image,
+        pos: 0,
+        name: currentBanner.name
+      };
+      newImages[ctrl] = {
+        image: firstBanner.image,
+        pos: ctrl,
+        name: firstBanner.name
+      };
       return newImages;
     });
     setFiles(files => {
@@ -135,15 +178,15 @@ export default function BannerCategories() {
     setSlideControl(1);
   }
 
-  function saveSlide() {
-    console.log(" image -> ", images);
-    console.log(" files -> ", files);
-
+  function _saveSlide() {
     let hasEmptyFile = false;
+    console.log(images);
+    console.log(files);
 
     files.forEach(file => {
       if (!file) hasEmptyFile = true;
     });
+
     if (hasEmptyFile)
       setSnackBar({
         result: "error",
@@ -157,10 +200,21 @@ export default function BannerCategories() {
           message: "Há banners sem imagens",
           open: true
         });
-      setSnackBar({
-        result: "success",
-        message: "Sucesso",
-        open: true
+
+      saveSlide(category, images, files, "categories", function(err, response) {
+        if (err) {
+          setSnackBar({
+            result: "error",
+            message: err,
+            open: true
+          });
+          return;
+        }
+        setSnackBar({
+          result: "success",
+          message: "Sucesso",
+          open: true
+        });
       });
     }
   }
@@ -326,7 +380,7 @@ export default function BannerCategories() {
                     margin: "15px auto",
                     display: "block"
                   }}
-                  onClick={saveSlide}
+                  onClick={_saveSlide}
                 >
                   Salvar
                 </Button>
@@ -386,7 +440,7 @@ const ThumbnailBanner = styled.div`
   }
 `;
 
-export const ImageContainer = styled.div`
+const ImageContainer = styled.div`
   img {
     max-width: 120px;
   }
