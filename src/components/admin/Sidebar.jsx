@@ -9,7 +9,8 @@ import {
   faNewspaper,
   faDoorOpen,
   faHome,
-  faHandshake
+  faHandshake,
+  faTools
 } from "@fortawesome/free-solid-svg-icons";
 import { removeItem } from "../../utils/local";
 
@@ -49,6 +50,11 @@ export default () => (
       <FontAwesomeIcon icon={faNewspaper} size="2x" />
 
       <NavLink>Notícias</NavLink>
+    </DivItem>
+    <DivItem onClick={() => navigate("tools")}>
+      <FontAwesomeIcon icon={faTools} size="2x" />
+
+      <NavLink>Peças</NavLink>
     </DivItem>
     <DivItem onClick={() => logout()}>
       <FontAwesomeIcon icon={faDoorOpen} size="2x" />
