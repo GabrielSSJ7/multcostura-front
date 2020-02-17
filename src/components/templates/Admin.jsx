@@ -69,6 +69,16 @@ class Template extends React.Component {
         })
         .catch(erro => {});
     }
+
+
+    console.log("componentDidMount")
+    const script = document.createElement("script");
+
+
+    script.src = `https://www.bing.com/api/maps/mapcontrol?key=${process.env.mapsKey}&callback=loadMapScenario`;
+    script.async = false;
+
+    document.body.appendChild(script);
   }
 
   render() {
@@ -79,12 +89,14 @@ class Template extends React.Component {
           <style>{`
             
           `}</style>
+
         </Head>
         <GlobalStyle />
 
         <div style={{ margin: 0, padding: 0, display: "flex" }}>
           {this.props.children}
         </div>
+       
       </div>
     );
   }

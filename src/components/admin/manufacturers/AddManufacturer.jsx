@@ -10,6 +10,9 @@ import { Creators as UploadCreators } from "../../../ducks/upload";
 import { Creators as ManufacturerCreators } from "../../../ducks/manufacturer";
 import { Creators as UtilsCreators } from "../../../ducks/utils";
 
+import Snackbar from "@material-ui/core/Snackbar";
+import Alert from "@material-ui/lab/Alert";
+
 import {
   Button,
   Input,
@@ -19,6 +22,7 @@ import Upload from "../../utils/UploadRedux";
 import { getManufacturers} from '../../../utils/manufacturers'
 
 export default function AddManufacturer() {
+  const imageMessageError = `Extensão do arquivo enviado é inválido. Extensões permitidas ${process.env.imageExtensionPermitted.toString()}, com no máximo 10MB`
   const reactCtx = React.createContext({});
   const _this = useContext(reactCtx);
   const { message, messageType: result, messageColor: color } = useSelector(
@@ -36,7 +40,22 @@ export default function AddManufacturer() {
       dispatch(UploadCreators.cleanUpUpload())
   }, [])
 
+  const [snackBar, setSnackBar] = useState({
+    result: "success",
+    open: false,
+    message: ""
+  });
+
+  function handleClose() {
+    setSnackBar({
+      ...snackBar,
+      open: false
+    })
+  }
+
   function createManufacturer() {
+    console.log(file)
+    console.log(validateImage(["png", "jpg", "svg", "JPG", "jpeg", "webp", "gif", "tiff"], 10000, file))
     if (name) {
       if (validateImage(["png", "jpg", "svg", "JPG", "jpeg", "webp", "gif", "tiff"], 10000, file)) {
         const formData = new FormData();
@@ -44,50 +63,47 @@ export default function AddManufacturer() {
         setApi()
           .post(`manufacturer?name=${name}&description=${description}`, formData)
           .then(response => {
-            dispatch(
-              UtilsCreators.changeMessage("Fabricante criada com sucesso")
-            );
-            dispatch(UtilsCreators.changeMessageType(true));
-            dispatch(UtilsCreators.changeMessageColor("green"));
-            setVisible(true);
+            setSnackBar({
+              message: "Fabricante criada com sucesso",
+              open: true,
+              result: "success"
+            })
             setName("");
             setDescription("");
             dispatch(UploadCreators.cleanUpUpload());
             dispatch(UploadCreators.changeFile(null));
             getManufacturers(function(err, manufacturers) {
               if (err) {
-                dispatch(UtilsCreators.changeMessage(err));
-                dispatch(UtilsCreators.changeMessageType(false));
-                dispatch(UtilsCreators.changeMessageColor("red"));
-                setVisible(true);
+                setSnackBar({
+                  message: err,
+                  open: true,
+                  result: "error"
+                })
                 return;
               }
               dispatch(ManufacturerCreators.loadManufacturers(manufacturers));
             });
           })
           .catch(err => {
-            dispatch(
-              UtilsCreators.changeMessage(
-                err.response ? err.response.data : err.toString()
-              )
-            );
-            dispatch(UtilsCreators.changeMessageType(false));
-            dispatch(UtilsCreators.changeMessageColor("red"));
-            setVisible(true);
+            setSnackBar({
+              message: err.response ? err.response.data : err.toString(),
+              open: true,
+              result: "error"
+            })
           });
       } else {
-        dispatch(
-          UtilsCreators.changeMessage("Suba imagens PNG com no máximo 100KB")
-        );
-        dispatch(UtilsCreators.changeMessageType(false));
-        dispatch(UtilsCreators.changeMessageColor("red"));
-        setVisible(true);
+        setSnackBar({
+          message: "Suba imagens PNG com no máximo 100KB",
+          open: true,
+          result: "error"
+        })
       }
     } else {
-      dispatch(UtilsCreators.changeMessage("O nome é necessário"));
-      dispatch(UtilsCreators.changeMessageType(false));
-      dispatch(UtilsCreators.changeMessageColor("red"));
-      setVisible(true);
+      setSnackBar({
+        message: "O nome é necessário",
+        open: true,
+        result: "error"
+      })
     }
   }
 
@@ -116,6 +132,13 @@ export default function AddManufacturer() {
         >
           <Upload labelInputFile="Logo fabricante" />
         </ImageContainer>
+        <Snackbar
+          open={snackBar.open}
+          autoHideDuration={3500}
+          onClose={handleClose}
+        >
+          <Alert severity={snackBar.result}>{snackBar.message}</Alert>
+        </Snackbar>
       </div>
       <Button onClick={createManufacturer}>Criar fabricante</Button>
     </>

@@ -17,15 +17,11 @@
       "static/runtime/polyfills.js",
       "static/runtime/polyfills.js.map"
     ],
-    "/admin/news": [
+    "/admin/categories": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/admin/news/edit-news": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/next/dist/pages/_error": [
+    "/admin/home": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]

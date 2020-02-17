@@ -4,7 +4,7 @@ import { fieldValidation, validateImage } from "../utils/validate";
 export function getMachines(cb, data) {
   const filter = data ? data : {}
   setApi()
-    .get(`/machine?category=${filter.category}&manufacturer=${filter.manufacturer}&search=${filter.search}`)
+    .get(`/machine?categories=${filter.category}&manufacturer=${filter.manufacturer}&search=${filter.search}`)
     .then(response => {
       cb(null, response.data);
     })
@@ -64,10 +64,11 @@ export async function updateMachine(
     manufacturer
   } = machine;
   const formData = new FormData();
+  console.log('specifications', JSON.stringify(specifications))
   formData.append("name", name);
   formData.append("description", description);
   formData.append("mainFeatures", mainFeatures);
-  formData.append("specifications", JSON.stringify(specifications));
+  formData.append("specifications", specifications ? Object.keys(specifications).length > 0 ? JSON.stringify(specifications) : null : null);
   formData.append("category", category);
   formData.append("manufacturer", manufacturer);
   const machineFilesKeys = Object.keys(machineFiles);

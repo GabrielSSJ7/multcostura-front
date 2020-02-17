@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import loadingGif from "../../../static/images/loading.gif";
+import { validateImage } from '../../../utils/images'
 
 export default function EditGalleryImages({
   images,
@@ -22,13 +23,21 @@ export default function EditGalleryImages({
 
   const onDrop = useCallback(async acceptedFiles => {
     setUp(true);
+    let error = false
     for (let file in acceptedFiles) {
-      const formData = new FormData();
-      formData.append("img", acceptedFiles[file]);
+      if (validateImage(process.env.imageExtensionPermitted, 10000, acceptedFiles[file])) {
+        const formData = new FormData();
+        formData.append("img", acceptedFiles[file]);
 
-      await setApi({ ...headers }).post("/gallery", formData);
+        await setApi({ ...headers }).post("/gallery", formData);
+        error = false
+        onSuccess();
+      } else {
+        onError(`Extensão do arquivo ${acceptedFiles[file].name} é inválido. Extensões permitidas ${process.env.imageExtensionPermitted.toString()}, com no máximo 10MB`)
+        error = true
+      }
     }
-    onSuccess();
+      
     setUp(false);
   }, []);
   const { getRootProps, getInputProps } = useDropzone({ onDrop });

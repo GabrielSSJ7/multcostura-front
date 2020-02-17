@@ -13,12 +13,13 @@ import {
 import FileInput from "../../utils/FileInput";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
-import { changeFileName } from "../../../utils/images";
+import { changeFileName, validateImage } from "../../../utils/images";
 import { saveSlide, getSlide } from "../../../utils/banner";
 
 import imageNotFound from "../../../static/images/image-404.jpg";
 
 export default function HomeBanner() {
+  const imageMessageError = `Extensão do arquivo enviado é inválido. Extensões permitidas ${process.env.imageExtensionPermitted.toString()}, com no máximo 10MB`
   const [name, setName] = useState("");
   const [images, setImages] = useState([]);
   const [inputs, setInputs] = useState([]);
@@ -61,29 +62,39 @@ export default function HomeBanner() {
   }
 
   function changeBannerImage(file, index) {
-    const newFile = changeFileName(
-      file,
-      Math.round(Math.random() * 100000 + 1) + "" + Date.now()
-    );
+    console.log("index", index)
+    console.log(file)
+    if (validateImage(process.env.imageExtensionPermitted, 10000, file)) {
+      const newFile = changeFileName(
+        file,
+        Math.round(Math.random() * 100000 + 1) + "" + Date.now()
+      );
 
-    setImages(images =>
-      images.map((image, ind) => {
-        if (image.pos == index) {
-          return file
-            ? {
-                image: URL.createObjectURL(file),
-                pos: index,
-                name: newFile.name
-              }
-            : { image: imageNotFound, pos: index, name: file.name };
-        }
-        return image;
-      })
-    );
-    const _files = files;
-    _files[index] = newFile;
-    setFiles(_files);
-    setSlideControl(index + 1);
+      setImages(images =>
+        images.map((image, ind) => {
+          if (image.pos == index) {
+            return file
+              ? {
+                  image: URL.createObjectURL(file),
+                  pos: index,
+                  name: newFile.name
+                }
+              : { image: imageNotFound, pos: index, name: file.name };
+          }
+          return image;
+        })
+      );
+      const _files = files;
+      _files[index] = newFile;
+      setFiles(_files);
+      setSlideControl(index + 1);
+    } else {
+      setSnackBar({
+          open: true,
+          result: 'error',
+          message: imageMessageError
+        })
+    }
   }
 
   function handleClose() {
@@ -117,7 +128,8 @@ export default function HomeBanner() {
   useEffect(() => {
     setName(router.query.name);
     function asyncFunc() {
-      getSlide("institutional", "homeBanners", function(err, response) {
+    getSlide("institutional", "homeBanners", function(err, response) {
+      console.log("getSlide",response)
         if (err) {
           setSnackBar({
             open: true,
@@ -146,10 +158,12 @@ export default function HomeBanner() {
         setInputs(Inputs);
         setFiles(Files);
         setImages(response.map(banner => ({ ...banner, name: banner.name })));
+
       });
     }
 
     asyncFunc();
+
     return () => {};
   }, []);
 

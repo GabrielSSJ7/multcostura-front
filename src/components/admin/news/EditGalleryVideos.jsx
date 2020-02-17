@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import loadingGif from "../../../static/images/loading.gif";
+import { validateImage } from '../../../utils/images'
 
 export default function EditGalleryVideos({
   images,
@@ -23,17 +24,22 @@ export default function EditGalleryVideos({
   const onDrop = useCallback(async acceptedFiles => {
     setUp(true);
     for (let file in acceptedFiles) {
-      const formData = new FormData();
+      if (validateImage(process.env.videoExtensionPermitted, 10000, acceptedFiles[file])) {
+        const formData = new FormData();
 
-      if (acceptedFiles[file].type.split("/")[0] != "video") {
-        onError("Formato de arquivo inválido - " + acceptedFiles[file].name);
-        setUp(false);
+        if (acceptedFiles[file].type.split("/")[0] != "video") {
+          onError("Formato de arquivo inválido - " + acceptedFiles[file].name);
+          setUp(false);
+        } else {
+          formData.append("img", acceptedFiles[file]);
+        }
+        await setApi({ ...headers }).post("/gallery", formData);
+          onSuccess();
       } else {
-        formData.append("img", acceptedFiles[file]);
+        onError(`Extensão do arquivo ${acceptedFiles[file].name} é inválido. Extensões permitidas ${process.env.videoExtensionPermitted.toString()}`)
       }
-      await setApi({ ...headers }).post("/gallery", formData);
     }
-    onSuccess();
+  
     setUp(false);
   }, []);
   const { getRootProps, getInputProps } = useDropzone({ onDrop });

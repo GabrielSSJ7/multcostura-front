@@ -37,10 +37,11 @@ export default function Upload({
         key={key}
       />
       <div
+        className="div-file-input"
         style={{
           border: !border ? "1px dotted lightgrey" : '',
-          padding: "50px 10px",
           cursor: "pointer",
+          padding: "10px",
           textAlign: "center",
           width: labelWidth,
           height: labelHeight,
@@ -50,8 +51,13 @@ export default function Upload({
           justifyContent: "center"
         }}
       >
-        <label style={{ cursor: "pointer", width: labelWidth,
-          height: labelHeight, }} htmlFor={id}>
+        <label style={{ 
+          cursor: "pointer",
+          width: labelWidth,
+          height: labelHeight,
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column" }} htmlFor={id}>
           <span
             style={{
               display: file ? "none" : imageURL ? "none" : "flex",
@@ -63,11 +69,12 @@ export default function Upload({
               style={{ width: "32px", margin: "auto", display: "block" }}
             />{" "}
             <br />
-            <hr style={{ width: "100%" }} />
+            
             {labelInputFile}
           </span>
           {file ? (
             <img
+              className="image-container"
               style={{ maxWidth }}
               src={file ? URL.createObjectURL(file) : ""}
             />
@@ -78,7 +85,7 @@ export default function Upload({
                   <ButtonDelImg onClick={deleteImage}>Excluir Imagem</ButtonDelImg>
                 ) : null
               ) : null}
-              <img style={{ maxWidth }} src={imageURL} />
+              <img className="image-container" style={{ maxWidth }} src={imageURL} />
             </>
           )}
         </label>

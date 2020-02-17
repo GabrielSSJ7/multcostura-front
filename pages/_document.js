@@ -8,6 +8,8 @@ class MyDocument extends Document {
     return { ...initialProps };
   }
 
+ 
+
   render() {
     return (
       <Html>
@@ -17,6 +19,7 @@ class MyDocument extends Document {
         <body style={{ margin: 0, padding: 0}}>
           <Main />
           <NextScript />
+          
         </body>
       </Html>
     );

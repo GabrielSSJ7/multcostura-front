@@ -87,7 +87,7 @@ export default function EditNews({ id }) {
     open: false,
     message: ""
   });
- 
+
   function handleChange(e) {
     
     setForm({

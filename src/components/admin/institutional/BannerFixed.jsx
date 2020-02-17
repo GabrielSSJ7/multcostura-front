@@ -11,10 +11,13 @@ import {
   saveBannerFixed,
   deleteBannerFixed
 } from "../../../utils/banner";
+import { validateImage } from '../../../utils/images'
 import imageNotFound from "../../../static/images/image-404.jpg";
 
 export default function BannerFixed({ type }) {
+  const imageMessageError = `Extensão do arquivo enviado é inválido. Extensões permitidas ${process.env.imageExtensionPermitted.toString()}, com no máximo 10MB`
   const [banner, setBanner] = useState(imageNotFound);
+  const [bannerBase, setBannerBase] = useState(null)
   const [file, setFile] = useState(null);
   const [snackBar, setSnackBar] = useState({
     result: "success",
@@ -23,8 +26,16 @@ export default function BannerFixed({ type }) {
   });
 
   function handleChange(e) {
-    setBanner(URL.createObjectURL(e.target.files[0]));
-    setFile(e.target.files[0]);
+    if (validateImage(process.env.imageExtensionPermitted, 10000, e.target.files[0])) {
+      setBanner(URL.createObjectURL(e.target.files[0]));
+      setFile(e.target.files[0]);
+    } else {
+      setSnackBar({
+        open: true,
+        result: 'error',
+        message: imageMessageError
+      })
+    }
   }
 
   function handleClose() {
@@ -44,7 +55,7 @@ export default function BannerFixed({ type }) {
           });
           return;
         }
-
+        setBannerBase(d ? d : null)
         setBanner(d ? d : imageNotFound);
       });
     }
@@ -127,7 +138,7 @@ export default function BannerFixed({ type }) {
           file={file}
           cleanFileInput={() => {
             setFile(null);
-            setBanner(imageNotFound);
+            setBanner(bannerBase ? bannerBase : imageNotFound);
           }}
         />
       </Row>

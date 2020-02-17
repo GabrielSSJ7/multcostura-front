@@ -12,7 +12,7 @@ import {
   updateMachine,
   deleteMachine
 } from "../../../utils/machines";
-import { getNameImageFromUrl, changeFileName } from "../../../utils/images";
+import { getNameImageFromUrl, changeFileName, validateImage } from "../../../utils/images";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
@@ -29,6 +29,7 @@ import {
 } from "../../../static/styled-components/base";
 
 export default function EditMachine({ id }) {
+  const imageMessageError = `Extensão do arquivo enviado é inválido. Extensões permitidas ${process.env.imageExtensionPermitted.toString()}, com no máximo 10MB`
   const dispatch = useDispatch();
   const [snackBar, setSnackBar] = useState({
     result: "success",
@@ -109,7 +110,7 @@ export default function EditMachine({ id }) {
           description: machine.description,
           mainFeatures: machine.mainFeatures,
           specifications: machine.specifications,
-          category: machine.category,
+          category: machine.category._id,
           manufacturer: machine.manufacturer
         });
       });
@@ -119,11 +120,19 @@ export default function EditMachine({ id }) {
   }, []);
 
   function machineHandleChange(e) {
-    const newName = parseInt(e.target.name[e.target.name.length - 1]) - 1;
-    setMachineFiles({
-      ...machineFiles,
-      [e.target.name]: changeFileName(e.target.files[0], newName)
-    });
+    if (validateImage(process.env.imageExtensionPermitted, 10000, e.target.files[0])) {
+      const newName = parseInt(e.target.name[e.target.name.length - 1]) - 1;
+      setMachineFiles({
+        ...machineFiles,
+        [e.target.name]: changeFileName(e.target.files[0], newName)
+      });
+    } else {
+      setSnackBar({
+        open: true,
+        result: 'error',
+        message: imageMessageError
+      })
+    }
   }
 
   function machineCleanFileInput(name) {
@@ -133,17 +142,20 @@ export default function EditMachine({ id }) {
     });
   }
 
-  function sewingHandleChange(e) {
-    const newName = parseInt(e.target.name[e.target.name.length - 1]) - 1;
-    setSewingFile(changeFileName(e.target.files[0], newName));
-  }
-
   function refProdHandleChange(e) {
-    const newName = parseInt(e.target.name[e.target.name.length - 1]) - 1;
-    setRefProdFiles({
-      ...refProdFiles,
-      [e.target.name]: changeFileName(e.target.files[0], newName)
-    });
+    if (validateImage(process.env.imageExtensionPermitted, 10000, e.target.files[0])) {
+      const newName = parseInt(e.target.name[e.target.name.length - 1]) - 1;
+      setRefProdFiles({
+        ...refProdFiles,
+        [e.target.name]: changeFileName(e.target.files[0], newName)
+      });
+    } else {
+      setSnackBar({
+        open: true,
+        result: 'error',
+        message: imageMessageError
+      })
+    }
   }
 
   function refProdCleanFileInput(name) {
@@ -151,6 +163,19 @@ export default function EditMachine({ id }) {
       ...refProdFiles,
       [name]: null
     });
+  }
+
+  function sewingHandleChange(e) {
+    if (validateImage(process.env.imageExtensionPermitted, 10000, e.target.files[0])) {
+      const newName = parseInt(e.target.name[e.target.name.length - 1]) - 1;
+      setSewingTypeFile(changeFileName(e.target.files[0], newName));
+    } else {
+      setSnackBar({
+        open: true,
+        result: 'error',
+        message: imageMessageError
+      })
+    }
   }
 
   function renderImage(name, type) {

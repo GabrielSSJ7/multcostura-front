@@ -13,12 +13,13 @@ import {
 import FileInput from "../../../src/components/utils/FileInput";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
-import { changeFileName } from "../../../src/utils/images";
+import { changeFileName, validateImage } from "../../../src/utils/images";
 import { saveSlide, getSlide } from "../../../src/utils/banner";
 
 import imageNotFound from "../../../src/static/images/image-404.jpg";
 
 export default function BannerCategories({ category }) {
+  const imageMessageError = `Extensão do arquivo enviado é inválido. Extensões permitidas ${process.env.imageExtensionPermitted.toString()}, com no máximo 10MB`
   const [name, setName] = useState("");
   const [images, setImages] = useState([]);
   const [inputs, setInputs] = useState([]);
@@ -61,29 +62,38 @@ export default function BannerCategories({ category }) {
   }
 
   function changeBannerImage(file, index) {
-    const newFile = changeFileName(
-      file,
-      Math.round(Math.random() * 100000 + 1) + "" + Date.now()
-    );
 
-    setImages(images =>
-      images.map((image, ind) => {
-        if (image.pos == index) {
-          return file
-            ? {
-                image: URL.createObjectURL(file),
-                pos: index,
-                name: newFile.name
-              }
-            : { image: imageNotFound, pos: index, name: file.name };
-        }
-        return image;
+    if (validateImage(process.env.imageExtensionPermitted, 10000, file)) {
+      const newFile = changeFileName(
+        file,
+        Math.round(Math.random() * 100000 + 1) + "" + Date.now()
+      );
+
+      setImages(images =>
+        images.map((image, ind) => {
+          if (image.pos == index) {
+            return file
+              ? {
+                  image: URL.createObjectURL(file),
+                  pos: index,
+                  name: newFile.name
+                }
+              : { image: imageNotFound, pos: index, name: file.name };
+          }
+          return image;
+        })
+      );
+      const _files = files;
+      _files[index] = newFile;
+      setFiles(_files);
+      setSlideControl(index + 1);
+    } else {
+      setSnackBar({
+        open: true,
+        result: 'error',
+        message: imageMessageError
       })
-    );
-    const _files = files;
-    _files[index] = newFile;
-    setFiles(_files);
-    setSlideControl(index + 1);
+    }
   }
 
   function handleClose() {
@@ -179,6 +189,7 @@ export default function BannerCategories({ category }) {
   }
 
   function _saveSlide() {
+    console.log("images", images)
     let hasEmptyFile = false;
     console.log(images);
     console.log(files);

@@ -12,11 +12,12 @@ import {
 } from "../../../static/styled-components/base";
 
 import { getOptions, addMachine } from "../../../utils/machines";
-import { changeFileName } from "../../../utils/images";
+import { changeFileName, validateImage } from "../../../utils/images";
 
 import FileInput from "../../utils/FileInput";
 
 export default function AddMachine() {
+  const imageMessageError = `Extensão do arquivo enviado é inválido. Extensões permitidas ${process.env.imageExtensionPermitted.toString()}, com no máximo 10MB`
   const [name, setName] = useState("");
   const [manufacturer, setManufacturer] = useState("");
   const [description, setDescription] = useState("");
@@ -80,11 +81,19 @@ export default function AddMachine() {
   const [sewingTypeFile, setSewingTypeFile] = useState(null);
 
   function machineHandleChange(e) {
-    const newName = parseInt(e.target.name[e.target.name.length - 1]) - 1;
-    setMachineFiles({
-      ...machineFiles,
-      [e.target.name]: changeFileName(e.target.files[0], newName)
-    });
+    if (validateImage(process.env.imageExtensionPermitted, 10000, e.target.files[0])) {
+      const newName = parseInt(e.target.name[e.target.name.length - 1]) - 1;
+      setMachineFiles({
+        ...machineFiles,
+        [e.target.name]: changeFileName(e.target.files[0], newName)
+      });
+    } else {
+      setSnackBar({
+        open: true,
+        result: 'error',
+        message: imageMessageError
+      })
+    }
   }
 
   function machineCleanFileInput(name) {
@@ -95,11 +104,19 @@ export default function AddMachine() {
   }
 
   function refProdHandleChange(e) {
-    const newName = parseInt(e.target.name[e.target.name.length - 1]) - 1;
-    setRefProdFiles({
-      ...refProdFiles,
-      [e.target.name]: changeFileName(e.target.files[0], newName)
-    });
+    if (validateImage(process.env.imageExtensionPermitted, 10000, e.target.files[0])) {
+      const newName = parseInt(e.target.name[e.target.name.length - 1]) - 1;
+      setRefProdFiles({
+        ...refProdFiles,
+        [e.target.name]: changeFileName(e.target.files[0], newName)
+      });
+    } else {
+      setSnackBar({
+        open: true,
+        result: 'error',
+        message: imageMessageError
+      })
+    }
   }
 
   function refProdCleanFileInput(name) {
@@ -110,8 +127,16 @@ export default function AddMachine() {
   }
 
   function sewingTypeHandleChange(e) {
-    const newName = parseInt(e.target.name[e.target.name.length - 1]) - 1;
-    setSewingTypeFile(changeFileName(e.target.files[0], newName));
+    if (validateImage(process.env.imageExtensionPermitted, 10000, e.target.files[0])) {
+      const newName = parseInt(e.target.name[e.target.name.length - 1]) - 1;
+      setSewingTypeFile(changeFileName(e.target.files[0], newName));
+    } else {
+      setSnackBar({
+        open: true,
+        result: 'error',
+        message: imageMessageError
+      })
+    }
   }
 
   return (

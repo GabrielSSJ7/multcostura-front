@@ -12,7 +12,10 @@ function Home() {
     home: <HomeSlide />,
     enterprise: <BannerFixed type="enterpriseBanner" />,
     news: <BannerFixed type="newsBanner" />,
-    contact: <BannerFixed type="contactBanner" />
+    contact: <BannerFixed type="contactBanner" />,
+    produtos: <BannerFixed type="produtos" />,
+    pecas: <BannerFixed type="pecas" />,
+    noticias: <BannerFixed type="noticias" />,
   });
 
   const [componentsKey, setComponentsKey] = useState("");
@@ -44,6 +47,7 @@ function Home() {
                 Opções
               </h3>
 
+              <h1>Slides</h1>
               <CardContainer onClick={() => setMenu("home")}>
                 <Row style={{ margin: "5px", alignItems: "center" }}>
                   {/* <FontAwesomeIcon icon={faHome} size="4x" /> */}
@@ -83,6 +87,35 @@ function Home() {
                   <p style={{ color: "white" }}>Alterar banner fixo</p>
                 </RedPartCardContainer>
               </CardContainer>
+
+              <h1>Lançamentos</h1>
+              <CardContainer onClick={() => setMenu("produtos")}>
+                <Row style={{ margin: "5px", alignItems: "center" }}>
+                  {/* <FontAwesomeIcon icon={faHome} size="4x" /> */}
+                  <p style={{ margin: "0 20px" }}>Card Produtos</p>
+                </Row>
+                <RedPartCardContainer className="red-part">
+                  <p style={{ color: "white" }}>Alterar prévia</p>
+                </RedPartCardContainer>
+              </CardContainer>
+              <CardContainer onClick={() => setMenu("pecas")}>
+                <Row style={{ margin: "5px", alignItems: "center" }}>
+                  {/* <FontAwesomeIcon icon={faHome} size="4x" /> */}
+                  <p style={{ margin: "0 20px" }}>Card Peças</p>
+                </Row>
+                <RedPartCardContainer className="red-part">
+                  <p style={{ color: "white" }}>Alterar prévia</p>
+                </RedPartCardContainer>
+              </CardContainer>
+              <CardContainer onClick={() => setMenu("noticias")}>
+                <Row style={{ margin: "5px", alignItems: "center" }}>
+                  {/* <FontAwesomeIcon icon={faHome} size="4x" /> */}
+                  <p style={{ margin: "0 20px" }}>Card Notícias</p>
+                </Row>
+                <RedPartCardContainer className="red-part">
+                  <p style={{ color: "white" }}>Alterar prévia</p>
+                </RedPartCardContainer>
+              </CardContainer>
             </Column>
           </Row>
         ) : (
@@ -95,6 +128,7 @@ function Home() {
 
 const CardContainer = styled.div`
 	max-height: 300px;
+  height: 100px;
 	overflow: hidden;
 	cursor: pointer;
   display: flex;
