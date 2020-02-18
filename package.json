@@ -33,7 +33,8 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.3.0",
     "reduxsauce": "^1.1.1",
-    "styled-components": "^4.4.1"
+    "styled-components": "^4.4.1",
+    "next-compose-plugins": "^2.2.0",
   },
   "license": "ISC",
   "devDependencies": {
@@ -53,7 +54,6 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-standard": "^4.0.1",
-    "next-compose-plugins": "^2.2.0",
     "typings-for-css-modules-loader": "^1.7.0",
     "val-loader": "^1.1.1"
   },
