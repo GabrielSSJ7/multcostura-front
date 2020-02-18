@@ -129,7 +129,6 @@ export default function HomeBanner() {
     setName(router.query.name);
     function asyncFunc() {
     getSlide("institutional", "homeBanners", function(err, response) {
-      console.log("getSlide",response)
         if (err) {
           setSnackBar({
             open: true,

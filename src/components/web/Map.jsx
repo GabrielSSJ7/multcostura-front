@@ -79,7 +79,8 @@ export default class MapsQuest extends Component {
 
 	render() {
 		return (
-			<Column style={{ width: "100%", marginTop: "100px" }} ait="center">
+			this.props.showMultcostura ? <Row id="map" style={{ width: "87%", height: "500px", marginBottom: "10px", marginTop: "10px", flex: 1 }}></Row>
+			 : <Column style={{ width: "100%", marginTop: "100px" }} ait="center">
 				<h1 style={{ color: "#5B5B5B" }}>Encontre um revendedor próximo a você!</h1>
 
 				<Row jc="space-around" ait="center" style={{ width: "50%", flexWrap: "wrap"}}>

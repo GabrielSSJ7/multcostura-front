@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import Router from 'next/router'
 
 import setApi from '../../../api'
 import { Row, Column } from '../../../static/styled-components/base'
@@ -16,7 +17,6 @@ export default function Home () {
 			const prod = await setApi().get('/institutional/produtos')
 			const pecas = await setApi().get('/institutional/pecas')
 			const noticias = await setApi().get('/institutional/noticias')
-			console.log(prod)
 			setState({
 				produtos: prod.data,
 				pecas: pecas.data,
@@ -33,8 +33,8 @@ export default function Home () {
 			<h1 style={{ color: "#5B5B5B" }}>Lançamentos</h1>
 			<Row jc="space-between" style={{ width: "100%", flexWrap: "wrap" }}>
 				<Column style={{ width: "27.95%", minWidth: "280px" }}>
-					<CardTitle>Produtos</CardTitle>
-					<CardContainer>
+					<CardTitle onClick={() => Router.push("/produtos")}	>Produtos</CardTitle>
+					<CardContainer onClick={() => Router.push("/produtos")}>
 						<img src={state.produtos} />
 					</CardContainer>
 				</Column>

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Slider from '../utils/Slider'
 
 export default function SlideWeb ({ fixed, images }) {
-	return fixed ? <Wrapper><Slide width="100%" height="400px" src={images} /></Wrapper> : <>{images.length > 0 ? <Slider height="400px" images={images} slideWidth="100%" arrows autoSlide /> : ''}</>
+	return fixed ? <Wrapper height="400px"><Slide width="100%" height="400px" src={images} /></Wrapper> : <>{images.length > 0 ? <Slider height="400px" images={images} slideWidth="100%" arrows autoSlide /> : ''}</>
 }
 
 const Wrapper = styled.div`

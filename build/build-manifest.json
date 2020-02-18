@@ -17,11 +17,7 @@
       "static/runtime/polyfills.js",
       "static/runtime/polyfills.js.map"
     ],
-    "/admin/categories": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/admin/home": [
+    "/contato": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]
