@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "node ./server.js",
-    "build": "next build",
+    "build_": "next build",
+    "build": "next start -p $PORT",
     "start": "next start -p $PORT",
     "heroku-postbuild": "npm run build"
   },
