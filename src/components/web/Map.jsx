@@ -2,7 +2,6 @@ import React, { Component } from 'React'
 import styled from 'styled-components'
 
 import setApi from '../../api'
-import axios from 'axios'
 
 
 import { Row, Column, Select} from '../../static/styled-components/base'

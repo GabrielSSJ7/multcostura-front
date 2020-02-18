@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TouchbleOpacity } from 'react-native'
 
 import setApi from '../src/api'
 
