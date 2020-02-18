@@ -54,5 +54,8 @@
     "next-compose-plugins": "^2.2.0",
     "typings-for-css-modules-loader": "^1.7.0",
     "val-loader": "^1.1.1"
+  },
+  "engines": {
+    "node": "12.14.1"
   }
 }
