@@ -9,6 +9,7 @@ export default function Section1 ({ prod }) {
 		<Column flex="1" style={{ paddingLeft: '11.15%', minWidth: '250px' }}>
 			<MachineName>{prod.name}</MachineName>
 			<Category>{prod.category.name}</Category>
+			<Text>{prod.description}</Text>
 			{prod.specifications ? <Text style={{marginTop: '7px', marginBottom: '2px'}}>Modelo: {prod.specifications.modelo}</Text> : ''}
 			<Text>{prod.mainFeatures}</Text>
 

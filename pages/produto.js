@@ -15,20 +15,36 @@ export default function Produto ({ id }) {
 	useEffect(() => {
 		async function f() {
 			setVisLoading(true)
-			setApi()
-				.get(`/machine/${id}`)
-				.then(response => {
-					console.log(response.data)
-					setProd(response.data)
-					setVisLoading(false)
-				})
-				.catch(err => {
-
-				})
+			
+				setApi()
+					.get(`/machine/${id}`)
+					.then(response => {
+						console.log("machine => ",response.data)
+						setProd(response.data)
+						setVisLoading(false)
+					})
+					.catch(err => {
+						setApi()
+						  .get(`/tools/${id}`)
+						  .then(response => {
+							console.log("tools",response.data)
+							setProd({...response.data, category: {}})
+							setVisLoading(false)
+						  })
+						  .catch(err => {
+							setVisLoading(false)
+						  })
+					})
+			
 			
 		}
 		f();
 	}, [])
+
+
+	useEffect(() => {
+		console.log("prod => ",prod)
+	}, [prod])
 	return (
 		<Template>
 			{visLoading ? 

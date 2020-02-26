@@ -25,28 +25,16 @@ export default function Contato () {
 	  f();
 	}, [])
 
-	async function setViewMap() {
-	  		Microsoft.Maps.loadModule('Microsoft.Maps.Search', function () {
-			    var searchManager = new Microsoft.Maps.Search.SearchManager(map);
-			    var requestOptions = {
-			        bounds: map.getBounds(),
-			        where: `${city ? city + ', ' + state.id : state.name}`,
-			        callback: function (answer, userData) {
-			            map.setView({ center: new Microsoft.Maps.Location(answer.results[0].location.latitude, answer.results[0].location.longitude), zoom: 11 });
-			        }
-			    };
-			searchManager.geocode(requestOptions);
-		});
-	}
+
 
 	return (
 		<Template>
 			<div style={{ display: "column", width: "100%" }}>
 				<SlideWeb fixed images={banner} />
-				<h1 style={{ color: "#5B5B5B", textTransform: "uppercase", marginLeft: "11.53%", marginTop: "6.89%"}}>Contato</h1>
-				<div style={{ display: "flex", width: "88.46%", margin: "0 auto" }}>
+				<h1 style={{ color: "#5B5B5B", textTransform: "uppercase",   margin: "6.89% auto", width: "88.46%" }}>Contato</h1>
+				<div style={{ display: "flex", width: "88.46%", margin: "0 auto", flexWrap: 'wrap' }}>
 				  <Form  />
-				  <Map showMultcostura />
+				  <Map showMultcostura map={map}/>
 				</div>
 			</div>
 		</Template>

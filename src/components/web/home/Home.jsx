@@ -39,14 +39,14 @@ export default function Home () {
 					</CardContainer>
 				</Column>
 				<Column style={{ width: "27.95%", minWidth: "280px" }}>
-					<CardTitle>Peças</CardTitle>
-					<CardContainer>
+					<CardTitle onClick={() => Router.push("/produtos?type=tools")} >Peças</CardTitle>
+					<CardContainer onClick={() => Router.push("/produtos?type=tools")}>
 						<img src={state.pecas} />
 					</CardContainer>
 				</Column>
 				<Column style={{ width: "27.95%", minWidth: "280px" }}>
-					<CardTitle>Notícias</CardTitle>
-					<CardContainer>
+					<CardTitle onClick={() => Router.push("/noticias")}>Notícias</CardTitle>
+					<CardContainer onClick={() => Router.push("/noticias")}>
 						<img src={state.noticias} />
 					</CardContainer>
 				</Column>

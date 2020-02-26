@@ -2,7 +2,7 @@ import axios from "axios";
 
 function setApi(headers) {
   return axios.create({
-    baseURL: "https://multcostura-back.herokuapp.com",
+    baseURL: "http://localhost:4000/",
     headers: { ...headers }
   });
 }

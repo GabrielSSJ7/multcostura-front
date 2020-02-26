@@ -7,7 +7,7 @@ import setApi from '../../api'
 import { Row, Column } from '../../static/styled-components/base'
 import loading from '../../static/images/loading.gif'
 
-export default function ListProd ({ id, type })  {
+export default function ListProd ({ id, type, search })  {
 	const router = useRouter();
 	const [prods, setProds] = useState([])
 	const [indexPag, setIndexPag] = useState(0)
@@ -16,16 +16,58 @@ export default function ListProd ({ id, type })  {
 	useEffect(() => {
 		setVisLoading(true)
 		async function f() {
+			console.log(search)
+			if (search) {
+				let machines = { data: [] }
+				let tools = { data: [] }
+	  			try {
+	  				 machines = await setApi().get(`/machine?search=${search}`)
+	  				
+					//setListProdsPag(groupBy(machines.data, 10))
+					listP = machines.data
+	  			} catch (e) {
+
+	  			}
+
+	  			try {
+	  				 tools = await setApi().get(`/tools?search=${search}`)
+	  				listP = tools.data
+	  			} catch (e) {
+
+	  			}
+	  			setProds(machines.data.concat(tools.data))
+	  			setListProdsPag(groupBy(machines.data.concat(tools.data), 10))
+	  			setVisLoading(false)
+	  		} else {
+
+
+	  			if (type != "tools"){
+					setApi()
+					 .get(`machine?${type}=${id}`)
+					 .then(res => {
+					 	setProds(res.data)
+					 	setListProdsPag(groupBy(res.data, 10))
+					 	setVisLoading(false)
+					 })
+					 .catch(err => {
+					 	setVisLoading(false)
+					 })
+
+				   return
+				}
+
 			setApi()
-			 .get(`machine?${type}=${id}`)
-			 .then(res => {
-			 	setProds(res.data)
-			 	setListProdsPag(groupBy(res.data, 10))
-			 	setVisLoading(false)
-			 })
-			 .catch(err => {
-			 	setVisLoading(false)
-			 })
+			  .get('/tools')
+			  .then(response => {
+			  	setProds(response.data)
+				setListProdsPag(groupBy(response.data, 10))
+				setVisLoading(false)
+			  })
+			  .catch(err => {
+				setVisLoading(false)
+			  })
+	  		}
+			
 		}
 		f();
 
@@ -45,11 +87,13 @@ export default function ListProd ({ id, type })  {
 		<Column style={{ width: "80%", margin: "0 auto", flexWrap: 'wrap' }} >
 		  	{visLoading ? <img src={loading} style={{width: "32px", margin: "auto", display: "block"}}/> : 
 		  	listProdsPag.length > 0 ? 
-		  	  <>
+		  	  <Column>
+		  	  	<h1>{ search ? 'Resultado da sua busca' : ''}</h1>
 			  	<Row style={{ flexWrap: 'wrap' }}>
+			  		
 				  	{listProdsPag[indexPag].map(prod => 
 				  	 <Column key={prod.id} style={{ width: "32%", cursor: "pointer", marginRight: "1.3%" }} onClick={() => router.push({ pathname: "/produto", query: { id: prod.id } })} >
-				  	 	<Img src={prod.images[0]} width="100%" height="240px" />
+				  	 	<Img src={prod.images.length > 0 ? prod.images[0] : ''} width="100%" height="240px" />
 				  	 	<Name>{prod.name}</Name>
 				  	 </Column>
 			  		)}
@@ -59,7 +103,7 @@ export default function ListProd ({ id, type })  {
 				  	{listProdsPag.map((a, i) => <PagItem key={i} current={indexPag == i} onClick={() => setIndexPag(i)}>{i}</PagItem>)}
 				  	<PagItem onClick={() => { listProdsPag.length == indexPag+1 ? '' : setIndexPag(indexPag+1)}}>{'>'}</PagItem>
 				</Row>
-			  </> 
+			  </Column> 
 			  :
 			  <Name style={{margin: "auto"}}>Nenhuma máquina encontrada</Name>}
 		</Column>

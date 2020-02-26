@@ -30,6 +30,8 @@ export default class MapsQuest extends Component {
 			states: response.data.estados,
 			cities: response.data.cidades
 		})
+
+
 	}
 
 	async onChangeState(e) {
@@ -57,9 +59,16 @@ export default class MapsQuest extends Component {
 		if (this.state.city !== prevState.city) {
 	    	this.setViewMap(this.state.state, this.state.city);
   		}  		
+
+  		if (prevProps !== this.props) {
+  			console.log(typeof this.props.map, this.props.map)
+  			//if (this.props.map)
+  			this.setMultViewMap();
+  		}
 	}
 
 	async setViewMap(state, city) {
+		
 		const { map } = this.props
   		if (state || city){
 	  		Microsoft.Maps.loadModule('Microsoft.Maps.Search', function () {
@@ -76,9 +85,31 @@ export default class MapsQuest extends Component {
   		}
 	}
 
+		async setMultViewMap() {
+			const map = new Microsoft.Maps.Map(document.getElementById('map'),{})
+	  		Microsoft.Maps.loadModule('Microsoft.Maps.Search', function () {
+			    var searchManager = new Microsoft.Maps.Search.SearchManager(map);
+			    var requestOptions = {
+			        bounds: map.getBounds(),
+			        where: `Rua Newton Prado, 71 Bom Retiro São Paulo SP`,
+			        callback: function (answer, userData) {
+			        	var pushpin = new Microsoft.Maps.Pushpin( 
+			        		new Microsoft.Maps.Location(
+			        			answer.results[0].location.latitude, answer.results[0].location.longitude),
+			        			{ text: 'M', title: 'Multcostura', subTitle: 'Rua Newton Prado, 71 Bom Retiro São Paulo SP' }
+			        		);
+						map.entities.push(pushpin);
+
+			            map.setView({ center: new Microsoft.Maps.Location(answer.results[0].location.latitude, answer.results[0].location.longitude), zoom: 17 });
+			        }
+			    };
+			searchManager.geocode(requestOptions);
+		});
+	}
+
 	render() {
 		return (
-			this.props.showMultcostura ? <Row id="map" style={{ width: "87%", height: "500px", marginBottom: "10px", marginTop: "10px", flex: 1 }}></Row>
+			this.props.showMultcostura ? <Row id="map" style={{ width: "87%", height: "500px", marginBottom: "10px", marginLeft: '10px', minWidth: "300px", flex: 1 }}></Row>
 			 : <Column style={{ width: "100%", marginTop: "100px" }} ait="center">
 				<h1 style={{ color: "#5B5B5B" }}>Encontre um revendedor próximo a você!</h1>
 

@@ -50,6 +50,7 @@ export async function updateMachine(
   machineFiles,
   sewingFile,
   prodRefFiles,
+  files,
   cb
 ) {
   console.log(sewingFile);
@@ -71,6 +72,9 @@ export async function updateMachine(
   formData.append("specifications", specifications ? Object.keys(specifications).length > 0 ? JSON.stringify(specifications) : null : null);
   formData.append("category", category);
   formData.append("manufacturer", manufacturer);
+  formData.append("video", machine.video)
+  formData.append('folheto', files.folheto)
+  formData.append('manual', files.manual)
   const machineFilesKeys = Object.keys(machineFiles);
   machineFilesKeys.forEach(mkey => {
     formData.append("machines", machineFiles[mkey]);
@@ -96,6 +100,7 @@ export function addMachine(
   machineFiles,
   sewingTypeFile,
   refProdFiles,
+  files,
   cb
 ) {
   const formData = new FormData();
@@ -141,12 +146,17 @@ export function addMachine(
     características: machine.mainFeatures
   });
   if (fieldError.return) {
+
     formData.append("name", machine.name);
     formData.append("manufacturer", machine.manufacturer);
     formData.append("description", machine.description);
     formData.append("category", machine.category);
     formData.append("mainFeatures", machine.mainFeatures);
     formData.append("specifications", JSON.stringify(machine.specifications));
+    formData.append("video", machine.video)
+    formData.append('folheto', files.folheto)
+    formData.append('manual', files.manual)
+
     setApi()
       .post(`machine`, formData)
       .then(response => {

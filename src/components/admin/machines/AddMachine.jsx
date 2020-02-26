@@ -10,6 +10,8 @@ import {
   Select,
   UploadImageContainer
 } from "../../../static/styled-components/base";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencilAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import { getOptions, addMachine } from "../../../utils/machines";
 import { changeFileName, validateImage } from "../../../utils/images";
@@ -24,6 +26,7 @@ export default function AddMachine() {
   const [mainFeatures, setMainFeatures] = useState("");
   const [category, setCategory] = useState("");
   const [specifications, setSpecifications] = useState({});
+  const [video, setVideo] = useState('')
 
   const [snackBar, setSnackBar] = useState({
     result: "success",
@@ -77,6 +80,41 @@ export default function AddMachine() {
     refProdFile4: null,
     refProdFile5: null
   });
+
+  const [folheto, setFolheto] = useState(null)
+  const [manual, setManual] = useState(null)
+
+  function folhetoChange(e) {
+    if (e) {
+      const type = e.target.files[0].name.split(".")
+      if (type[1] != "pdf") {
+        setSnackBar({
+          open: true,
+          result: 'error',
+          message: 'O folheto deve ser apenas formato PDF'
+        })
+      } else {
+        setFolheto(e.target.files[0])      
+      }
+    }
+    
+  }
+
+  function manualChange(e) {
+    if (e) {
+      const type = e.target.files[0].name.split(".")
+      if (type[1] != "pdf") {
+        setSnackBar({
+          open: true,
+          result: 'error',
+          message: 'O manual deve ser apenas formato PDF'
+        })
+      } else {
+        setManual(e.target.files[0])      
+      }
+    }
+    
+  }
 
   const [sewingTypeFile, setSewingTypeFile] = useState(null);
 
@@ -137,6 +175,28 @@ export default function AddMachine() {
         message: imageMessageError
       })
     }
+  }
+
+  function handleChangeVideo(e) {
+    const YTBaseURL = "https://www.youtube.com/embed/"
+    if (getParam(e.target.value) == 0) {
+      setSnackBar({
+        open: true,
+        result: 'error',
+        message: 'O endereço não é uma URL válida do YouTube'
+      })
+    } else {
+      setVideo(YTBaseURL + getParam(e.target.value))
+    }
+  }
+
+  function getParam(url) {
+    var results = new RegExp('[\?&]' + 'v' + '=([^&#]*)')
+                      .exec(url);
+    if (results == null) {
+         return 0;
+    }
+    return results[1] || 0;
   }
 
   return (
@@ -470,6 +530,86 @@ export default function AddMachine() {
             cleanFileInput={() => setSewingTypeFile(null)}
           />
         </Row>
+
+         <h3
+          className="main-title"
+          style={{
+            textAlign: "center",
+            color: "rgb(129, 22, 27)",
+            marginTop: "15px"
+          }}
+        >
+          Vídeo (YouTube)
+        </h3>
+
+        <Row>
+           <Input
+            style={{ flex: 1 }}
+            placeholder="Ex: https://www.youtube.com/watch?v=5qdtbMvC2Rs"
+            value={video}
+            onChange={handleChangeVideo}
+          />
+        </Row>
+
+        <h3
+          className="main-title"
+          style={{
+            textAlign: "center",
+            color: "rgb(129, 22, 27)",
+            marginTop: "15px"
+          }}
+        >
+          Folheto e Manual
+        </h3>
+        <Row style={{ flexWrap: "wrap", justifyContent: "center", width: "50%", margin: "auto" }}>
+          <div style={{ border: '2px dotted lightgrey', padding: '5px', minHeight: "100px", flex: 1, marginRight: "5px", position: "relative"}}>
+          { folheto ? <FontAwesomeIcon
+                        icon={faTrash}
+                        style={{
+                          width: "16px",
+                          position: "absolute",
+                          borderRadius: "10px",
+                          padding: "3px",
+                          background: "rgb(129, 22, 27)",
+                          color: "white",
+                          right: "13px",
+                          top: "10px",
+                          cursor: "pointer",
+                          zIndex: "9"
+                        }}
+                        onClick={() => setFolheto(null)}
+                      /> : null}
+            <label htmlFor="folheto" style={{ cursor: "pointer", minHeight: "100px",  width: "100%",display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
+              FOLHETO <br /><br />
+              {folheto ? folheto.name : "Clique para escolher um arquivo"}
+            </label>
+            <input style={{ width: 0}} type="file" name="folheto" id="folheto" onChange={folhetoChange}  /> 
+          </div>
+
+          <div style={{ border: '2px dotted lightgrey', padding: '5px', minHeight: "100px", flex: 1, position: "relative"}}>
+          { manual ? <FontAwesomeIcon
+                        icon={faTrash}
+                        style={{
+                          width: "16px",
+                          position: "absolute",
+                          borderRadius: "10px",
+                          padding: "3px",
+                          background: "rgb(129, 22, 27)",
+                          color: "white",
+                          right: "13px",
+                          top: "10px",
+                          cursor: "pointer",
+                          zIndex: "9"
+                        }}
+                        onClick={() => setManual(null)}
+                      /> : null}
+            <label htmlFor="manual" style={{ cursor: "pointer", minHeight: "100px",  width: "100%",display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
+            MANUAL <br /><br />
+            {manual ? manual.name : "Clique para escolher um arquivo"}</label>
+            <input style={{ width: 0}} type="file" name="manual" id="manual" onChange={manualChange}  /> 
+          </div>
+        </Row>
+
       </div>
 
       <Button
@@ -480,8 +620,9 @@ export default function AddMachine() {
             description,
             mainFeatures,
             category,
-            specifications
-          }, machineFiles, sewingTypeFile, refProdFiles, function (err, data) {
+            specifications,
+            video
+          }, machineFiles, sewingTypeFile, refProdFiles, {folheto, manual },function (err, data) {
             if (err) {
               setSnackBar({
                 result: 'error',
@@ -536,6 +677,9 @@ export default function AddMachine() {
       refProdFile3: null,
       refProdFile4: null,
     })
+
+    setFolheto(null)
+    setManual(null)
 
     setSewingTypeFile(null)
   }

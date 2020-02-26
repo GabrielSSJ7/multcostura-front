@@ -82,6 +82,9 @@ export default function Nav () {
 	}, [])
 
 
+
+
+
 	return (
 		translate > 690 ?
 		<NavBg props={{ hideDropMenu, hideManufMenu, setHideManufMenu, setHideDropMenu, categories, manufacturers, highDolar }} /> :
@@ -111,7 +114,7 @@ function NavSm({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHide
       	  <Row key={Math.round(Math.random()*100)} onClick={() => setListController('manufacturers')} jc="flex-start" ait="center" style={{ marginTop: "13px", padding: "0 15px" }}>
       		<FontAwesomeIcon icon={faIndustry} size="2x" style={{ marginRight: "10px"}} /> <span style={{ fontSize: "1.1rem"}}>Fabricantes</span>
       	  </Row>,
-       	  <Row key={Math.round(Math.random()*100)}  jc="flex-start" ait="center" style={{ marginTop: "13px", padding: "0 15px" }} onClick={() => Router.push("/categorias/pecas")}>
+       	  <Row key={Math.round(Math.random()*100)}  jc="flex-start" ait="center" style={{ marginTop: "13px", padding: "0 15px" }} onClick={() => Router.push("/produtos?type=tools")}>
       		<img src={iconTool} style={{ width: "36px",marginRight: "10px"}} /> <span style={{ fontSize: "1.1rem"}}>Peças</span>
       	  </Row>,
           <Row key={Math.round(Math.random()*100)}  jc="flex-start" ait="center" style={{ marginTop: "13px", padding: "0 15px" }}>
@@ -189,8 +192,8 @@ function NavSm({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHide
       	  </Row> :
       	  <Row jc="center" ait="center" style={{ background: "#EDEDED", width: "100%", height: "84px" }}>
       	  	<span onClick={() => setSearch(false)} style={{ padding: '10px', fontSize: "1.3rem" }} >X</span>
-      	  	<SearchInput style={{ width: "70%", padding: "0 5px" }} placeholder="Pesquisar" />
-			<SearchBtn>Buscar</SearchBtn>
+      	  	<SearchInput style={{ width: "70%", padding: "0 5px" }} placeholder="Pesquisar" value={search} onChange={e => setSearch(e.target.value)} />
+			<SearchBtn onClick={() => window.location.href = './produtos?search=' + search}>Buscar</SearchBtn>
       	  </Row>
       	}
       
@@ -206,6 +209,7 @@ function NavSm({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHide
 function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHideDropMenu, categories, manufacturers, highDolar }}) {
 	const Router = useRouter();
 	const [doll, setDoll] = useState(0)
+	const [search, setSearch] = useState('')
 
 	return (
 		<Column style={{ width: "100%", height: "226px" }}>
@@ -215,8 +219,8 @@ function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHid
 				</div>
 				<Column style={{ flex: 10, padding: '10px', marginRight: "60px" }} jc="center" >
 					<Row  >
-						<SearchInput placeholder="Buscar" />
-						<SearchBtn>Buscar</SearchBtn>
+						<SearchInput style={{ width: "70%", padding: "0 5px" }} placeholder="Pesquisar" value={search} onChange={e => setSearch(e.target.value)} />
+						<SearchBtn onClick={() => window.location.href = './produtos?search=' + search}>Buscar</SearchBtn>
 					</Row>
 					<Row>
 						<div style={{ flex: 2 }}><p className="media-1228px"><img src={iconWhatsapp} style={{ width: "18px", marginRight: "5px" }} />Whatsapp: (00) 00000-0000</p></div>
@@ -258,7 +262,7 @@ function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHid
 				{categories.map((category, i) => {
 					if (i < 8) return <Item key={i} className="media-1228px" onClick={() => Router.push('/produtos?type=categories&id='+category.id)}>{category.name}</Item>
 				})}
-				<Item className="media-1228px">Peças e acessórios</Item>
+				<Item className="media-1228px" onClick={() => Router.push("/produtos?type=tools")}>Peças e acessórios</Item>
 				<div  style={{
                   display: "flex",
                   justifyContent: "center",

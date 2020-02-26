@@ -25,7 +25,7 @@ export default function Footer () {
 				{/*<Item onClick={() => Router.pushRoute('/empresa')}>
 					Máquinas
 				</Item>*/}
-				<Item onClick={() => Router.pushRoute('/pecas')}>
+				<Item onClick={() => Router.pushRoute('/produtos?type=tools')}>
 					Peças
 				</Item>
 				<Item onClick={() => Router.pushRoute('/noticias')}>

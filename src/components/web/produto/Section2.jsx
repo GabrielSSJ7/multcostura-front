@@ -4,8 +4,33 @@ import styled from 'styled-components'
 import { Row, Column } from '../../../static/styled-components/base'
 import Slider from '../../utils/Slider'
 
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+
+
 export default function Section2 ({ prod }) {
 	const [specifications, setSpec] = useState([])
+	const [fullWidth, setFullWidth] = React.useState(true);
+  	const [maxWidth, setMaxWidth] = React.useState('md');
+  	const [dialogContent, setDialogContent] = useState('')
+  	const [open, setOpen] = useState(false)
+  	const handleClickOpen = () => {
+	 setOpen(true);
+	};
+
+	const handleClose = () => {
+	 setOpen(false);
+	};
+
+	const handleMaxWidthChange = event => {
+      setMaxWidth(event.target.value);
+  	};
+
+  	const handleFullWidthChange = event => {
+      setFullWidth(event.target.checked);
+  	};
+
 	useEffect(() => {
 		if (prod.specifications){ 
 			const specArrayKeys = Object.keys(prod.specifications);
@@ -19,17 +44,41 @@ export default function Section2 ({ prod }) {
 
 	}, [prod.specifications])
 	return <Row style={{ width: "77.7%", margin: '0 11.15%', paddingTop: "5%", flexWrap: 'wrap' }}>
-		<Column flex="1" style={{ minHeight: "550px", minWidth: '250px' }}>
-			<MachineName>Descrição Técnica</MachineName>
+		<Column flex="1" style={{ minHeight: "550px", minWidth: '250px' }}>{prod.specifications? 
+			<><MachineName>Descrição Técnica</MachineName>
 
 			<Row style={{ flexWrap: 'wrap'}} >{specifications.map(spec => <Text style={{ width: "50%" }}>-{spec}</Text>)}</Row>
 
-			<Row jc="space-between" style={{ margin: '20px 0 ' }}>
-				<Button>Vídeo</Button>
-				<Button>Manual</Button>
-				<Button>Folheto</Button>
+			
+
+		</>
+		 : ''}
+	<Dialog
+				fullWidth={fullWidth}
+				maxWidth={maxWidth}
+		        open={open}
+		        onClose={handleClose}
+		        aria-labelledby="max-width-dialog-title"
+
+      		>
+      			<DialogTitle id="max-width-dialog-title">Video</DialogTitle>
+      			<DialogContent>
+      				<iframe src={prod.video} style={{ width: "100%", height: "500px"}}  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
+      			</DialogContent>
+      		</Dialog>
+		 <Row jc="space-between" style={{ margin: '20px 0 ' }}>
+				{prod.video ? <Button onClick={() => setOpen(true)}>Vídeo</Button> : null}
+				{prod.manual ? <Button  onClick={() => {
+					window.open(prod.manual, '_blank')
+				}}>Manual</Button> : null}
+				{prod.folheto ? <Button onClick={() => {
+					window.open(prod.folheto, '_blank')
+				}}>Folheto</Button> : null}
 			</Row>
-		</Column>
+
+		 </Column>
+
+		
 		<Column flex="1" jc="center" ait="center" style={{ minHeight: "550px", minWidth: '250px' }}>
 			<Row style={{ width: "85%" }} >
 				<Slider images={prod.images} arrows slideWidth="100%" height="300px" />

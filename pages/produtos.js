@@ -11,26 +11,33 @@ import ListProds from '../src/components/web/ListProds'
 
 import loading from '../src/static/images/loading.gif'
 
-export default function Produtos ({ id, type }) {
+export default function Produtos ({ id, type, search }) {
 	const router = useRouter()
-	const [pageData, setPageData] = useState('')
+	const [pageData, setPageData] = useState([])
 	const [visLoading, setVisLoading] = useState(false)
 	const [images, setImages] = useState([])
 	useEffect(() => {
 	  setVisLoading(true)
 	  async function f () {
-			setApi()
-			  .get(`/${type}/${id}`)
-			  .then(res => {
-			  	setPageData(res.data)
-				setImages(res.data.bannerImages ? res.data.bannerImages : [])
-				setVisLoading(false)
-			  })
-			  .catch(err => {
-			  	setVisLoading(false)
-			  	console.log("produtos error => ", err)
-			  })
+	  	
+		  		if(type != "tools") {
+					setApi()
+					  .get(`/${type}/${id}`)
+					  .then(res => {
+					  	setPageData(res.data)
+						setImages(res.data.bannerImages ? res.data.bannerImages : [])
+						setVisLoading(false)
+					  })
+					  .catch(err => {
+					  	setVisLoading(false)
+					  	console.log("produtos error => ", err)
+					  })
+				} else {
+					setVisLoading(false)
+				}
+			
 		}
+
 		f();
 	}, [router.query])
 
@@ -49,7 +56,7 @@ export default function Produtos ({ id, type }) {
 			<Column style={{ width: "100%" }}>
 				<SlideWeb images={images.map(img => img.image)}/>
 				<Row style={{ width: "100%", margin: "35px 0" }} jc="space-around">{setLogo()}<Filters /></Row>
-				<ListProds id={id} type={type} />
+				<ListProds id={id} type={type} search={search} />
 			</Column>}
 		</Template>
 	)
@@ -57,5 +64,5 @@ export default function Produtos ({ id, type }) {
 
 
 Produtos.getInitialProps = ({ query }) => {
-	return { type: query.type, id: query.id }
+	return { type: query.type, id: query.id, search: query.search }
 }

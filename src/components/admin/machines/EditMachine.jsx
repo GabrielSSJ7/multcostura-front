@@ -15,7 +15,7 @@ import {
 import { getNameImageFromUrl, changeFileName, validateImage } from "../../../utils/images";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPencilAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import FileInput from "./EditMachine/FileInput";
 import Message from "../../utils/Message";
@@ -104,6 +104,7 @@ export default function EditMachine({ id }) {
           });
           return;
         }
+        console.log(machine)
         setState({
           ...machine,
           name: machine.name,
@@ -111,13 +112,71 @@ export default function EditMachine({ id }) {
           mainFeatures: machine.mainFeatures,
           specifications: machine.specifications,
           category: machine.category._id,
-          manufacturer: machine.manufacturer
+          manufacturer: machine.manufacturer,
+          video: machine.video
         });
       });
     }
     asyncFunc();
     return () => {};
   }, []);
+
+
+  function handleChangeVideo(e) {
+    const YTBaseURL = "https://www.youtube.com/embed/"
+    if (getParam(e.target.value) == 0) {
+      setSnackBar({
+        open: true,
+        result: 'error',
+        message: 'O endereço não é uma URL válida do YouTube'
+      })
+    } else {
+      setState({...state, video: YTBaseURL + getParam(e.target.value) })
+    }
+  }
+
+  function getParam(url) {
+    var results = new RegExp('[\?&]' + 'v' + '=([^&#]*)')
+                      .exec(url);
+    if (results == null) {
+         return 0;
+    }
+    return results[1] || 0;
+  }
+  const [folheto, setFolheto] = useState(null)
+  const [manual, setManual] = useState(null)
+
+  function folhetoChange(e) {
+    if (e) {
+      const type = e.target.files[0].name.split(".")
+      if (type[1] != "pdf") {
+        setSnackBar({
+          open: true,
+          result: 'error',
+          message: 'O folheto deve ser apenas formato PDF'
+        })
+      } else {
+        setFolheto(e.target.files[0])      
+      }
+    }
+    
+  }
+
+  function manualChange(e) {
+    if (e) {
+      const type = e.target.files[0].name.split(".")
+      if (type[1] != "pdf") {
+        setSnackBar({
+          open: true,
+          result: 'error',
+          message: 'O manual deve ser apenas formato PDF'
+        })
+      } else {
+        setManual(e.target.files[0])      
+      }
+    }
+    
+  }
 
   function machineHandleChange(e) {
     if (validateImage(process.env.imageExtensionPermitted, 10000, e.target.files[0])) {
@@ -801,6 +860,105 @@ export default function EditMachine({ id }) {
         </div>
       </Section>
       <Section>
+        <h3
+          className="main-title"
+          style={{
+            textAlign: "center",
+            color: "rgb(129, 22, 27)",
+            marginTop: "15px"
+          }}
+        >
+          Vídeo (YouTube)
+        </h3>
+
+        <Section style={{ justifyContent: "center", display: "flex"}}>
+           <Input
+            style={{ width: "50%"}}
+            placeholder="Ex: https://www.youtube.com/watch?v=5qdtbMvC2Rs"
+            value={state.video}
+            onChange={handleChangeVideo}
+          />
+        </Section>
+
+        <h3
+          className="main-title"
+          style={{
+            textAlign: "center",
+            color: "rgb(129, 22, 27)",
+            marginTop: "15px"
+          }}
+        >
+          Folheto e Manual
+        </h3>
+        <Section style={{ flexWrap: "wrap", justifyContent: "center", width: "50%", margin: "auto" }}>
+          <div style={{ border: '2px dotted lightgrey', padding: '5px', minHeight: "100px", flex: 1, position: "relative" }}>
+           {folheto ? <FontAwesomeIcon
+                        icon={faTrash}
+                        style={{
+                          width: "16px",
+                          position: "absolute",
+                          borderRadius: "10px",
+                          padding: "3px",
+                          background: "rgb(129, 22, 27)",
+                          color: "white",
+                          right: "13px",
+                          top: "10px",
+                          cursor: "pointer",
+                          zIndex: "9"
+                        }}
+                        onClick={() => setFolheto(null)}
+                      /> : state.folheto ? <ButtonDelImg onClick={() =>
+                deleteImage(
+                  state.id,
+                  "folheto",
+                  formatFileName(state.folheto),
+                  function(err) {
+                    if (err) return;
+                    location.reload();
+                  }
+                )}>Excluir documento</ButtonDelImg> : null }
+            <label htmlFor="folheto" style={{ cursor: "pointer", minHeight: "100px",  width: "100%",display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
+              FOLHETO <br /><br />
+              {folheto ? folheto.name : state.folheto ? formatFileName(state.folheto) : "Clique para escolher um arquivo"}
+            </label>
+            <input style={{ width: 0}} type="file" name="folheto" id="folheto" onChange={folhetoChange}  /> 
+          </div>
+
+          <div style={{ border: '2px dotted lightgrey', padding: '5px', minHeight: "100px", flex: 1, position: "relative"}}>
+              {manual ? <FontAwesomeIcon
+                        icon={faTrash}
+                        style={{
+                          width: "16px",
+                          position: "absolute",
+                          borderRadius: "10px",
+                          padding: "3px",
+                          background: "rgb(129, 22, 27)",
+                          color: "white",
+                          right: "13px",
+                          top: "10px",
+                          cursor: "pointer",
+                          zIndex: "9"
+                        }}
+                        onClick={() => setManual(null)}
+                      /> : state.manual ? <ButtonDelImg onClick={() =>
+                deleteImage(
+                  state.id,
+                  "manual",
+                  formatFileName(state.manual),
+                  function(err) {
+                    if (err) return;
+                    location.reload();
+                  }
+                )}>Excluir documento</ButtonDelImg> :  null }
+          
+            <label htmlFor="manual" style={{ cursor: "pointer", minHeight: "100px",  width: "100%",display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
+            MANUAL <br /><br />
+            {manual ? manual.name : state.manual ? formatFileName(state.manual) : "Clique para escolher um arquivo"}</label>
+            <input style={{ width: 0}} type="file" name="manual" id="manual" onChange={manualChange}  /> 
+          </div>
+        </Section>
+      </Section>
+      <Section>
         {visible ? (
           <div
             style={{
@@ -822,6 +980,7 @@ export default function EditMachine({ id }) {
               machineFiles,
               sewingFile,
               refProdFiles,
+              { folheto, manual },
               function(err, res) {
                 if (err) {
                   setSnackBar({
@@ -880,7 +1039,30 @@ export default function EditMachine({ id }) {
       </Section>
     </>
   );
+
+  function formatFileName(name) {
+    const splitName = name.split('/')
+    const splittedName = splitName[splitName.length-1].split('.')
+    return splittedName[0]
+  }
 }
+
+const ButtonDelImg = styled.button`
+  background-color: #960d03;
+  color: white;
+  padding: 8px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  position: absolute;
+  width: 75px;
+  right: 0;
+  top: 0px;
+  font-size: 8px;
+  z-index: 9;
+  cursor: pointer;
+`;
+
 
 export const Section = styled.div`
   margin: 10% 0;
