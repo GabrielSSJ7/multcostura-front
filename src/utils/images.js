@@ -2,12 +2,15 @@ import axios from "axios";
 
 module.exports = {
   changeFileName(file, newName) {
-    var blob = file.slice(0, file.size, "image/png");
-    const typeFile = file.type.split("/");
-    const newFile = new File([blob], `${newName}.${typeFile[1]}`, {
-      type: file.type
-    });
-    return newFile;
+    if (file) {
+      var blob = file.slice(0, file.size, "image/png");
+      const typeFile = file.type.split("/");
+      const newFile = new File([blob], `${newName}.${typeFile[1]}`, {
+        type: file.type
+      });
+      return newFile;
+    }
+
   },
   deleteImage(id, type, image, { f, files, keys }, cleanUpFile) {
     axios

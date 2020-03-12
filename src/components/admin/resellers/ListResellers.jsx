@@ -6,6 +6,9 @@ import { Button } from "../../../static/styled-components/base";
 import { Creators as ResellerCreators } from "../../../ducks/resellers";
 import { Creators as UtilsCreators } from "../../../ducks/utils";
 
+import setApi from '../../../api'
+import { Column } from "../../../static/styled-components/base";
+
 import {
   getResellers,
   editReseller,
@@ -28,6 +31,39 @@ export default function ListResellers() {
   const [diag, setDiag] = useState(false);
   const [resellerToEdit, setResellerToEdit] = useState({ address: {} });
   const dispatch = useDispatch();
+  const [address, setAddress] = useState('')
+  const [listAddress, setListAddress] = useState([])
+  const [listAddressVis, setListAddressVis] = useState(false)
+
+
+  useEffect(() => {
+    async function asyncFunc() {
+      const response = await setApi().get(`http://dev.virtualearth.net/REST/v1/Autosuggest?query=${resellerToEdit.address}&maxResults=5&key=ArBcF40dX4IT5Co3SIxT7TfvEqq3VNdafH09G2lYGLmm1PvaaFwU-xHaQLjtmpDe`)
+      const fAddress = response.data.resourceSets[0].resources[0].value
+      const sugestion = []
+      for (let formattedAddress in response.data.resourceSets[0].resources[0].value) {
+        sugestion.push(fAddress[formattedAddress].address.formattedAddress)
+      }
+      setListAddress(sugestion)
+    }
+
+    asyncFunc();
+  }, [resellerToEdit.address])
+
+   async function geoCoding(where) {
+    const response = await setApi().get(`http://dev.virtualearth.net/REST/v1/Locations?addressLine=${where}&maxResults=1&key=${process.env.mapsKey}`)
+    if (response.data.resourceSets[0].estimatedTotal != 0)
+      return response.data.resourceSets[0].resources[0].geocodePoints
+    else {
+      setSnackBar({
+        open: true,
+        message: "Não possível encontrar este endereço no mapa",
+        result: 'error'
+      })
+      return false;
+    }
+  }
+
 
   useEffect(() => {
     function asyncFunc() {
@@ -53,6 +89,22 @@ export default function ListResellers() {
     setResellerToEdit(reseller);
     setDiag(true);
   }
+
+  useEffect(() => {
+    const input = document.getElementById('searchBox')
+    let timeout = null
+    input.addEventListener('focusout', (event) => {
+      timeout = setTimeout(() => {
+        setListAddressVis(false)
+      }, 100)
+    });
+
+
+    return () => {
+      clearTimeout(timeout)
+      input.removeEventListener('focusout')
+    }
+  }, [])
 
   function editRes(res) {
     editReseller(res.id, { ...res }, function(err, data) {
@@ -112,7 +164,7 @@ export default function ListResellers() {
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Editar categoria</DialogTitle>
+          <DialogTitle id="form-dialog-title">Editar Revendedor</DialogTitle>
           <DialogContent>
             <TextField
               autoFocus
@@ -159,8 +211,30 @@ export default function ListResellers() {
               }
               fullWidth
             />
+            <Column style={{ position: "relative", minHeight: "300px"}}>
+            <div id='printoutPanel'></div>
+            <div id='searchBoxContainer'>
+              <TextField
+                autoFocus
+                onFocus={() => setListAddressVis(true)}
+                className="form-control" 
+                type='text'
+                autoComplete="new-password"
+                placeholder="Digite o endereço" 
+                id='searchBox' 
+                value={resellerToEdit.address} 
+                onChange={(e) => setResellerToEdit({ ...resellerToEdit, address: e.target.value})}
+              />
+            </div>
+            {
+              listAddressVis ? 
+              <Column onMouseEnter={() => setListAddressVis(true)} style={{ background: 'white', boxShadow: '1px 1px 3px grey', borderRadius: '5px', padding: '10px', position: "absolute", top: "50px", width: "80%", zIndex: "9" }}>
+                {listAddress.length > 0 ? listAddress.map((ad, i) => <Item key={i} onClick={() => {setResellerToEdit({...resellerToEdit, address: ad });console.log(ad)}} style={{ borderBottom: "1px solid grey"}}>{ad}</Item> ) : <Item>Nenhuma sugestão encontrada</Item>}
+              </Column> : ''
+            }   
+            </Column> 
 
-            <TextField
+           {/* <TextField
               autoFocus
               margin="dense"
               id="logradouro"
@@ -272,7 +346,7 @@ export default function ListResellers() {
                 })
               }
               fullWidth
-            />
+            />*/}
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
@@ -299,15 +373,15 @@ export default function ListResellers() {
             >
               <p style={{ fontWeight: "200" }}>Nome: {reseller.name}</p>
               <p style={{ fontWeight: "200" }}>
-                Endereço: {reseller.address.publicPlace}, {reseller.address.number} - {reseller.address.district}, {reseller.address.city} - {reseller.address.state} - {reseller.address.country}
+                Endereço: {reseller.address}
               </p>
             </ResellerContainer>
             <ResellerContainer
               flexDirection="column"
               style={{ marginRight: "10px", marginLeft: "10px" }}
             >
-              <Button onClick={() => handleOpen(reseller)}>Editar</Button>
-              <Button onClick={() => delMan(reseller.id)}>Apagar</Button>
+              <Button onClick={() => handleOpen(reseller)}>Editar Revendedor</Button>
+              <Button onClick={() => delMan(reseller.id)}>Apagar Revendedor</Button>
             </ResellerContainer>
           </ResellerContainer>
         ))}
@@ -339,7 +413,7 @@ export const ImageContainer = styled.div`
 `;
 
 export const DivListCategories = styled.div`
-  max-height: 550px;
+  max-height: 350px;
   overflow: auto;
   /* width */
   ::-webkit-scrollbar {
@@ -367,3 +441,19 @@ export const ResellerContainer = styled.div`
   flex-direction: ${props => props.flexDirection};
   justify-content: ${props => props.justifyContent};
 `;
+
+
+const Item = styled.p`
+  font-size: 1rem;
+  cursor: pointer;
+  transition: .4s;
+  :hover {
+    opacity: .9;
+    color: #81161B;
+  }
+  z-index: 9;
+  margin: 0;
+  padding: 12px 0;
+    :last-child {
+      border-bottom: none !important;
+  }`

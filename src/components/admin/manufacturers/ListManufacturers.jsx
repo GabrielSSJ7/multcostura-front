@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
@@ -58,6 +59,7 @@ export default function manufacturers() {
   }, []);
 
   function handleClose() {
+    setFile(null)
     setDiag(false);
     setManufacturerToEdit({});
   }
@@ -74,6 +76,7 @@ export default function manufacturers() {
         dispatch(UtilsCreators.changeMessageType(false));
         dispatch(UtilsCreators.changeMessageColor("red"));
         setVisible(true);
+        setFile(null)
         handleClose();
         return;
       }
@@ -112,6 +115,7 @@ export default function manufacturers() {
       setVisible(true);
     });
   }
+
 
   return (
     <>

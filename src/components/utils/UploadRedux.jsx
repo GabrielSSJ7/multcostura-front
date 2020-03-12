@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { Creators } from "../../ducks/upload";
+import { validateImage } from '../../utils/images'
+import { Creators as UtilsCreators } from "../../ducks/utils";
 
 const reactCtx = React.createContext({});
 
@@ -22,11 +24,13 @@ export default function Upload({ onRef, imageURL, labelInputFile, id }) {
   }, [file]);
 
   function handleChange(event) {
-    const file = event.target.files[0];
-    if (file) {
-      dispatch(Creators.changeFile(file));
-    } else {
-      dispatch(Creators.changeFile(null));
+    if (validateImage(process.env.imageExtensionPermitted, 10000, event.target.files[0])) {
+      const file = event.target.files[0];
+      if (file) {
+        dispatch(Creators.changeFile(file));
+      } else {
+        dispatch(Creators.changeFile(null));
+      }
     }
   }
 

@@ -5,6 +5,33 @@ export const Container = styled.div`
   width: 100%;
 `;
 
+
+export const Title = styled.h1`
+  text-align: left;
+  font: Bold 30px/37px ;
+  letter-spacing: 0;
+  color: #5B5B5B;
+  opacity: 1;
+`
+
+export const Row = styled.div`
+  display: flex;
+  flex: ${props => props.flex};
+  justify-content: ${props => props.jc};
+  align-items: ${props => props.ait};
+  flex-wrap: ${props => props.fw}
+`
+
+export const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: ${props => props.flex};
+  justify-content: ${props => props.jc};
+  align-items: ${props => props.ait};
+  flex-wrap: ${props => props.fw};
+
+`
+
 export const Input = styled.input`
   width: 100%;
   padding: 12px 20px;

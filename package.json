@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "node ./server.js",
-    "build": "next build",
-    "start": "next start"
+    "build_": "next build",
+    "build": "next start -p $PORT",
+    "start": "next start -p $PORT",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
@@ -21,15 +23,18 @@
     "next-images": "^1.2.0",
     "next-routes": "^1.4.2",
     "nodemon": "^2.0.2",
+    "rc-upload": "^2.9.4",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-dropzone": "^10.2.1",
     "react-input-mask": "^2.0.4",
     "react-redux": "^7.1.0",
     "redux": "^3.6.0",
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.3.0",
     "reduxsauce": "^1.1.1",
-    "styled-components": "^4.4.1"
+    "styled-components": "^4.4.1",
+    "next-compose-plugins": "^2.2.0"
   },
   "license": "ISC",
   "devDependencies": {
@@ -49,8 +54,10 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-standard": "^4.0.1",
-    "next-compose-plugins": "^2.2.0",
     "typings-for-css-modules-loader": "^1.7.0",
     "val-loader": "^1.1.1"
+  },
+  "engines": {
+    "node": "12.14.1"
   }
 }
