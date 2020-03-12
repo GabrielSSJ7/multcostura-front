@@ -13,6 +13,7 @@ import loading from '../src/static/images/loading.gif'
 
 export default function Produtos ({ id, type, search }) {
 	const router = useRouter()
+	
 	const [pageData, setPageData] = useState([])
 	const [visLoading, setVisLoading] = useState(false)
 	const [images, setImages] = useState([])
@@ -43,19 +44,22 @@ export default function Produtos ({ id, type, search }) {
 
 	function setLogo () {
 		if (pageData.logo) {
-			return <img src={pageData.logo} style={{ width: "120px" }} />
+			return <div style={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "center" }}><img src={pageData.logo} style={{ width: "120px" }} /></div>
 		} else if (pageData.name) {
-			return <Title>{pageData.name}</Title>
+			return <Title style={{ flex: 1, textAlign: "center"}}>{pageData.name}</Title>
 		}
 	}
 
 	return (
 		<Template>
 			{visLoading ? 
-				<Row jc="center" ait="center" style={{ width: "100%" }}><img src={loading} style={{ width: "32px"}} /> </Row>: 
+			<Row jc="center" ait="center" style={{ width: "100%" }}><img src={loading} style={{ width: "32px"}} /> </Row> : 
 			<Column style={{ width: "100%" }}>
-				<SlideWeb images={images.map(img => img.image)}/>
-				<Row style={{ width: "100%", margin: "35px 0" }} jc="space-around">{setLogo()}<Filters /></Row>
+				<SlideWeb images={images.map(img => img.image)} />
+				<Row style={{ width: "100%", margin: "35px 0" }} jc="space-around">
+					{setLogo()}
+					<Filters type={type} S/>
+				</Row>
 				<ListProds id={id} type={type} search={search} />
 			</Column>}
 		</Template>

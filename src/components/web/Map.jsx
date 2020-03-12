@@ -52,6 +52,7 @@ export default class MapsQuest extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
+
   		if (this.state.state !== prevState.state) {
 	    	this.setViewMap(this.state.state, this.state.city);
   		}
@@ -61,27 +62,27 @@ export default class MapsQuest extends Component {
   		}  		
 
   		if (prevProps !== this.props) {
-  			console.log(typeof this.props.map, this.props.map)
-  			//if (this.props.map)
   			this.setMultViewMap();
   		}
 	}
 
 	async setViewMap(state, city) {
-		
-		const { map } = this.props
-  		if (state || city){
-	  		Microsoft.Maps.loadModule('Microsoft.Maps.Search', function () {
-			    var searchManager = new Microsoft.Maps.Search.SearchManager(map);
-			    var requestOptions = {
-			        bounds: map.getBounds(),
-			        where: `${city ? city + ', ' + state.id : state.name}`,
-			        callback: function (answer, userData) {
-			            map.setView({ center: new Microsoft.Maps.Location(answer.results[0].location.latitude, answer.results[0].location.longitude), zoom: 11 });
-			        }
-			    };
-			    searchManager.geocode(requestOptions);
-			});
+		const map = new Microsoft.Maps.Map(document.getElementById('map'), {})
+		//const { map } = this.props
+		if (map) {
+	  		if (state || city){
+		  		Microsoft.Maps.loadModule('Microsoft.Maps.Search', function () {
+				    var searchManager = new Microsoft.Maps.Search.SearchManager(map);
+				    var requestOptions = {
+				        bounds: map.getBounds(),
+				        where: `${city ? city + ', ' + state.id : state.name}`,
+				        callback: function (answer, userData) {
+				            map.setView({ center: new Microsoft.Maps.Location(answer.results[0].location.latitude, answer.results[0].location.longitude), zoom: 11 });
+				        }
+				    };
+				    searchManager.geocode(requestOptions);
+				});
+	  		}
   		}
 	}
 

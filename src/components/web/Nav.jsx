@@ -118,7 +118,7 @@ function NavSm({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHide
       		<img src={iconTool} style={{ width: "36px",marginRight: "10px"}} /> <span style={{ fontSize: "1.1rem"}}>Peças</span>
       	  </Row>,
           <Row key={Math.round(Math.random()*100)}  jc="flex-start" ait="center" style={{ marginTop: "13px", padding: "0 15px" }}>
-      		<FontAwesomeIcon icon={faUsers} size="2x" style={{ marginRight: "10px"}} /> <span style={{ fontSize: "1.1rem"}}>Revendedores</span>
+      		<FontAwesomeIcon onClick={() => Router.push("/index#map")} icon={faUsers} size="2x" style={{ marginRight: "10px"}} /> <span style={{ fontSize: "1.1rem"}}>Revendedores</span>
       	  </Row>,
       	  <Row key={Math.round(Math.random()*100)} jc="flex-start" ait="center" style={{ marginTop: "13px", padding: "0 15px" }} onClick={() => Router.push("/empresa")}>
       		<FontAwesomeIcon icon={faBuilding} size="2x" style={{ marginRight: "10px"}} /> <span style={{ fontSize: "1.1rem"}}>Empresa</span>
@@ -253,7 +253,7 @@ function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHid
 						>{man.name}</DropDownItem>)}
 					</DropDownMenu>
 				</div>
-				<Item className="media-1228px">Revendedores</Item>
+				<Item className="media-1228px" onClick={() => Router.push("/index#map")}>Revendedores</Item>
 				<Item className="media-1228px" onClick={() => Router.push("/noticias")}>Notícias</Item>
 				<Item className="media-1228px" onClick={() => Router.push("/contato")}>Contato</Item>
 				<Item className="baixe-nosso-ap-responsivo" style={{ color: "#81161B" }}>BAIXE NOSSO APLICATIVO</Item>

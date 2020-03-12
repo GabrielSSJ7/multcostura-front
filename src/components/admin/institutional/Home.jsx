@@ -15,6 +15,8 @@ import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import { changeFileName, validateImage } from "../../../utils/images";
 import { saveSlide, getSlide } from "../../../utils/banner";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 import imageNotFound from "../../../static/images/image-404.jpg";
 
@@ -62,8 +64,6 @@ export default function HomeBanner() {
   }
 
   function changeBannerImage(file, index) {
-    console.log("index", index)
-    console.log(file)
     if (validateImage(process.env.imageExtensionPermitted, 10000, file)) {
       const newFile = changeFileName(
         file,
@@ -245,6 +245,23 @@ export default function HomeBanner() {
       </Snackbar>
 
       <Column>
+        <div onClick={() => location.reload()} className="arrow-back" style={{ background:"#960d03", borderRadius: "5px", padding: "5px", maxWidth: "60px", marginLeft: "10px", marginBottom: "5px", display: 'flex', flexDirection: "row" }}>
+          <FontAwesomeIcon icon={faArrowLeft} style={{ color: "white" }} />
+          <span style={{ color: "white" }}>Voltar</span>
+        </div>
+        <style>
+          {`  
+
+            .arrow-back {
+              transition: .5s;
+            }
+
+            .arrow-back:hover {
+              cursor: pointer;
+              opacity: .8;
+            }
+          `}
+        </style>
         <Row align="center">
           <Column style={{ width: "100%" }}>
             {images.length == 0 ? (

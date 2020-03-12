@@ -4,24 +4,27 @@ import {useRouter} from 'next/router'
 
 import setApi from '../../api'
 
+import { useSelector, useDispatch } from "react-redux"
+
+import { Creators } from "../../ducks/machines";
+
 import { Row, Column } from '../../static/styled-components/base'
 import loading from '../../static/images/loading.gif'
 
 export default function ListProd ({ id, type, search })  {
 	const router = useRouter();
+	const dispatch = useDispatch();
+	const { machines, machinesForFilters, filters } = useSelector(state => state.Machine)
 	const [prods, setProds] = useState([])
 	const [indexPag, setIndexPag] = useState(0)
 	const [listProdsPag, setListProdsPag] = useState([])
 	const [visLoading, setVisLoading] = useState(false)
-	useEffect(() => {
-		setVisLoading(true)
-		async function f() {
-			console.log(search)
+	async function f() {
 			if (search) {
 				let machines = { data: [] }
 				let tools = { data: [] }
 	  			try {
-	  				 machines = await setApi().get(`/machine?search=${search}`)
+	  				 machines = await setApi().get(`/machine?search=${search}&filters=${JSON.stringify(filters)}`)
 	  				
 					//setListProdsPag(groupBy(machines.data, 10))
 					listP = machines.data
@@ -36,15 +39,19 @@ export default function ListProd ({ id, type, search })  {
 
 	  			}
 	  			setProds(machines.data.concat(tools.data))
-	  			setListProdsPag(groupBy(machines.data.concat(tools.data), 10))
+	  			dispatch(Creators.loadMachines(machines.data.concat(tools.data)))
+	  			dispatch(Creators.loadMachinesForFilters(machines.data.concat(tools.data)))
+	  			//setListProdsPag(groupBy(machines.data.concat(tools.data), 10))
 	  			setVisLoading(false)
 	  		} else {
 
 
 	  			if (type != "tools"){
 					setApi()
-					 .get(`machine?${type}=${id}`)
+					 .get(`machine?${type}=${id}&filters=${JSON.stringify(filters)}`)
 					 .then(res => {
+					 	dispatch(Creators.loadMachines(res.data))
+					 	dispatch(Creators.loadMachinesForFilters(res.data))
 					 	setProds(res.data)
 					 	setListProdsPag(groupBy(res.data, 10))
 					 	setVisLoading(false)
@@ -59,8 +66,10 @@ export default function ListProd ({ id, type, search })  {
 			setApi()
 			  .get('/tools')
 			  .then(response => {
+			  	dispatch(Creators.loadMachines(response.data))
+			  	//dispatch(Creators.loadMachinesForFilters(response.data))
 			  	setProds(response.data)
-				setListProdsPag(groupBy(response.data, 10))
+				//setListProdsPag(groupBy(response.data, 10))
 				setVisLoading(false)
 			  })
 			  .catch(err => {
@@ -68,11 +77,41 @@ export default function ListProd ({ id, type, search })  {
 			  })
 	  		}
 			
-		}
+	}
+	useEffect(() => {
+		setVisLoading(true)
+		
 		f();
 
 
 	}, [id, type])
+
+
+	// useEffect(() => { 
+	// 	setListProdsPag(groupBy(machines, 10))
+	// }, [machines])
+
+
+	useEffect(() => {
+		setVisLoading(true)
+		setApi()
+			.get(`machine?${type}=${id}&filters=${JSON.stringify(filters)}`)
+			.then(res => {
+				dispatch(Creators.loadMachines(res.data))
+				//dispatch(Creators.loadMachinesForFilters(res.data))
+				setProds(res.data)
+				setListProdsPag(groupBy(res.data, 10))
+				setVisLoading(false)
+			})
+			.catch(err => {
+				dispatch(Creators.loadMachines([]))
+				setProds([])
+				setListProdsPag(groupBy([], 10))
+				setVisLoading(false)
+			})
+
+				   return
+	}, [filters])
 
 
 
