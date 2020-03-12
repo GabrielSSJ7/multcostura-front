@@ -299,7 +299,7 @@ export default function ListResellers() {
             >
               <p style={{ fontWeight: "200" }}>Nome: {reseller.name}</p>
               <p style={{ fontWeight: "200" }}>
-                Endereço: {reseller.address.publicPlace}, {reseller.address.number} - {reseller.address.district}, {reseller.address.city} - {reseller.address.state} - {reseller.address.country}
+                Endereço: {reseller.address}
               </p>
             </ResellerContainer>
             <ResellerContainer
@@ -339,7 +339,7 @@ export const ImageContainer = styled.div`
 `;
 
 export const DivListCategories = styled.div`
-  max-height: 550px;
+  max-height: 350px;
   overflow: auto;
   /* width */
   ::-webkit-scrollbar {

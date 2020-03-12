@@ -90,6 +90,9 @@ export default () => {
       <div>
         <Input
           placeholder="Nome"
+          onKeyDown={(e) => {
+            if (e.key == 'Enter') createCategory()
+          }}
           onChange={e =>
             dispatch(CategoriesCreators.changeName(e.target.value))
           }
@@ -98,6 +101,7 @@ export default () => {
         <TextArea
           placeholder="Descrição"
           rows="3"
+        
           onChange={e =>
             dispatch(CategoriesCreators.changeDescription(e.target.value))
           }

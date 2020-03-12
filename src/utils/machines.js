@@ -4,7 +4,7 @@ import { fieldValidation, validateImage } from "../utils/validate";
 export function getMachines(cb, data) {
   const filter = data ? data : {}
   setApi()
-    .get(`/machine?category=${filter.category}&manufacturer=${filter.manufacturer}&search=${filter.search}`)
+    .get(`/machine?categories=${filter.category}&manufacturer=${filter.manufacturer}&search=${filter.search}`)
     .then(response => {
       cb(null, response.data);
     })
@@ -50,6 +50,7 @@ export async function updateMachine(
   machineFiles,
   sewingFile,
   prodRefFiles,
+  files,
   cb
 ) {
   console.log(sewingFile);
@@ -64,12 +65,16 @@ export async function updateMachine(
     manufacturer
   } = machine;
   const formData = new FormData();
+  console.log('specifications', JSON.stringify(specifications))
   formData.append("name", name);
   formData.append("description", description);
   formData.append("mainFeatures", mainFeatures);
-  formData.append("specifications", JSON.stringify(specifications));
+  formData.append("specifications", specifications ? Object.keys(specifications).length > 0 ? JSON.stringify(specifications) : null : null);
   formData.append("category", category);
   formData.append("manufacturer", manufacturer);
+  formData.append("video", machine.video)
+  formData.append('folheto', files.folheto)
+  formData.append('manual', files.manual)
   const machineFilesKeys = Object.keys(machineFiles);
   machineFilesKeys.forEach(mkey => {
     formData.append("machines", machineFiles[mkey]);
@@ -95,6 +100,7 @@ export function addMachine(
   machineFiles,
   sewingTypeFile,
   refProdFiles,
+  files,
   cb
 ) {
   const formData = new FormData();
@@ -140,12 +146,17 @@ export function addMachine(
     características: machine.mainFeatures
   });
   if (fieldError.return) {
+
     formData.append("name", machine.name);
     formData.append("manufacturer", machine.manufacturer);
     formData.append("description", machine.description);
     formData.append("category", machine.category);
     formData.append("mainFeatures", machine.mainFeatures);
     formData.append("specifications", JSON.stringify(machine.specifications));
+    formData.append("video", machine.video)
+    formData.append('folheto', files.folheto)
+    formData.append('manual', files.manual)
+
     setApi()
       .post(`machine`, formData)
       .then(response => {

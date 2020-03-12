@@ -15,6 +15,7 @@ const Slide = styled.div`
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
+  background-color: #E3E3E3;
 	width: ${props => props.width};
 	height: ${props => props.height};
 	transform: translateX(${props => props.translate}px);
@@ -64,16 +65,18 @@ export default ({ link, images, autoSlide, slideCtrl, balls, arrows, height, sli
     if (autoSlide) {
       const interval = setInterval(() => {
         next();
-      }, 3000);
+      }, 4000);
 
       return () => clearInterval(interval);
     }
   }, [index]);
 
   useEffect(() => {
-    setIndex(slideCtrl);
-    if (slideCtrl != index)
-      setTranslate(getSlideWidth() - slideCtrl * getSlideWidth());
+    if (slideCtrl){
+      setIndex(slideCtrl);
+      if (slideCtrl != index)
+        setTranslate(getSlideWidth() - slideCtrl * getSlideWidth());
+    }
   }, [slideCtrl]);
 
   useLayoutEffect(() => {
@@ -87,6 +90,7 @@ export default ({ link, images, autoSlide, slideCtrl, balls, arrows, height, sli
     setIndex(index - 1);
   }
   function next() {
+    
     if (index == images.length) {
       setTranslate(1);
       setIndex(1);

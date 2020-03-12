@@ -5,6 +5,7 @@ export function validateImage(types, size, file) {
   const fileType = file.type.split("/");
 
   types.forEach(types => {
+  	console.log(types, fileType[1])
     if (types == fileType[1]) ok = true;
   });
   if (filesize > 100) ok = false;
