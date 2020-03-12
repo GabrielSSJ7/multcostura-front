@@ -14,6 +14,9 @@ import {
 import { validateImage } from '../../../utils/images'
 import imageNotFound from "../../../static/images/image-404.jpg";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+
 export default function BannerFixed({ type }) {
   const imageMessageError = `Extensão do arquivo enviado é inválido. Extensões permitidas ${process.env.imageExtensionPermitted.toString()}, com no máximo 10MB`
   const [banner, setBanner] = useState(imageNotFound);
@@ -108,6 +111,23 @@ export default function BannerFixed({ type }) {
   }
   return (
     <Column>
+      <div onClick={() => location.reload()} className="arrow-back" style={{ background:"#960d03", borderRadius: "5px", padding: "5px", maxWidth: "60px", marginLeft: "10px", marginBottom: "5px", display: 'flex', flexDirection: "row" }}>
+          <FontAwesomeIcon icon={faArrowLeft} style={{ color: "white" }} />
+          <span style={{ color: "white" }}>Voltar</span>
+        </div>
+        <style>
+          {`  
+
+            .arrow-back {
+              transition: .5s;
+            }
+
+            .arrow-back:hover {
+              cursor: pointer;
+              opacity: .8;
+            }
+          `}
+        </style>
       <Row>
         <Wrapper>
           {banner != imageNotFound ? (
