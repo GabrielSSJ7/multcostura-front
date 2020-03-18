@@ -212,81 +212,86 @@ function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHid
 	const [search, setSearch] = useState('')
 
 	return (
-		<Column style={{ width: "100%", height: "226px" }}>
-			<Row flex="5" style={{ flex: "5 1 auto", height: "50%", background: "transparent linear-gradient(180deg, #E8E8E8 0%, #E7E7E7 48%, #D6D6D6 100%) 0% 0% no-repeat padding-box"}}>
-				<div style={{ flex: 2, padding: "10px 0", marginLeft: "60px" }}>
-					<Link href="/"><a><Logo src={logo} /></a></Link>
-				</div>
-				<Column style={{ flex: 10, padding: '10px', marginRight: "60px" }} jc="center" >
-					<Row  >
-						<SearchInput style={{ width: "70%", padding: "0 5px" }} placeholder="Pesquisar" value={search} onChange={e => setSearch(e.target.value)} />
-						<SearchBtn onClick={() => window.location.href = './produtos?search=' + search}>Buscar</SearchBtn>
-					</Row>
-					<Row>
-						<div style={{ flex: 2 }}><p className="media-1228px"><img src={iconWhatsapp} style={{ width: "18px", marginRight: "5px" }} />Whatsapp: (00) 00000-0000</p></div>
-						<div style={{ flex: 2 }}><p className="media-1228px"><FontAwesomeIcon icon={faPhone} style={{ marginRight: "5px" }} />Telefone: (00) 00000-0000</p></div>
-						<div style={{ flex: 2 }}><p className="media-1228px"><FontAwesomeIcon icon={faEnvelope} style={{ marginRight: "5px" }} />E-mail: contato@multcostura.com.br</p></div>
-						<div style={{ flex: 1 }}><p className="media-1228px" style={{textAlign: "end"}}><FontAwesomeIcon icon={faDollarSign} style={{ marginRight: "5px" }} />Dólar: {highDolar}</p></div>
-					</Row>
-				</Column>
+		<Column style={{ width: "100%", maxHeight: "226px" }}>
+			<Row flex="5" style={{ flex: "5 1 auto", height: "50%", justifyContent: "center", background: "transparent linear-gradient(180deg, #E8E8E8 0%, #E7E7E7 48%, #D6D6D6 100%) 0% 0% no-repeat padding-box"}}>
+				<Row style={{ width: "90%" }}>
+					<Link href="/"><a style={{ width: '13%', padding: "10px 0", display: "flex" }}><Logo src={logo} /></a></Link>
+					<Column style={{  width: '87%', padding: '10px', }} jc="center" >
+						<Row style={{ maxWidth: "100%"}} >
+							<SearchInput style={{ width: "100%", padding: "0 5px" }} placeholder="Pesquisar" value={search} onChange={e => setSearch(e.target.value)} />
+							<SearchBtn onClick={() => window.location.href = './produtos?search=' + search}>Buscar</SearchBtn>
+						</Row>
+						<Row style={{ maxWidth: "100%"}}>
+							<div style={{ flex: 2 }}><p className="media-1228px" style={{display: "flex", alignItems: "center"}}><img src={iconWhatsapp} style={{ width: "18px", marginRight: "5px" }} />Whatsapp: (00) 00000-0000</p></div>
+							<div style={{ flex: 2 }}><p className="media-1228px" style={{display: "flex", alignItems: "center"}}><FontAwesomeIcon icon={faPhone} style={{ marginRight: "5px" }} />(00) 00000-0000</p></div>
+							<div style={{ flex: 2 }}><p className="media-1228px" style={{display: "flex", alignItems: "center"}}><FontAwesomeIcon icon={faEnvelope} style={{ marginRight: "5px" }} />contato@multcostura.com.br</p></div>
+							<div style={{ flex: 1 }}><p className="media-1228px" style={{textAlign: "end"}}><FontAwesomeIcon icon={faDollarSign} style={{ marginRight: "5px" }} />Dólar: {highDolar}</p></div>
+						</Row>
+					</Column>
+				</Row>
 			</Row>
-			<Row flex="1" style={{ height: "18%", justifyContent: "space-between", background: "transparent linear-gradient(180deg, #EFEFEF 0%, #E3E3E3 100%) 0% 0% no-repeat padding-box", padding: "0 100px" }}>
-				<div
-					style={{
-                  		display: "flex",
-                  		justifyContent: "center",
-                  		alignItems: "center",
-                  		marginRight: "10px",
-                  		position: "relative"
-                	}}
-					onMouseEnter={() => setHideManufMenu(true)}
-                	onMouseLeave={() => setHideManufMenu(false)}
-				>
-					<Hover styles="border-color: #81161B" style={{ display: "flex", alignItems: "center" }}>
-						<Item className="media-1228px">Nossas marcas <ArrowDown className="arrow-responsive" color="black" margin="0 0 1px 2px"/></Item>
-					</Hover>
-					<DropDownMenu  color="black" bgcolor="transparent linear-gradient(180deg, #EFEFEF 0%, #E3E3E3 100%) 0% 0% no-repeat padding-box" vis={hideManufMenu}>
-						{manufacturers.map((man, i) => <DropDownItem key={i} onClick={() => Router.push({ 
-							pathname: "/produtos",
-							query: { type: "manufacturer", id: man.id }
-						})}
-						>{man.name}</DropDownItem>)}
-					</DropDownMenu>
-				</div>
-				<Item className="media-1228px" onClick={() => Router.push("/index#map")}>Revendedores</Item>
-				<Item className="media-1228px" onClick={() => Router.push("/noticias")}>Notícias</Item>
-				<Item className="media-1228px" onClick={() => Router.push("/contato")}>Contato</Item>
-				<Item className="baixe-nosso-ap-responsivo" style={{ color: "#81161B" }}>BAIXE NOSSO APLICATIVO</Item>
+			<Row flex="1" style={{ height: "18%", justifyContent: "center", background: "transparent linear-gradient(180deg, #EFEFEF 0%, #E3E3E3 100%) 0% 0% no-repeat padding-box"}}>
+				<Row style={{ width: "85%", justifyContent: "space-between",}}>
+					<div
+						style={{
+	                  		display: "flex",
+	                  		justifyContent: "center",
+	                  		alignItems: "center",
+	                  		marginRight: "10px",
+	                  		position: "relative"
+	                	}}
+						onMouseEnter={() => setHideManufMenu(true)}
+	                	onMouseLeave={() => setHideManufMenu(false)}
+					>
+						<Hover styles="border-color: #81161B" style={{ display: "flex", alignItems: "center" }}>
+							<Item className="media-1228px">Nossas marcas <ArrowDown className="arrow-responsive" color="black" margin="0 0 1px 2px"/></Item>
+						</Hover>
+						<DropDownMenu  color="black" bgcolor="transparent linear-gradient(180deg, #EFEFEF 0%, #E3E3E3 100%) 0% 0% no-repeat padding-box" vis={hideManufMenu}>
+							{manufacturers.map((man, i) => <DropDownItem key={i} onClick={() => Router.push({ 
+								pathname: "/produtos",
+								query: { type: "manufacturer", id: man.id }
+							})}
+							>{man.name}</DropDownItem>)}
+						</DropDownMenu>
+					</div>
+					<Item className="media-1228px" onClick={() => Router.push("/index#map")}>Revendedores</Item>
+					<Item className="media-1228px" onClick={() => Router.push("/noticias")}>Notícias</Item>
+					<Item className="media-1228px" onClick={() => Router.push("/contato")}>Contato</Item>
+					<Item className="baixe-nosso-ap-responsivo" style={{ color: "#81161B" }}>BAIXE NOSSO APLICATIVO</Item>
+				</Row>
 			</Row>
-			<Row flex="1" jc="space-between" style={{ color: "white", height: "18%", background: "transparent linear-gradient(180deg, #323AD6 0%, #242873 100%) 0% 0% no-repeat padding-box", padding: "0 100px" }}>
-				{categories.map((category, i) => {
-					if (i < 8) return <Item key={i} className="media-1228px" onClick={() => Router.push('/produtos?type=categories&id='+category.id)}>{category.name}</Item>
-				})}
-				<Item className="media-1228px" onClick={() => Router.push("/produtos?type=tools")}>Peças e acessórios</Item>
-				<div  style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginRight: "10px",
-                  position: "relative"
-                }}
-                onMouseEnter={() => setHideDropMenu(true)}
-                onMouseLeave={() => setHideDropMenu(false)}>
-					<Hover styles="border-color: #81161B" style={{ display: "flex", alignItems: "center" }}>
-						<Item className="media-1228px" onClick={() => setHideDropMenu(hideDropMenu ? false : true)}>Todas as categorias</Item><ArrowDown className="arrow-responsive" color="white" margin="0 0 5px 5px" />
-					</Hover>
-					<DropDownMenu color="white" bgcolor="transparent linear-gradient(180deg, #323AD6 0%, #242873 100%) 0% 0% no-repeat padding-box" vis={hideDropMenu}>
-						{categories.map((cat, i) => <DropDownItem key={i} onClick={() => Router.push('/produtos?type=categories&id='+cat.id)}>{cat.name}</DropDownItem>)}
-					</DropDownMenu>
-				</div>
+			<Row flex="1" jc="center" style={{ color: "white", height: "18%", background: "transparent linear-gradient(180deg, #323AD6 0%, #242873 100%) 0% 0% no-repeat padding-box", padding: "0 100px" }}>
+				<Row style={{ width: '95%'}} jc="space-between">
+					{categories.map((category, i) => {
+						if (i < 8) return <Item key={i} className="media-1228px" onClick={() => Router.push('/produtos?type=categories&id='+category.id)}>{category.name}</Item>
+					})}
+					<Item className="media-1228px" onClick={() => Router.push("/produtos?type=tools")}>Peças e acessórios</Item>
+					<div  style={{
+	                  display: "flex",
+	                  justifyContent: "center",
+	                  alignItems: "center",
+	                  marginRight: "10px",
+	                  position: "relative"
+	                }}
+	                onMouseEnter={() => setHideDropMenu(true)}
+	                onMouseLeave={() => setHideDropMenu(false)}>
+						<Hover styles="border-color: #81161B" style={{ display: "flex", alignItems: "center" }}>
+							<Item className="media-1228px" onClick={() => setHideDropMenu(hideDropMenu ? false : true)}>Todas as categorias</Item><ArrowDown className="arrow-responsive" color="white" margin="0 0 5px 5px" />
+						</Hover>
+						<DropDownMenu color="white" bgcolor="transparent linear-gradient(180deg, #323AD6 0%, #242873 100%) 0% 0% no-repeat padding-box" vis={hideDropMenu}>
+							{categories.map((cat, i) => <DropDownItem key={i} onClick={() => Router.push('/produtos?type=categories&id='+cat.id)}>{cat.name}</DropDownItem>)}
+						</DropDownMenu>
+					</div>
+				</Row>
 			</Row>
 		</Column>
 	)
 }
 
 const Logo = styled.img`
-	height: 100px;
-	float: right;
+	max-width: 100%;
+	height: auto;
+	margin: auto 
 `
 
 const LogoMobile = styled.img`
