@@ -94,7 +94,7 @@ export default class MapsQuest extends Component {
 			        bounds: map.getBounds(),
 			        where: `Rua Newton Prado, 71 Bom Retiro São Paulo SP`,
 			        callback: function (answer, userData) {
-			        	var pushpin = new Microsoft.Maps.Pushpin( 
+			        	var pushpin = new Microsoft.Maps.Pushpin(
 			        		new Microsoft.Maps.Location(
 			        			answer.results[0].location.latitude, answer.results[0].location.longitude),
 			        			{ text: 'M', title: 'Multcostura', subTitle: 'Rua Newton Prado, 71 Bom Retiro São Paulo SP' }
@@ -104,8 +104,8 @@ export default class MapsQuest extends Component {
 			            map.setView({ center: new Microsoft.Maps.Location(answer.results[0].location.latitude, answer.results[0].location.longitude), zoom: 17 });
 			        }
 			    };
-			searchManager.geocode(requestOptions);
-		});
+				searchManager.geocode(requestOptions);
+			});
 	}
 
 	render() {

@@ -30,24 +30,24 @@ export default function Home () {
 
 	return (
 		<Column style={{ marginTop: "15px", width: "87%", padding: "0 6.46%" }}>
-			<h1 style={{ color: "#5B5B5B" }}>Lançamentos</h1>
+			<h1 style={{ color: "#5B5B5B" }}>LANÇAMENTOS</h1>
 			<Row jc="space-between" style={{ width: "100%", flexWrap: "wrap" }}>
-				<Column style={{ width: "27.95%", minWidth: "280px" }}>
+				<Column style={{ width: "27.95%", minWidth: "280px", maxHeight: "" }}>
 					<CardTitle onClick={() => Router.push("/produtos")}	>Produtos</CardTitle>
 					<CardContainer onClick={() => Router.push("/produtos")}>
-						<img src={state.produtos} />
+						<DivImg src={state.produtos} />
 					</CardContainer>
 				</Column>
 				<Column style={{ width: "27.95%", minWidth: "280px" }}>
 					<CardTitle onClick={() => Router.push("/produtos?type=tools")} >Peças</CardTitle>
 					<CardContainer onClick={() => Router.push("/produtos?type=tools")}>
-						<img src={state.pecas} />
+						<DivImg src={state.pecas} />
 					</CardContainer>
 				</Column>
 				<Column style={{ width: "27.95%", minWidth: "280px" }}>
 					<CardTitle onClick={() => Router.push("/noticias")}>Notícias</CardTitle>
 					<CardContainer onClick={() => Router.push("/noticias")}>
-						<img src={state.noticias} />
+						<DivImg src={state.noticias} />
 					</CardContainer>
 				</Column>
 			</Row>
@@ -67,8 +67,8 @@ const CardTitle = styled.p`
 `
 
 const CardContainer = styled.div`
-	min-height: 200px;
-
+	height: 200px;
+	
 	overflow: hidden;
 	cursor: pointer;
 	display: flex;
@@ -79,7 +79,7 @@ const CardContainer = styled.div`
 	background: #E5E5E5;
 	img {
 		width: 100%;
-		
+		max-height: 200px;
 		display: block;
 		margin: auto
 	}
@@ -90,3 +90,14 @@ const CardContainer = styled.div`
 
 }
 `;
+
+const DivImg = styled.div`
+	background-image: url(${props => props.src});
+	background-size: cover;
+	background-position: center;
+	width: 100%;
+	height: 100%;
+	display: block;
+	margin: auto
+
+`
