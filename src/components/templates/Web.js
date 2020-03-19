@@ -80,15 +80,18 @@ class Template extends React.Component {
   }
 
   componentDidMount() {
-   new Microsoft.Maps.Map(document.getElementById('map'), {})
+   //new Microsoft.Maps.Map(document.getElementById('map'), {})
+   
   }
+
+ 
 
   render() {
     return (
       <div style={{ margin: 0, padding: 0 }}>
         <Head>
           <title>Multcostura</title>
-          <script src={`http://www.bing.com/api/maps/mapcontrol?callback=loadMapScenario&key=${process.env.mapsKey}`} />
+          <script src={`http://www.bing.com/api/maps/mapcontrol?callback=loadMapScenario&key=${process.env.mapsKey}`} defer />
         </Head>
         <GlobalStyle />
         <Navbar />
