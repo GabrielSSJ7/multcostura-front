@@ -5,7 +5,7 @@ import setApi from '../../api'
 
 
 import { Row, Column, Select} from '../../static/styled-components/base'
-
+let infobox, map
 export default class MapsQuest extends Component {
 
 	constructor (props) {
@@ -31,7 +31,10 @@ export default class MapsQuest extends Component {
 			cities: response.data.cidades
 		})
 
-
+		if (!this.props.showMultcostura)
+			this.loadMapScenario()
+		else 
+			this.setMultViewMap()
 	}
 
 	async onChangeState(e) {
@@ -51,6 +54,59 @@ export default class MapsQuest extends Component {
 		})
 	}
 
+	 //let map, infobox;
+     async loadMapScenario() {
+     	 const response = await setApi().get('/reseller')
+        //setResellers(response.data)
+        const revendedores = response.data
+          map = new Microsoft.Maps.Map(document.getElementById('map'), {})
+          //setMap(map)
+          for (let revendedor in revendedores){
+            //Create an infobox at the center of the map but don't show it.
+            infobox = new Microsoft.Maps.Infobox(map.getCenter(), {
+              visible: false
+            });
+
+            //Assign the infobox to a map instance.
+            infobox.setMap(map);
+
+            //Create a pushpin at a random location in the map bounds.
+            var randomLocation = Microsoft.Maps.TestDataGenerator.getLocations(1, map.getBounds());
+            
+            var pin = new Microsoft.Maps.Pushpin({
+              latitude: revendedores[revendedor].maps.lat,
+              longitude: revendedores[revendedor].maps.lng,
+              altitude: 0,
+              altitudeReference: -1
+            });
+
+            //Store some metadata with the pushpin.
+            pin.metadata = {
+                title: revendedores[revendedor].name,
+                description: "Endereço: " + revendedores[revendedor].address + "<br/> Tel: " + revendedores[revendedor].phone + "<br/> E-mail: " + revendedores[revendedor].email
+            };
+
+           //Add a click event handler to the pushpin.
+            Microsoft.Maps.Events.addHandler(pin, 'click', this.pushpinClicked);
+
+            //Add pushpin to the map.
+            map.entities.push(pin);
+          }
+        }
+
+        pushpinClicked(e) {
+          //Make sure the infobox has metadata to display.
+          if (e.target.metadata) {
+            //Set the infobox options with the metadata of the pushpin.
+            infobox.setOptions({
+                location: e.target.getLocation(),
+                title: e.target.metadata.title,
+                description: e.target.metadata.description,
+                visible: true
+            });
+          }
+        }
+
 	componentDidUpdate(prevProps, prevState) {
 
   		if (this.state.state !== prevState.state) {
@@ -62,12 +118,14 @@ export default class MapsQuest extends Component {
   		}  		
 
   		if (prevProps !== this.props) {
-  			this.setMultViewMap();
+  			console.log(this.props.showMultcostura)
+  			if (this.props.showMultcostura)
+  				this.setMultViewMap();
   		}
 	}
 
 	async setViewMap(state, city) {
-		const map = new Microsoft.Maps.Map(document.getElementById('map'), {})
+		//const map = new Microsoft.Maps.Map(document.getElementById('map'), {})
 		//const { map } = this.props
 		if (map) {
 	  		if (state || city){
@@ -87,7 +145,8 @@ export default class MapsQuest extends Component {
 	}
 
 		async setMultViewMap() {
-			const map = new Microsoft.Maps.Map(document.getElementById('map'),{})
+			console.log("setMultViewMap")
+			map = new Microsoft.Maps.Map(document.getElementById('map'),{})
 	  		Microsoft.Maps.loadModule('Microsoft.Maps.Search', function () {
 			    var searchManager = new Microsoft.Maps.Search.SearchManager(map);
 			    var requestOptions = {

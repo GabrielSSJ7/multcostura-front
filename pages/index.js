@@ -84,7 +84,7 @@ const IndexPage = () => {
           }
         }
 
-        loadMapScenario();
+        //adMapScenario();
 
       } catch (e) {
         console.log(e)

@@ -8,7 +8,7 @@ import ListProds from '../src/components/web/ListProds'
 export default function Search({ searchTerm }) {
 	const machines = useState([])
 	const tools = useState([])
-	function _searchTerm () {
+	function searchTerm_ () {
 		setApi()
 			.get(`/machines?search=${searchTerm}`)
 			.then(res => {

@@ -8,7 +8,7 @@ import Map from '../src/components/web/Map'
 import Form from '../src/components/web/Form'
 
 export default function Contato () {
-	const [map, setMap] = useState({})
+	//const [map, setMap] = useState({})
 	const [banner, setBanner] = useState('')
 	useState(() => {
 	  async function f() {
@@ -19,7 +19,7 @@ export default function Contato () {
 		    })
 		    .catch(err => {})
 
-		setMap(new Microsoft.Maps.Map(document.getElementById('map'),{}));
+		//setMap(new Microsoft.Maps.Map(document.getElementById('map'),{}));
 	  }
 
 	  f();
@@ -34,7 +34,7 @@ export default function Contato () {
 				<h1 style={{ color: "#5B5B5B", textTransform: "uppercase",   margin: "6.89% auto", width: "88.46%" }}>Contato</h1>
 				<div style={{ display: "flex", width: "88.46%", margin: "0 auto", flexWrap: 'wrap' }}>
 				  <Form  />
-				  <Map showMultcostura map={map}/>
+				  <Map showMultcostura/>
 				</div>
 			</div>
 		</Template>
