@@ -119,8 +119,8 @@ export default class MapsQuest extends Component {
 
   		if (prevProps !== this.props) {
   			console.log(this.props.showMultcostura)
-  			if (this.props.showMultcostura)
-  				this.setMultViewMap();
+  			//if (this.props.showMultcostura)
+  				//this.setMultViewMap();
   		}
 	}
 
