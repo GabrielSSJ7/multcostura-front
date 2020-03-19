@@ -80,7 +80,7 @@ class Template extends React.Component {
   }
 
   componentDidMount() {
-   
+   new Microsoft.Maps.Map(document.getElementById('map'), {})
   }
 
   render() {
