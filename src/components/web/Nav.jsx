@@ -23,6 +23,9 @@ import iconTool from '../../static/images/peca-icon.png'
 import iconFab from '../../static/images/fab-icon.png'
 import iconWhatsapp from '../../static/images/whatsapp.png'
 
+import arrowUp from '../../static/images/arrow-up.png'
+import arrowDown from '../../static/images/arrow-down.png'
+
 const useStyles = makeStyles({
   list: {
     width: 250,
@@ -40,6 +43,7 @@ export default function Nav () {
 	const [hideManufMenu, setHideManufMenu] = useState(false);
 	const [translate, setTranslate] = useState(0)
 	const [highDolar, setHighDolar] = useState(0)
+	const [pctChange, setPctChange] = useState(false)
 
 	useLayoutEffect(() => {
 
@@ -74,6 +78,7 @@ export default function Nav () {
 				.get("https://economia.awesomeapi.com.br/all/USD-BRL")
 				.then(response => {
 					setHighDolar(parseFloat(response.data.USD.high).toFixed(2))
+					setPctChange(parseFloat(response.data.USB.pctChange) > 0)
 				})
 				.catch(err => {
 				})
@@ -87,18 +92,19 @@ export default function Nav () {
 
 	return (
 		translate > 690 ?
-		<NavBg props={{ hideDropMenu, hideManufMenu, setHideManufMenu, setHideDropMenu, categories, manufacturers, highDolar }} /> :
-		<NavSm props={{ hideDropMenu, hideManufMenu, setHideManufMenu, setHideDropMenu, categories, manufacturers, highDolar }} />
+		<NavBg props={{ hideDropMenu, hideManufMenu, setHideManufMenu, setHideDropMenu, categories, manufacturers, highDolar, pctChange }} /> :
+		<NavSm props={{ hideDropMenu, hideManufMenu, setHideManufMenu, setHideDropMenu, categories, manufacturers, highDolar, pctChange }} />
 	)
 }
 
 
 // NAV MOBILE
-function NavSm({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHideDropMenu, categories, manufacturers, highDolar }}) {
+function NavSm({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHideDropMenu, categories, manufacturers, highDolar, pctChange }}) {
 	const Router = useRouter();
 	const classes = useStyles();
 	const [left, setLeft] = useState(false)
 	const [search, setSearch] = useState(false)
+	const [searchKey, setSearchKey] = useState('')
 	
 
 	const [list, setList] = useState({
@@ -132,9 +138,9 @@ function NavSm({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHide
 	      	<Column key={Math.round(Math.random()*100)} style={{ padding: "10px" }}>
 	      		<hr style={{ width: "100%"}} /> 
 				<div style={{ flex: 2 }}><p ><img src={iconWhatsapp} />Whatsapp: (00) 00000-0000</p></div>
-				<div style={{ flex: 2 }}><p ><FontAwesomeIcon icon={faPhone} style={{ marginRight: "5px" }} />Telefone: (00) 00000-0000</p></div>
-				<div style={{ flex: 2 }}><p ><FontAwesomeIcon icon={faEnvelope} style={{ marginRight: "5px" }} />E-mail: contato@multcostura.com.br</p></div>
-				<div style={{ flex: 1 }}><p ><FontAwesomeIcon icon={faDollarSign} style={{ marginRight: "5px" }} />Dólar: {highDolar}</p></div>
+				<div style={{ flex: 2 }}><p ><FontAwesomeIcon icon={faPhone} style={{ marginRight: "5px" }} /> (00) 00000-0000</p></div>
+				<div style={{ flex: 2 }}><p ><FontAwesomeIcon icon={faEnvelope} style={{ marginRight: "5px" }} />contato@multcostura.com.br</p></div>
+				<div style={{ flex: 1 }}><p ><FontAwesomeIcon icon={faDollarSign} style={{ marginRight: "5px" }} />Dólar: {pctChange ? <img src={arrowUp} style={{ width: "16px"}} /> : <img src={arrowDown} style={{ width: "16px"}} />} {highDolar}</p></div>
 			</Column>
       	]
 	})
@@ -192,8 +198,15 @@ function NavSm({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHide
       	  </Row> :
       	  <Row jc="center" ait="center" style={{ background: "#EDEDED", width: "100%", height: "84px" }}>
       	  	<span onClick={() => setSearch(false)} style={{ padding: '10px', fontSize: "1.3rem" }} >X</span>
-      	  	<SearchInput style={{ width: "70%", padding: "0 5px" }} placeholder="Pesquisar" value={search} onChange={e => setSearch(e.target.value)} />
-			<SearchBtn onClick={() => window.location.href = './produtos?search=' + search}>Buscar</SearchBtn>
+      	  	<SearchInput 
+      	  		style={{ width: "70%", padding: "0 5px" }} 
+      	  		placeholder="Buscar" value={searchKey} 
+      	  		onChange={e => setSearchKey(e.target.value)} 
+      	  		onKeyDown={(k) => {
+      	  			if (k.key == "Enter") window.location.href = './produtos?search=' + searchKey
+      	  		}}
+      	  	/>
+			<SearchBtn onClick={() => window.location.href = './produtos?search=' + searchKey}>BUSCAR</SearchBtn>
       	  </Row>
       	}
       
@@ -206,31 +219,60 @@ function NavSm({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHide
 
 
 // NAV GRANDE
-function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHideDropMenu, categories, manufacturers, highDolar }}) {
+function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHideDropMenu, categories, manufacturers, highDolar, pctChange }}) {
 	const Router = useRouter();
 	const [doll, setDoll] = useState(0)
 	const [search, setSearch] = useState('')
 
 	return (
-		<Column style={{ width: "100%", maxHeight: "226px" }}>
-			<Row flex="5" style={{ flex: "5 1 auto", height: "50%", justifyContent: "center", background: "transparent linear-gradient(180deg, #E8E8E8 0%, #E7E7E7 48%, #D6D6D6 100%) 0% 0% no-repeat padding-box"}}>
+		<Column style={{ width: "100%" }}>
+			<Row flex="5" style={{ flex: "5 1 auto",  justifyContent: "center", background: "transparent linear-gradient(180deg, #E8E8E8 0%, #E7E7E7 48%, #D6D6D6 100%) 0% 0% no-repeat padding-box"}}>
 				<Row style={{ width: "90%" }}>
-					<Link href="/"><a style={{ width: '13%', padding: "10px 0", display: "flex" }}><Logo src={logo} /></a></Link>
-					<Column style={{  width: '87%', padding: '10px', }} jc="center" >
-						<Row style={{ maxWidth: "100%"}} >
-							<SearchInput style={{ width: "100%", padding: "0 5px" }} placeholder="Pesquisar" value={search} onChange={e => setSearch(e.target.value)} />
-							<SearchBtn onClick={() => window.location.href = './produtos?search=' + search}>Buscar</SearchBtn>
+					<Link href="/"><a style={{ width: '18%', padding: "10px 0", display: "flex" }}><Logo src={logo} /></a></Link>
+					<Column style={{  width: '87%',     padding: "10px 10px 10px 0" }} jc="center" >
+						<Row style={{ maxWidth: "100%", marginTop: "5px"}} >
+							<SearchInput 
+								style={{ width: "100%", padding: "0 5px" }} 
+								placeholder="Buscar" 
+								value={search} 
+								onChange={e => setSearch(e.target.value)} 
+								onKeyDown={(k) => {
+      	  							if (k.key == "Enter") window.location.href = './produtos?search=' + search
+      	  						}}
+							/>
+							<SearchBtn onClick={() => window.location.href = './produtos?search=' + search}>BUSCAR</SearchBtn>
 						</Row>
-						<Row style={{ maxWidth: "100%"}}>
-							<div style={{ flex: 2 }}><p className="media-1228px" style={{display: "flex", alignItems: "center"}}><img src={iconWhatsapp} style={{ width: "18px", marginRight: "5px" }} />Whatsapp: (00) 00000-0000</p></div>
-							<div style={{ flex: 2 }}><p className="media-1228px" style={{display: "flex", alignItems: "center"}}><FontAwesomeIcon icon={faPhone} style={{ marginRight: "5px" }} />(00) 00000-0000</p></div>
-							<div style={{ flex: 2 }}><p className="media-1228px" style={{display: "flex", alignItems: "center"}}><FontAwesomeIcon icon={faEnvelope} style={{ marginRight: "5px" }} />contato@multcostura.com.br</p></div>
-							<div style={{ flex: 1 }}><p className="media-1228px" style={{textAlign: "end"}}><FontAwesomeIcon icon={faDollarSign} style={{ marginRight: "5px" }} />Dólar: {highDolar}</p></div>
+						<Row style={{ maxWidth: "100%",     marginTop: "18px"}}>
+							<div style={{ flex: 2 }}>
+								<p className="media-1228px" style={{display: "flex", alignItems: "center", marginBottom: "0", fontFamily: "sans-serif" }}>
+									<img src={iconWhatsapp} style={{ width: "18px", marginRight: "5px" }} />Whatsapp: (00) 00000-0000
+								</p>
+							</div>
+							<div style={{ flex: 2 }}>
+								<p className="media-1228px" style={{display: "flex", alignItems: "center",  marginBottom: "0", fontFamily: "sans-serif" }}>
+									<FontAwesomeIcon icon={faPhone} style={{ marginRight: "5px", color: "#929292" }} /> Telefone: (00) 00000-0000
+								</p>
+							</div>
+							<div style={{ flex: 2 }}>
+								<p className="media-1228px" style={{display: "flex", alignItems: "center", marginBottom: "0", fontFamily: "sans-serif" }}>
+									<FontAwesomeIcon icon={faEnvelope} style={{ marginRight: "5px", color: "#929292" }} />
+									<span style={{ fontSize: "98%", fontFamily: "sans-serif"}}>E-mail:</span> contato@multcostura.com.br
+								</p>
+							</div>
+							<div style={{ flex: 1 }}>
+								<p className="media-1228px" style={{textAlign: "end", marginBottom: "0", fontFamily: "sans-serif", fontWeight: "bold"}}>
+									Dólar:  {pctChange ? 
+										<img src={arrowUp} style={{ width: "16px"}} /> :
+										<img src={arrowDown} style={{ width: "14px"}} />} 
+										<FontAwesomeIcon icon={faDollarSign} style={{ color: pctChange ? "#20B138" : "red" }} />
+										<span style={{ color: pctChange ? "#20B138" : "red"}}>{highDolar}</span>
+								</p>
+							</div>
 						</Row>
 					</Column>
 				</Row>
 			</Row>
-			<Row flex="1" style={{ height: "18%", justifyContent: "center", background: "transparent linear-gradient(180deg, #EFEFEF 0%, #E3E3E3 100%) 0% 0% no-repeat padding-box"}}>
+			<Row flex="1" style={{ justifyContent: "center", background: "transparent linear-gradient(180deg, #EFEFEF 0%, #E3E3E3 100%) 0% 0% no-repeat padding-box"}}>
 				<Row style={{ width: "85%", justifyContent: "space-between",}}>
 					<div
 						style={{
@@ -260,7 +302,7 @@ function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHid
 					<Item className="baixe-nosso-ap-responsivo" style={{ color: "#81161B" }}>BAIXE NOSSO APLICATIVO</Item>
 				</Row>
 			</Row>
-			<Row flex="1" jc="center" style={{ color: "white", height: "18%", background: "transparent linear-gradient(180deg, #323AD6 0%, #242873 100%) 0% 0% no-repeat padding-box", padding: "0 100px" }}>
+			<Row flex="1" jc="center" style={{ color: "white", background: "transparent linear-gradient(180deg, #323AD6 0%, #242873 100%) 0% 0% no-repeat padding-box", padding: "0 100px" }}>
 				<Row style={{ width: '95%'}} jc="space-between">
 					{categories.map((category, i) => {
 						if (i < 8) return <Item key={i} className="media-1228px" onClick={() => Router.push('/produtos?type=categories&id='+category.id)}>{category.name}</Item>

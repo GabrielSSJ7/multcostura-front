@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import styled from 'styled-components'
 
 import setApi from '../src/api'
 
@@ -46,7 +47,9 @@ export default function Produtos ({ id, type, search }) {
 		if (pageData.logo) {
 			return <div style={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "center" }}><img src={pageData.logo} style={{ width: "120px" }} /></div>
 		} else if (pageData.name) {
-			return <Title style={{ flex: 1, textAlign: "center"}}>{pageData.name}</Title>
+			return <div style={{ flex: 1, textAlign: "center", minWidth: "200px"}}>
+				<Title style={{ textAlign: "center", paddingLeft: "10%"}}>{pageData.name}</Title>
+			</div>
 		}
 	}
 
@@ -56,15 +59,27 @@ export default function Produtos ({ id, type, search }) {
 			<Row jc="center" ait="center" style={{ width: "100%" }}><img src={loading} style={{ width: "32px"}} /> </Row> : 
 			<Column style={{ width: "100%" }}>
 				<SlideWeb images={images.map(img => img.image)} />
-				<Row style={{ width: "100%", margin: "35px 0" }} jc="space-around">
+				<DivLogoFilters style={{ width: "100%", margin: "35px 0", flexWrap: 'wrap' }} >
 					{setLogo()}
 					<Filters type={type} S/>
-				</Row>
+				</DivLogoFilters>
 				<ListProds id={id} type={type} search={search} />
 			</Column>}
 		</Template>
 	)
 }
+
+const DivLogoFilters = styled.div`
+	@media(max-width: 1025px) {
+		flex-direction: column;
+
+		h1 {
+			padding: 0 !important
+		}
+	}
+	display: flex;
+  	flex-wrap: wrap
+`
 
 
 Produtos.getInitialProps = ({ query }) => {

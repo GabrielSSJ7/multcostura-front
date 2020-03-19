@@ -43,11 +43,12 @@ export default function Section2 ({ prod }) {
 		}
 
 	}, [prod.specifications])
-	return <Row style={{ width: "77.7%", margin: '0 11.15%', paddingTop: "5%", flexWrap: 'wrap' }}>
-		<Column flex="1" style={{ minHeight: "550px", minWidth: '250px' }}>{prod.specifications? 
-			<><MachineName>Descrição Técnica</MachineName>
-			<Row style={{ flexWrap: 'wrap'}} >{specifications.map(spec => <Text style={{ width: "50%" }}>-{spec}</Text>)}</Row>
-		</>
+	return <Row style={{ width: "77.7%", margin: '0 11.15%', flexWrap: 'wrap', marginTop: "50px" }}>
+		<Column jc="center" flex="1" style={{  minWidth: '250px' }}>{prod.specifications? 
+			<>
+				<MachineName style={{marginBottom: "35px"}}>Descrição Técnica</MachineName>
+				<Row style={{ flexWrap: 'wrap'}} >{specifications.map(spec => <Text style={{ width: "50%", marginBottom: "0", fontFamily:"sans-serif" }}>- {spec}</Text>)}</Row>
+			</>
 		 : ''}
 	<Dialog
 				fullWidth={fullWidth}
@@ -62,7 +63,7 @@ export default function Section2 ({ prod }) {
       				<iframe src={prod.video} style={{ width: "100%", height: "500px"}}  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
       			</DialogContent>
       		</Dialog>
-		 <Row jc="space-between" style={{ margin: '20px 0 ' }}>
+		 <Row jc="space-between" style={{ margin: '40px 0 0 ' }}>
 				{prod.video ? <Button onClick={() => setOpen(true)}>Vídeo</Button> : null}
 				{prod.manual ? <Button  onClick={() => {
 					window.open(prod.manual, '_blank')
@@ -75,7 +76,7 @@ export default function Section2 ({ prod }) {
 		 </Column>
 
 		
-		<Column flex="1" jc="center" ait="center" style={{ minHeight: "550px", minWidth: '250px' }}>
+		<Column flex="1" jc="center" ait="center" style={{ minWidth: '250px' }}>
 			<Row style={{ width: "85%" }} >
 				<Slider images={prod.images} arrows slideWidth="100%" height="300px" />
 			</Row>
