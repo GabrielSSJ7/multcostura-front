@@ -152,7 +152,7 @@ export default class MapsQuest extends Component {
 					
 				</Row>
 
-				<Row id="map" style={{ width: "87%", height: "500px", marginBottom: "10px", marginTop: "10px" }}></Row>
+				<Row id="map" style={{ width: "70%", height: "500px", marginBottom: "10px", marginTop: "10px" }}></Row>
 					
 				<Row style={{ flexWrap: "wrap"}}>
 

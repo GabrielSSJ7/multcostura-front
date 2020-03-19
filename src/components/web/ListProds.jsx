@@ -21,6 +21,7 @@ export default function ListProd ({ id, type, search })  {
 	const [visLoading, setVisLoading] = useState(false)
 	async function f() {
 			if (search) {
+				console.log("search", search)
 				let machines = { data: [] }
 				let tools = { data: [] }
 	  			try {
@@ -34,6 +35,7 @@ export default function ListProd ({ id, type, search })  {
 
 	  			try {
 	  				 tools = await setApi().get(`/tools?search=${search}`)
+	  				 console.log("tools >",tools)
 	  				listP = tools.data
 	  			} catch (e) {
 
@@ -41,11 +43,11 @@ export default function ListProd ({ id, type, search })  {
 	  			setProds(machines.data.concat(tools.data))
 	  			dispatch(Creators.loadMachines(machines.data.concat(tools.data)))
 	  			dispatch(Creators.loadMachinesForFilters(machines.data.concat(tools.data)))
-	  			//setListProdsPag(groupBy(machines.data.concat(tools.data), 10))
+	  			setListProdsPag(groupBy(machines.data.concat(tools.data), 10))
 	  			setVisLoading(false)
 	  		} else {
 
-
+	  			//console.log(type)
 	  			if (type != "tools"){
 					setApi()
 					 .get(`machine?${type}=${id}&filters=${JSON.stringify(filters)}`)
@@ -66,9 +68,11 @@ export default function ListProd ({ id, type, search })  {
 			setApi()
 			  .get('/tools')
 			  .then(response => {
+			  	console.log(response.data)
 			  	dispatch(Creators.loadMachines(response.data))
 			  	//dispatch(Creators.loadMachinesForFilters(response.data))
 			  	setProds(response.data)
+			  	setListProdsPag(groupBy(response.data, 10))
 				//setListProdsPag(groupBy(response.data, 10))
 				setVisLoading(false)
 			  })
@@ -93,7 +97,8 @@ export default function ListProd ({ id, type, search })  {
 
 
 	useEffect(() => {
-		setVisLoading(true)
+		if (type != "tools" && !search) {
+		setVisLoading(true)		
 		setApi()
 			.get(`machine?${type}=${id}&filters=${JSON.stringify(filters)}`)
 			.then(res => {
@@ -111,6 +116,7 @@ export default function ListProd ({ id, type, search })  {
 			})
 
 				   return
+		}
 	}, [filters])
 
 
@@ -131,8 +137,13 @@ export default function ListProd ({ id, type, search })  {
 			  	<Row style={{ flexWrap: 'wrap' }}>
 			  		
 				  	{listProdsPag[indexPag].map(prod => 
-				  	 <Column key={prod.id} style={{ width: "32%", cursor: "pointer", marginRight: "1.3%" }} onClick={() => router.push({ pathname: "/produto", query: { id: prod.id } })} >
-				  	 	<Img src={prod.images.length > 0 ? prod.images[0] : ''} width="100%" height="240px" />
+				  	 <Column 
+				  	 	key={prod.id}
+				  	 	style={{ width: "32%", cursor: "pointer", marginRight: "1.3%", minWidth: "280px" }} 
+				  	 	onClick={() => router.push({ pathname: "/produto", query: { id: prod.id } })} 
+				  	 	ait="center"
+				  	 >
+				  	 	<Img src={prod.images.length > 0 ? prod.images[0] : ''} width="100%" height="280px" />
 				  	 	<Name>{prod.name}</Name>
 				  	 </Column>
 			  		)}
@@ -169,7 +180,8 @@ const PagItem = styled.p`
 
 const Img = styled.div`
 	background-image: url('${props => props.src}');
-	background-size: cover;
+	// background-size: cover;
+	background-size: 80%;
 	background-position: center;
 	background-repeat: no-repeat;
 	width: ${props => props.width};
