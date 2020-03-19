@@ -15,7 +15,6 @@ export default function Filters ({ type }) {
 	function configFilters() {
 		let _filters = {}
 		let _filtersSelected = {}
-		console.log("machines.length", machines.length)
 		if (machines.length > 1) {
 		   machines.forEach((machine, a) => {
 				const specKeys = machine.specifications ? Object.keys(machine.specifications) : [];
@@ -41,10 +40,9 @@ export default function Filters ({ type }) {
 	}
 
 	useEffect(() => {
-		if(type == "categories")
+		if(type == "categories" || type == "manufacturer")
 			configFilters();
-	},
-	[])
+	}, [])
 
 
 
@@ -168,9 +166,9 @@ export default function Filters ({ type }) {
 		return elements;
 	}
 
-	return <Row style={{ flex: 1, flexWrap: "wrap" }} >
+	return <Row style={{ flex: 2, flexWrap: "wrap", padding: "10px" }} >
 		{renderSelect().length > 0 ? <Column>
-			<Title>Filtros</Title>
+			{/*<Title>Filtros</Title>*/}
 			<Row style={{ flexWrap: "wrap" }}  jc="space-between"> {renderSelect()} </Row>
 			<Row>{renderFilterSelecteds()}</Row>
 		</Column> : null }

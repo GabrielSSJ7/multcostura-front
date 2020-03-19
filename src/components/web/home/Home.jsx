@@ -31,29 +31,47 @@ export default function Home () {
 	return (
 		<Column style={{ marginTop: "15px", width: "87%", padding: "0 6.46%" }}>
 			<h1 style={{ color: "#5B5B5B" }}>LANÇAMENTOS</h1>
-			<Row jc="space-between" style={{ width: "100%", flexWrap: "wrap" }}>
-				<Column style={{ width: "27.95%", minWidth: "280px", maxHeight: "" }}>
+			<DivCards jc="space-between" style={{ width: "100%", flexWrap: "wrap" }}>
+				<Column className="div-card" style={{ width: "27.95%", minWidth: "280px", maxHeight: ""}}>
 					<CardTitle onClick={() => Router.push("/produtos")}	>Produtos</CardTitle>
-					<CardContainer onClick={() => Router.push("/produtos")}>
+					<CardContainer className="card" onClick={() => Router.push("/produtos")}>
 						<DivImg src={state.produtos} />
 					</CardContainer>
 				</Column>
-				<Column style={{ width: "27.95%", minWidth: "280px" }}>
+				<Column className="div-card" style={{ width: "27.95%", minWidth: "280px" }}>
 					<CardTitle onClick={() => Router.push("/produtos?type=tools")} >Peças</CardTitle>
-					<CardContainer onClick={() => Router.push("/produtos?type=tools")}>
+					<CardContainer className="card" onClick={() => Router.push("/produtos?type=tools")}>
 						<DivImg src={state.pecas} />
 					</CardContainer>
 				</Column>
-				<Column style={{ width: "27.95%", minWidth: "280px" }}>
+				<Column className="div-card" style={{ width: "27.95%", minWidth: "280px" }}>
 					<CardTitle onClick={() => Router.push("/noticias")}>Notícias</CardTitle>
-					<CardContainer onClick={() => Router.push("/noticias")}>
+					<CardContainer className="card" onClick={() => Router.push("/noticias")}>
 						<DivImg src={state.noticias} />
 					</CardContainer>
 				</Column>
-			</Row>
+			</DivCards>
 		</Column>
 	)
 }
+
+const DivCards = styled.div`
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	flex-wrap: wrap;
+	@media (max-width: 600px) {
+		justify-content: center;
+		.div-card {
+			width: 100% !important;
+		}
+
+		.card {
+			width: 100% !important;
+			height: 400px !important;
+		}
+	}
+`
 
 
 const CardTitle = styled.p`
