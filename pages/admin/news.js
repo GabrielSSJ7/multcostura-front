@@ -106,7 +106,7 @@ export default function News() {
           {news.map(news => (
             <CardContainer
               onClick={() =>
-                Router.pushRoute("/admin/news/edit-news/" + news._id)
+                Router.pushRoute("/admin/news/edit-news?id=" + news._id)
               }
             >
               <Row style={{ padding: 0 }}>

@@ -140,7 +140,6 @@ export default function ListMachines() {
       <Container>
         {machines.map(machine => (
           <Link
-            as={`/admin/machine/${machine.id.toString()}`}
             href={`/admin/machines/machine?id=${machine.id.toString()}`}
           >
             <CardContainer>
@@ -158,7 +157,7 @@ export default function ListMachines() {
   );
 
   function navigateToMachine(id) {
-    Router.push("/admin/machine/machine", "/machine/machine/[id]");
+    Router.push(`/admin/machines/machine?id=${id}`);
   }
 }
 
