@@ -8,6 +8,10 @@
     "static/development/_ssgManifest.js"
   ],
   "pages": {
+    "/": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
     "/_app": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
@@ -24,23 +28,7 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/admin/machines": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/admin/machines/machine": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/admin/machines/new-machine": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/admin/news": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/admin/news/edit-news": [
+    "/index": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]

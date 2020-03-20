@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -726,7 +726,7 @@ const Wrapper = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.wit
 const Slide = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
   displayName: "BannerFixed__Slide",
   componentId: "sc-1dgf4pc-4"
-})(["background-image:url('", "');background-size:cover;height:400px;width:100%;background-position:center;background-repeat:no-repeat;width:", ";height:", ";transform:translateX(", "px);transition:transform 0.4s ease-in-out;position:relative;"], props => props.src, props => props.width, props => props.height, props => props.translate);
+})(["background-image:url('", "');width:100%;background-position:center;background-repeat:no-repeat;width:", ";height:", ";transform:translateX(", "px);transition:transform 0.4s ease-in-out;position:relative;"], props => props.src, props => props.width, props => props.height, props => props.translate);
 
 /***/ }),
 
@@ -1159,7 +1159,16 @@ function HomeBanner() {
       display: "block"
     },
     onClick: _saveSlide
-  }, "Salvar") : ""))));
+  }, "Salvar") : "", __jsx("div", {
+    style: {
+      border: "1px solid grey",
+      margin: "10px"
+    }
+  }, __jsx("p", {
+    style: {
+      textAlign: "center"
+    }
+  }, "*As imagens devem ter 1920x400"))))));
 }
 const Column = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
   displayName: "Home__Column",
@@ -1457,7 +1466,7 @@ const Wrapper = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.wit
 const Slide = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
   displayName: "Slider__Slide",
   componentId: "sc-1ke79mt-1"
-})(["background-image:url('", "');background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#E3E3E3;width:", ";height:", ";transform:translateX(", "px);transition:transform 0.4s ease-in-out;position:relative;"], props => props.src, props => props.width, props => props.height, props => props.translate);
+})(["background-repeat:no-repeat;background-color:#E3E3E3;width:", ";height:", ";transform:translateX(", "px);transition:transform 0.4s ease-in-out;position:relative;"], props => props.width, props => props.height, props => props.translate);
 const ArrowLeft = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.span.withConfig({
   displayName: "Slider__ArrowLeft",
   componentId: "sc-1ke79mt-2"
@@ -1533,7 +1542,7 @@ const ArrowRight = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.span
   }
 
   return __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, __jsx(Wrapper, {
-    height: height
+    height: "400px"
   }, images ? __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, arrows ? __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, __jsx(ArrowLeft, {
     onClick: () => prev()
   }), __jsx(ArrowRight, {
@@ -1543,9 +1552,15 @@ const ArrowRight = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.span
     key: i,
     src: img,
     translate: translate,
-    height: height,
+    height: "100%",
     width: slideWidth
-  })))) : __jsx("p", null, " no image")), balls ? __jsx("div", {
+  }, __jsx("img", {
+    src: img,
+    style: {
+      width: "100%",
+      height: "100%"
+    }
+  }))))) : __jsx("p", null, " no image")), balls ? __jsx("div", {
     id: "bolas",
     style: {
       display: "flex",
@@ -1936,7 +1951,7 @@ function removeItem(key) {
 
 /***/ }),
 
-/***/ 8:
+/***/ 4:
 /*!***********************************!*\
   !*** multi ./pages/admin/home.js ***!
   \***********************************/

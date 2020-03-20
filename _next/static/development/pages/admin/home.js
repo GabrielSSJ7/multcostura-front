@@ -36854,7 +36854,7 @@ var Wrapper = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div.with
 var Slide = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div.withConfig({
   displayName: "BannerFixed__Slide",
   componentId: "sc-1dgf4pc-4"
-})(["background-image:url('", "');background-size:cover;height:400px;width:100%;background-position:center;background-repeat:no-repeat;width:", ";height:", ";transform:translateX(", "px);transition:transform 0.4s ease-in-out;position:relative;"], function (props) {
+})(["background-image:url('", "');width:100%;background-position:center;background-repeat:no-repeat;width:", ";height:", ";transform:translateX(", "px);transition:transform 0.4s ease-in-out;position:relative;"], function (props) {
   return props.src;
 }, function (props) {
   return props.width;
@@ -37302,7 +37302,16 @@ function HomeBanner() {
       display: "block"
     },
     onClick: _saveSlide
-  }, "Salvar") : ""))));
+  }, "Salvar") : "", __jsx("div", {
+    style: {
+      border: "1px solid grey",
+      margin: "10px"
+    }
+  }, __jsx("p", {
+    style: {
+      textAlign: "center"
+    }
+  }, "*As imagens devem ter 1920x400"))))));
 }
 var Column = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div.withConfig({
   displayName: "Home__Column",
@@ -37601,9 +37610,7 @@ var Wrapper = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div.with
 var Slide = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div.withConfig({
   displayName: "Slider__Slide",
   componentId: "sc-1ke79mt-1"
-})(["background-image:url('", "');background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#E3E3E3;width:", ";height:", ";transform:translateX(", "px);transition:transform 0.4s ease-in-out;position:relative;"], function (props) {
-  return props.src;
-}, function (props) {
+})(["background-repeat:no-repeat;background-color:#E3E3E3;width:", ";height:", ";transform:translateX(", "px);transition:transform 0.4s ease-in-out;position:relative;"], function (props) {
   return props.width;
 }, function (props) {
   return props.height;
@@ -37689,7 +37696,7 @@ var ArrowRight = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].span.
   }
 
   return __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, __jsx(Wrapper, {
-    height: height
+    height: "400px"
   }, images ? __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, arrows ? __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, __jsx(ArrowLeft, {
     onClick: function onClick() {
       return prev();
@@ -37704,9 +37711,15 @@ var ArrowRight = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].span.
       key: i,
       src: img,
       translate: translate,
-      height: height,
+      height: "100%",
       width: slideWidth
-    });
+    }, __jsx("img", {
+      src: img,
+      style: {
+        width: "100%",
+        height: "100%"
+      }
+    }));
   }))) : __jsx("p", null, " no image")), balls ? __jsx("div", {
     id: "bolas",
     style: {
@@ -38175,7 +38188,7 @@ function removeItem(key) {
 
 /***/ }),
 
-/***/ 6:
+/***/ 2:
 /*!***************************************************************************************************************************************************************************!*\
   !*** multi next-client-pages-loader?page=%2Fadmin%2Fhome&absolutePagePath=C%3A%5CUsers%5CGluz%5CProjects%5Cweb%5Cmultcostura%5Cmultcostura-web%5Cpages%5Cadmin%5Chome.js ***!
   \***************************************************************************************************************************************************************************/
@@ -38198,5 +38211,5 @@ module.exports = dll_2adc2403d89adc16ead0;
 
 /***/ })
 
-},[[6,"static/runtime/webpack.js"]]]);
+},[[2,"static/runtime/webpack.js"]]]);
 //# sourceMappingURL=home.js.map

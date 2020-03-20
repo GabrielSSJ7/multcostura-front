@@ -11,9 +11,9 @@ const Wrapper = styled.div`
 `;
 
 const Slide = styled.div`
-	background-image: url('${props => props.src}');
-	background-size: cover;
-	background-position: center;
+	//background-image: url('${props => props.src}');
+	//background-size: 100%;
+	//background-position: center;
 	background-repeat: no-repeat;
   background-color: #E3E3E3;
 	width: ${props => props.width};
@@ -114,7 +114,7 @@ export default ({ link, images, autoSlide, slideCtrl, balls, arrows, height, sli
 
   return (
     <>
-      <Wrapper height={height}>
+      <Wrapper height={"400px"}>
         {images ? (
           <>
             {arrows ? (
@@ -133,9 +133,11 @@ export default ({ link, images, autoSlide, slideCtrl, balls, arrows, height, sli
                   key={i}
                   src={img}
                   translate={translate}
-                  height={height}
+                  height={"100%"}
                   width={slideWidth}
-                />
+                >
+                  <img src={img} style={{ width: "100%", height: "100%"}} />
+                </Slide>
               ))}
             </>
           </>
