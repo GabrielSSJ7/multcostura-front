@@ -77,3 +77,85 @@ npm ERR!     /root/.npm/_logs/2020-03-12T18_33_47_919Z-debug.log
 > next start -p $PORT "80"
 
 > Ready on http://localhost:80
+
+> web-multcostura@1.0.0 start /home/webpeople/multcostura-web
+> next start -p $PORT "80"
+
+Error: listen EACCES: permission denied 0.0.0.0:80
+    at Server.setupListenHandle [as _listen2] (net.js:1292:21)
+    at listenInCluster (net.js:1357:12)
+    at Server.listen (net.js:1445:7)
+    at /home/webpeople/multcostura-web/node_modules/next/dist/server/lib/start-server.js:2:62
+    at new Promise (<anonymous>)
+    at start (/home/webpeople/multcostura-web/node_modules/next/dist/server/lib/start-server.js:1:407)
+    at nextStart (/home/webpeople/multcostura-web/node_modules/next/dist/cli/next-start.js:22:125)
+    at /home/webpeople/multcostura-web/node_modules/next/dist/bin/next:29:346 {
+  code: 'EACCES',
+  errno: 'EACCES',
+  syscall: 'listen',
+  address: '0.0.0.0',
+  port: 80
+}
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! web-multcostura@1.0.0 start: `next start -p $PORT "80"`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the web-multcostura@1.0.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/webpeople/.npm/_logs/2020-03-19T23_52_58_867Z-debug.log
+sudo: unable to resolve host multcostura: Name or service not known
+
+> web-multcostura@1.0.0 start /home/webpeople/multcostura-web
+> next start -p $PORT "80"
+
+> Ready on http://localhost:80
+sudo: unable to resolve host multcostura: Name or service not known
+
+> web-multcostura@1.0.0 start /home/webpeople/multcostura-web
+> next start -p $PORT "80"
+
+Error: listen EADDRINUSE: address already in use :::80
+    at Server.setupListenHandle [as _listen2] (net.js:1309:16)
+    at listenInCluster (net.js:1357:12)
+    at Server.listen (net.js:1445:7)
+    at /home/webpeople/multcostura-web/node_modules/next/dist/server/lib/start-server.js:2:62
+    at new Promise (<anonymous>)
+    at start (/home/webpeople/multcostura-web/node_modules/next/dist/server/lib/start-server.js:1:407)
+    at nextStart (/home/webpeople/multcostura-web/node_modules/next/dist/cli/next-start.js:22:125)
+    at /home/webpeople/multcostura-web/node_modules/next/dist/bin/next:29:346 {
+  code: 'EADDRINUSE',
+  errno: 'EADDRINUSE',
+  syscall: 'listen',
+  address: '::',
+  port: 80
+}
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! web-multcostura@1.0.0 start: `next start -p $PORT "80"`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the web-multcostura@1.0.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2020-03-20T02_01_52_737Z-debug.log
+Terminated
+npm ERR! code ELIFECYCLE
+npm ERR! errno 143
+npm ERR! web-multcostura@1.0.0 start: `next start -p $PORT "80"`
+npm ERR! Exit status 143
+npm ERR! 
+npm ERR! Failed at the web-multcostura@1.0.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2020-03-20T02_02_47_022Z-debug.log
+sudo: unable to resolve host multcostura: Name or service not known
+
+> web-multcostura@1.0.0 start /home/webpeople/multcostura-web
+> next start -p $PORT "80"
+
+> Ready on http://localhost:80
