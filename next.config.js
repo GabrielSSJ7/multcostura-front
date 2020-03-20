@@ -3,7 +3,7 @@ const withFonts = require("next-fonts");
 const withImages = require("next-images");
 const withCss = require("@zeit/next-css");
 const nextConfig = {
-  distDir: "build",
+  distDir: "_next",
   webpack: (config, options) => {
     // modify the `config` here
 

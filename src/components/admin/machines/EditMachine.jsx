@@ -104,7 +104,6 @@ export default function EditMachine({ id }) {
           });
           return;
         }
-        console.log(machine)
         setState({
           ...machine,
           name: machine.name,
@@ -113,7 +112,7 @@ export default function EditMachine({ id }) {
           specifications: machine.specifications,
           category: machine.category._id,
           manufacturer: machine.manufacturer,
-          video: machine.video
+          videoInput: machine.video
         });
       });
     }
@@ -125,13 +124,15 @@ export default function EditMachine({ id }) {
   function handleChangeVideo(e) {
     const YTBaseURL = "https://www.youtube.com/embed/"
     if (getParam(e.target.value) == 0) {
+      setState({...state, videoInput: e.target.value, video: '' })
       setSnackBar({
         open: true,
         result: 'error',
         message: 'O endereço não é uma URL válida do YouTube'
       })
     } else {
-      setState({...state, video: YTBaseURL + getParam(e.target.value) })
+      console.log(e.target.value)
+      setState({...state, video: YTBaseURL + getParam(e.target.value), videoInput: e.target.value })
     }
   }
 
@@ -875,7 +876,7 @@ export default function EditMachine({ id }) {
            <Input
             style={{ width: "50%"}}
             placeholder="Ex: https://www.youtube.com/watch?v=5qdtbMvC2Rs"
-            value={state.video}
+            value={state.videoInput}
             onChange={handleChangeVideo}
           />
         </Section>
@@ -974,32 +975,39 @@ export default function EditMachine({ id }) {
 
         <Button
           style={{ width: "50%", margin: "auto", display: "block" }}
-          onClick={() =>
-            updateMachine(
-              state,
-              machineFiles,
-              sewingFile,
-              refProdFiles,
-              { folheto, manual },
-              function(err, res) {
-                if (err) {
-                  setSnackBar({
-                    result: "error",
-                    open: true,
-                    message: err
-                  });
-                  return;
-                }
-                setSnackBar({
-                  result: "success",
-                  open: true,
-                  message: "Máquina alterada com sucesso"
-                });
-                setTimeout(() => {
-                  location.reload();
-                }, 2000);
+          onClick={() =>{
+            console.log(getParam(state.videoInput), state.video)
+              if (getParam(state.videoInput) != 0){
+                updateMachine(
+                  state,
+                  machineFiles,
+                  sewingFile,
+                  refProdFiles,
+                  { folheto, manual },
+                  function(err, res) {
+                    if (err) {
+                      setSnackBar({
+                        result: "error",
+                        open: true,
+                        message: err
+                      });
+                      return;
+                    }
+                    setSnackBar({
+                      result: "success",
+                      open: true,
+                      message: "Máquina alterada com sucesso"
+                    });
+                    setTimeout(() => {
+                      location.reload();
+                    }, 2000);
+                  }
+                )
+              } else {
+                  handleChangeVideo({  target: { value: state.video }})
               }
-            )
+           
+            }
           }
         >
           Salvar
