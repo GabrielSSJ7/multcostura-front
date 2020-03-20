@@ -71,14 +71,14 @@ export default function Tools () {
 	        </h1>
 	        <Hr />
 	        <Column>
-	        	<Button onClick={() => Router.pushRoute('/admin/add-tool')}>Adicionar nova peça</Button>
+	        	<Button onClick={() => Router.pushRoute('/admin/tools/add-tool')}>Adicionar nova peça</Button>
 	       		<Input placeholder="Pesquise pelo nome" name="search" id="search" value={search} onChange={handleChange} />
 	       	</Column>
 	       	<Row>
 		       	{tools.map(tool => (
 	            <CardContainer
 	              onClick={() =>
-	                Router.pushRoute("/admin/tools/" + tool.id)
+	                Router.pushRoute("/admin/tools/edit-tool?id=" + tool.id)
 	              }
 	            >
 	              <Row style={{ padding: 0 }}>

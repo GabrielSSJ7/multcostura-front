@@ -5,6 +5,7 @@ import Template from "../src/components/templates/Admin";
 
 import cookies from "next-cookies";
 import logo from "../src/static/images/logo-colorido.png";
+import InputMask from "react-input-mask";
 
 const reactCtx = React.createContext({});
 
@@ -67,10 +68,15 @@ export default function Login() {
           </div>
           <hr />
           <Text>E-mail/CPF:</Text>
-          <Input
+        
+          <InputMask
+            style={{ flex: 1 }}
             placeholder="E-mail ou CPF"
             onChange={e => setState({ ...state, login: e.target.value })}
             onKeyDown={_handleKeyDown}
+            mask="999.999.999-99"
+            maskChar=" "
+            className="form-control"
           />
           <Text>Senha:</Text>
           <Input
@@ -101,6 +107,15 @@ export const Body = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  .form-control {
+     width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  }
 `;
 
 export const LoginContainer = styled.div`

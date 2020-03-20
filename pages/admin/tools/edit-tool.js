@@ -19,5 +19,6 @@ export default function Machine({ id }) {
 }
 
 Machine.getInitialProps = async ({ query }) => {
+  console.log(query)
   return { id: query.id };
 };

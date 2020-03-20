@@ -90,19 +90,21 @@ export default function ListResellers() {
     setDiag(true);
   }
 
-  useEffect(() => {
-    const input = document.getElementById('searchBox')
-    let timeout = null
-    input.addEventListener('focusout', (event) => {
+  const focusOutEvent = (event) => {
       timeout = setTimeout(() => {
         setListAddressVis(false)
       }, 100)
-    });
+    }
+
+  useEffect(() => {
+    const input = document.getElementById('searchBox')
+    let timeout = null
+    input.addEventListener('focusout', focusOutEvent);
 
 
     return () => {
       clearTimeout(timeout)
-      input.removeEventListener('focusout')
+      input.removeEventListener('focusout', focusOutEvent)
     }
   }, [])
 

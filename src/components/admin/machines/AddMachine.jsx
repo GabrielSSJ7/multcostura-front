@@ -27,6 +27,7 @@ export default function AddMachine() {
   const [category, setCategory] = useState("");
   const [specifications, setSpecifications] = useState({});
   const [video, setVideo] = useState('')
+  const [videoInput, setVideoInput] = useState('')
 
   const [snackBar, setSnackBar] = useState({
     result: "success",
@@ -179,13 +180,17 @@ export default function AddMachine() {
 
   function handleChangeVideo(e) {
     const YTBaseURL = "https://www.youtube.com/embed/"
+    //console.log(getParam(e.target.value))
     if (getParam(e.target.value) == 0) {
+      setVideoInput(e.target.value)
+      setVideo('')
       setSnackBar({
         open: true,
         result: 'error',
         message: 'O endereço não é uma URL válida do YouTube'
       })
     } else {
+      setVideoInput(e.target.value)
       setVideo(YTBaseURL + getParam(e.target.value))
     }
   }
@@ -546,7 +551,7 @@ export default function AddMachine() {
            <Input
             style={{ flex: 1 }}
             placeholder="Ex: https://www.youtube.com/watch?v=5qdtbMvC2Rs"
-            value={video}
+            value={videoInput}
             onChange={handleChangeVideo}
           />
         </Row>
