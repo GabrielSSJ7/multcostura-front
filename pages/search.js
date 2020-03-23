@@ -5,7 +5,7 @@ import setApi from '../src/api'
 import Template from '../src/components/templates/Web'
 import ListProds from '../src/components/web/ListProds'
 
-export default function Search({ searchTerm}) {
+export default function Search({ searchTerm }) {
 	const machines = useState([])
 	const tools = useState([])
 	function searchTerm_ () {
@@ -21,9 +21,11 @@ export default function Search({ searchTerm}) {
 				setTools(res.data)
 			})
 	}
-	return <Template>
+	return (
+	  <Template>
 
-	</Template>
+	  </Template>
+	)
 }
 
 

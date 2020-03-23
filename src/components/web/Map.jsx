@@ -1,4 +1,4 @@
-import React, { Component } from 'React'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 
 import setApi from '../../api'
