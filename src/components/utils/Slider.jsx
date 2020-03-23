@@ -144,9 +144,13 @@ export default ({ link, images, autoSlide, slideCtrl, balls, arrows, height, sli
         ) : (
           <p> no image</p>
         )}
+
+
+     
+
+
       </Wrapper>
-      {balls ? (
-        <div
+      {balls ? <div
           id="bolas"
           style={{
             display: "flex",
@@ -161,20 +165,20 @@ export default ({ link, images, autoSlide, slideCtrl, balls, arrows, height, sli
               key={i}
               onClick={() => suckBalls(i + 1)}
               style={{
-                width: "8px",
-                height: "8px",
-                background: index == i + 1 ? "black" : "transparent",
-                border: "1px solid black",
+                width: "14px",
+                height: "14px",
+                background: index == i + 1 ? "#242873" : "rgba(255,255,255,.5)",
+                border: index == i + 1 ? "1px solid #242873" : "1px solid rgba(255,255,255,.5)",
                 borderRadius: "100%",
                 marginRight: "10px",
-                cursor: "pointer"
+                cursor: "pointer",
+                marginTop: "-50px",
+                zIndex: 9
               }}
             />
           ))}
-        </div>
-      ) : (
-        <></>
-      )}
+        </div> : <>{balls}</>}
+
     </>
   );
 };

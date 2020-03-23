@@ -40,7 +40,7 @@ export default class MapsQuest extends Component {
 	async onChangeState(e) {
 		const value = e.target.value.split("-")
 		this.setState({
-			state: { 
+			state: {
 				id: value[0],
 				name: value[1]
 			},
@@ -115,7 +115,7 @@ export default class MapsQuest extends Component {
 
 		if (this.state.city !== prevState.city) {
 	    	this.setViewMap(this.state.state, this.state.city);
-  		}  		
+  		}
 
   		if (prevProps !== this.props) {
   			console.log(this.props.showMultcostura)
@@ -173,7 +173,7 @@ export default class MapsQuest extends Component {
 			 : <Column style={{ width: "100%", marginTop: "100px" }} ait="center">
 				<h1 style={{ color: "#5B5B5B" }}>Encontre um revendedor próximo a você!</h1>
 
-				<Row jc="space-around" ait="center" style={{ width: "50%", flexWrap: "wrap"}}>
+				<Row jc="center" ait="center" style={{ width: "50%", flexWrap: "wrap"}}>
 					<Select 
 						style={{ 
 							minWidth: "120px", 
@@ -187,7 +187,7 @@ export default class MapsQuest extends Component {
 						onChange={this.onChangeState.bind(this)}
 						value={`${this.state.state.id}-${this.state.state.name}`}
 					>
-						<option value={'Selecione um estado'} >Selecione um estado</option>
+						<option value={'Selecione o estado'} >Selecione um estado</option>
 						{this.state.states.map((st, i) => <option key={i} value={`${st.id}-${st.estado}`}>{st.estado}</option>)}
 					</Select>
 
@@ -203,15 +203,17 @@ export default class MapsQuest extends Component {
 						onChange={this.onChangeCity.bind(this)}
 						value={this.state.city}
 					>
-						<option value='Selecione uma cidade'>Selecione uma cidade</option>
+						<option value='Selecione a cidade'>Selecione uma cidade</option>
 						{this.state.cities.filter(cit => cit.estadoId == this.state.state.id ? cit : false ).map((cit, i) => <option key={i} value={cit.id}>{cit.cidade}</option>)}
 					</Select>
-
+					<button onClick={() => this.setViewMap(this.state.state, this.state.city)} style={{ width: "128px", height: "40px", background: "transparent linear-gradient(180deg, #242873 0%, #161848 100%) 0% 0% no-repeat padding-box",
+borderRadius: "4px", color: "white", cursor:"pointer"}}>BUSCAR</button>
 
 					
 				</Row>
 
-				<Row id="map" style={{ width: "70%", height: "500px", marginBottom: "10px", marginTop: "10px" }}></Row>
+				<Row id="map" style={{ width: "70%", height: "500px", marginBottom: "10px", marginTop: "10px", border: "7px solid #DCDCDC",
+borderRadius: "10px" }}></Row>
 					
 				<Row style={{ flexWrap: "wrap"}}>
 

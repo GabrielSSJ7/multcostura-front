@@ -29,12 +29,18 @@ export default function Contato () {
 
 	return (
 		<Template>
+
 			<div style={{ display: "column", width: "100%" }}>
 				<SlideWeb fixed images={banner} />
-				<h1 style={{ color: "#5B5B5B", textTransform: "uppercase",   margin: "6.89% auto", width: "88.46%" }}>Contato</h1>
+				<h1 style={{ color: "#5B5B5B", textTransform: "uppercase",   margin: "6.89% auto 2%", width: "88.46%" }}>Contato</h1>
 				<div style={{ display: "flex", width: "88.46%", margin: "0 auto", flexWrap: 'wrap' }}>
 				  <Form  />
-				  <Map showMultcostura/>
+				    <style>{`
+		  				#map {
+		  					height: 418px !important;
+		  				}
+		  			`}</style>
+				  <Map showMultcostura />
 				</div>
 			</div>
 		</Template>

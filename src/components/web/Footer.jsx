@@ -14,9 +14,10 @@ import cartoesBndes from '../../static/images/logo bnds.png'
 
 export default function Footer () {
 	return (
+		<Column>
 		<Row style={{ background: "#ECECEC", padding: "35px 9.89% 15px 7%", flexWrap: "wrap" }}>
 			<Column flex={1} jc="flex-start" ait="flex-end" style={{ marginTop: '10px' }}>
-				<img src={logoMini} style={{ width: "45\%", marginRight: "15%" }} />
+				<img src={logoMini} style={{ marginRight: "15%", width: "35%", marginTop: "10px"}} />
 			</Column>
 			<Row flex={1}>
 				<Column style={{ marginRight: "25px"}}>
@@ -37,7 +38,7 @@ export default function Footer () {
 					</Item>
 				</Column>
 				<Column>
-					<Item onClick={() => Router.pushRoute('/empresa')}>
+					<Item onClick={() => Router.pushRoute('/revendedores')}>
 						Revendedores
 					</Item>
 					
@@ -68,6 +69,10 @@ export default function Footer () {
 				<img src={cartoesBndes} style={{ width: "60%" }} />
 			</Column>
 		</Row>
+		<Row jc="center" style={{ background: "#484848"}}>
+			<p style={{ color: "white", fontSize: "12px", fontFamily: "sans-serif"}}>© 2019 Todos os direitos reservados | <a href="squad.ag" target="_blank" style={{ color: "white", fontFamily: "sans-serif"}}>Desenvolvido por Squad Markting 4.0</a></p>
+		</Row>
+		</Column>
 	)
 }
 

@@ -35,7 +35,6 @@ export default function ListProd ({ id, type, search })  {
 
 	  			try {
 	  				 tools = await setApi().get(`/tools?search=${search}`)
-	  				 console.log("tools >",tools)
 	  				listP = tools.data
 	  			} catch (e) {
 
@@ -68,7 +67,6 @@ export default function ListProd ({ id, type, search })  {
 			setApi()
 			  .get('/tools')
 			  .then(response => {
-			  	console.log(response.data)
 			  	dispatch(Creators.loadMachines(response.data))
 			  	//dispatch(Creators.loadMachinesForFilters(response.data))
 			  	setProds(response.data)
@@ -129,7 +127,7 @@ export default function ListProd ({ id, type, search })  {
 	}
 
 	return (
-		<Column style={{ width: "80%", margin: "0 auto", flexWrap: 'wrap' }} >
+		<Column style={{ width: "80%", margin: "0 auto", }} >
 		  	{visLoading ? <img src={loading} style={{width: "32px", margin: "auto", display: "block"}}/> : 
 		  	listProdsPag.length > 0 ? 
 		  	  <Column>

@@ -41182,7 +41182,8 @@ var IndexPage = function IndexPage() {
   }, __jsx(_src_components_web_SlideWeb__WEBPACK_IMPORTED_MODULE_8__["default"], {
     images: images.map(function (img) {
       return img.image;
-    })
+    }),
+    balls: true
   }), __jsx(_src_components_web_home_Home__WEBPACK_IMPORTED_MODULE_6__["default"], null), __jsx(_src_components_web_Map__WEBPACK_IMPORTED_MODULE_7__["default"], {
     map: map,
     resellers: resellers
@@ -41496,16 +41497,18 @@ var ArrowRight = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].span.
         return suckBalls(i + 1);
       },
       style: {
-        width: "8px",
-        height: "8px",
-        background: index == i + 1 ? "black" : "transparent",
-        border: "1px solid black",
+        width: "14px",
+        height: "14px",
+        background: index == i + 1 ? "#242873" : "rgba(255,255,255,.5)",
+        border: index == i + 1 ? "1px solid #242873" : "1px solid rgba(255,255,255,.5)",
         borderRadius: "100%",
         marginRight: "10px",
-        cursor: "pointer"
+        cursor: "pointer",
+        marginTop: "-50px",
+        zIndex: 9
       }
     });
-  })) : __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null));
+  })) : __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, balls));
 });
 
 /***/ }),
@@ -41551,7 +41554,7 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 function Footer() {
-  return __jsx(_static_styled_components_base__WEBPACK_IMPORTED_MODULE_5__["Row"], {
+  return __jsx(_static_styled_components_base__WEBPACK_IMPORTED_MODULE_5__["Column"], null, __jsx(_static_styled_components_base__WEBPACK_IMPORTED_MODULE_5__["Row"], {
     style: {
       background: "#ECECEC",
       padding: "35px 9.89% 15px 7%",
@@ -41567,8 +41570,9 @@ function Footer() {
   }, __jsx("img", {
     src: _static_images_logo_colorido_png__WEBPACK_IMPORTED_MODULE_6___default.a,
     style: {
-      width: "45\%",
-      marginRight: "15%"
+      marginRight: "15%",
+      width: "35%",
+      marginTop: "10px"
     }
   })), __jsx(_static_styled_components_base__WEBPACK_IMPORTED_MODULE_5__["Row"], {
     flex: 1
@@ -41598,7 +41602,7 @@ function Footer() {
     }
   }, "Contato")), __jsx(_static_styled_components_base__WEBPACK_IMPORTED_MODULE_5__["Column"], null, __jsx(Item, {
     onClick: function onClick() {
-      return _routes__WEBPACK_IMPORTED_MODULE_2__["Router"].pushRoute('/empresa');
+      return _routes__WEBPACK_IMPORTED_MODULE_2__["Router"].pushRoute('/revendedores');
     }
   }, "Revendedores"), __jsx(Item, {
     onClick: function onClick() {
@@ -41686,7 +41690,25 @@ function Footer() {
     style: {
       width: "60%"
     }
-  })));
+  }))), __jsx(_static_styled_components_base__WEBPACK_IMPORTED_MODULE_5__["Row"], {
+    jc: "center",
+    style: {
+      background: "#484848"
+    }
+  }, __jsx("p", {
+    style: {
+      color: "white",
+      fontSize: "12px",
+      fontFamily: "sans-serif"
+    }
+  }, "\xA9 2019 Todos os direitos reservados | ", __jsx("a", {
+    href: "squad.ag",
+    target: "_blank",
+    style: {
+      color: "white",
+      fontFamily: "sans-serif"
+    }
+  }, "Desenvolvido por Squad Markting 4.0"))));
 }
 var Item = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].p.withConfig({
   displayName: "Footer__Item",
@@ -41988,7 +42010,7 @@ var MapsQuest = /*#__PURE__*/function (_Component) {
           color: "#5B5B5B"
         }
       }, "Encontre um revendedor pr\xF3ximo a voc\xEA!"), __jsx(_static_styled_components_base__WEBPACK_IMPORTED_MODULE_9__["Row"], {
-        jc: "space-around",
+        jc: "center",
         ait: "center",
         style: {
           width: "50%",
@@ -42006,7 +42028,7 @@ var MapsQuest = /*#__PURE__*/function (_Component) {
         onChange: this.onChangeState.bind(this),
         value: "".concat(this.state.state.id, "-").concat(this.state.state.name)
       }, __jsx("option", {
-        value: 'Selecione um estado'
+        value: 'Selecione o estado'
       }, "Selecione um estado"), this.state.states.map(function (st, i) {
         return __jsx("option", {
           key: i,
@@ -42024,7 +42046,7 @@ var MapsQuest = /*#__PURE__*/function (_Component) {
         onChange: this.onChangeCity.bind(this),
         value: this.state.city
       }, __jsx("option", {
-        value: "Selecione uma cidade"
+        value: "Selecione a cidade"
       }, "Selecione uma cidade"), this.state.cities.filter(function (cit) {
         return cit.estadoId == _this2.state.state.id ? cit : false;
       }).map(function (cit, i) {
@@ -42032,13 +42054,27 @@ var MapsQuest = /*#__PURE__*/function (_Component) {
           key: i,
           value: cit.id
         }, cit.cidade);
-      }))), __jsx(_static_styled_components_base__WEBPACK_IMPORTED_MODULE_9__["Row"], {
+      })), __jsx("button", {
+        onClick: function onClick() {
+          return _this2.setViewMap(_this2.state.state, _this2.state.city);
+        },
+        style: {
+          width: "128px",
+          height: "40px",
+          background: "transparent linear-gradient(180deg, #242873 0%, #161848 100%) 0% 0% no-repeat padding-box",
+          borderRadius: "4px",
+          color: "white",
+          cursor: "pointer"
+        }
+      }, "BUSCAR")), __jsx(_static_styled_components_base__WEBPACK_IMPORTED_MODULE_9__["Row"], {
         id: "map",
         style: {
           width: "70%",
           height: "500px",
           marginBottom: "10px",
-          marginTop: "10px"
+          marginTop: "10px",
+          border: "7px solid #DCDCDC",
+          borderRadius: "10px"
         }
       }), __jsx(_static_styled_components_base__WEBPACK_IMPORTED_MODULE_9__["Row"], {
         style: {
@@ -42379,7 +42415,7 @@ function NavSm(_ref) {
       }
     }, __jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_8__["FontAwesomeIcon"], {
       onClick: function onClick() {
-        return Router.push("/index#map");
+        return Router.push("/revendedores");
       },
       icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_9__["faUsers"],
       size: "2x",
@@ -42707,6 +42743,7 @@ function NavBg(_ref2) {
       search = _useState14[0],
       setSearch = _useState14[1];
 
+  console.log(Router);
   return __jsx(_static_styled_components_base__WEBPACK_IMPORTED_MODULE_11__["Column"], {
     style: {
       width: "100%"
@@ -42881,18 +42918,24 @@ function NavBg(_ref2) {
       return setHideManufMenu(false);
     }
   }, __jsx(Hover, {
-    styles: "border-color: #81161B",
+    styles: "border-color: #81161B; background: #2D34B8",
     style: {
       display: "flex",
       alignItems: "center"
     }
   }, __jsx(Item, {
+    style: {
+      padding: "12px 12px"
+    },
     className: "media-1228px"
   }, "Nossas marcas ", __jsx(ArrowDown, {
     className: "arrow-responsive",
     color: "black",
     margin: "0 0 1px 2px"
   }))), __jsx(DropDownMenu, {
+    style: {
+      left: 0
+    },
     color: "black",
     bgcolor: "transparent linear-gradient(180deg, #EFEFEF 0%, #E3E3E3 100%) 0% 0% no-repeat padding-box",
     vis: hideManufMenu
@@ -42910,16 +42953,28 @@ function NavBg(_ref2) {
       }
     }, man.name);
   }))), __jsx(Item, {
+    style: Router.route == '/revendedores' ? {
+      backgroundColor: "#2D34B8",
+      color: "white"
+    } : {},
     className: "media-1228px",
     onClick: function onClick() {
-      return Router.push("/index#map");
+      return Router.push("/revendedores");
     }
   }, "Revendedores"), __jsx(Item, {
+    style: Router.route == '/noticias' ? {
+      backgroundColor: "#2D34B8",
+      color: "white"
+    } : {},
     className: "media-1228px",
     onClick: function onClick() {
       return Router.push("/noticias");
     }
   }, "Not\xEDcias"), __jsx(Item, {
+    style: Router.route == '/contato' ? {
+      background: "#2D34B8",
+      color: "white"
+    } : {},
     className: "media-1228px",
     onClick: function onClick() {
       return Router.push("/contato");
@@ -42950,12 +43005,22 @@ function NavBg(_ref2) {
         return Router.push('/produtos?type=categories&id=' + category.id);
       }
     }, category.name);
-  }), __jsx(Item, {
+  }), __jsx(Hover, {
+    styles: "border-color: #81161B",
+    style: {
+      display: "flex",
+      alignItems: "center"
+    }
+  }, __jsx(Item, {
     className: "media-1228px",
     onClick: function onClick() {
       return Router.push("/produtos?type=tools");
     }
-  }, "Pe\xE7as e acess\xF3rios"), __jsx("div", {
+  }, "Pe\xE7as e acess\xF3rios"), __jsx(ArrowDown, {
+    className: "arrow-responsive",
+    color: "white",
+    margin: "0 0 5px 5px"
+  })), __jsx("div", {
     style: {
       display: "flex",
       justifyContent: "center",
@@ -43021,7 +43086,7 @@ var SearchBtn = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].span.w
 var Item = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].p.withConfig({
   displayName: "Nav__Item",
   componentId: "sc-1fviv0k-5"
-})(["font-size:1rem;cursor:pointer;transition:.4s;:hover{opacity:.9;color:#81161B;}z-index:9;margin:0;padding:12px 0;"]);
+})(["font-size:1rem;cursor:pointer;transition:.4s;:hover{opacity:.9;background-color:#2D34B8;color:white;font-weight:200}z-index:9;margin:0;padding:12px 0;min-width:120px;text-align:center;"]);
 var DropDownItem = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div.withConfig({
   displayName: "Nav__DropDownItem",
   componentId: "sc-1fviv0k-6"
@@ -43029,7 +43094,7 @@ var DropDownItem = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div
 var DropDownMenu = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div.withConfig({
   displayName: "Nav__DropDownMenu",
   componentId: "sc-1fviv0k-7"
-})(["position:absolute;left:-10px;top:40px;z-index:99;background:", ";display:flex;transform-origin:top;transform:", ";transition:transform 0.2s !important;flex-direction:column;width:150px;transition:.2s;div{display:", ";color:", ";padding:10px;cursor:pointer;transition:.2s;:hover{color:#81161B;opacity:.8 !important;}}"], function (props) {
+})(["position:absolute;left:0px;top:40px;z-index:99;background:", ";display:flex;transform-origin:top;transform:", ";transition:transform 0.2s !important;flex-direction:column;width:150px;transition:.2s;div{display:", ";color:", ";padding:10px;cursor:pointer;transition:.2s;:hover{color:white;background-color:#2D34B8;opacity:.8 !important;}}"], function (props) {
   return props.bgcolor;
 }, function (props) {
   return props.vis ? "scaleY(1)" : "scaleY(0)";
@@ -43041,7 +43106,7 @@ var DropDownMenu = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div
 var ArrowDown = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].i.withConfig({
   displayName: "Nav__ArrowDown",
   componentId: "sc-1fviv0k-8"
-})(["border:solid ", ";border-width:0 3px 3px 0;display:inline-block;padding:3px;transform:rotate(45deg);-webkit-transform:rotate(45deg);margin:", ";"], function (props) {
+})(["border:solid ", ";border-width:0 3px 3px 0;display:inline-block;padding:3px;transform:rotate(45deg);-webkit-transform:rotate(45deg);margin:", ";:hover{opacity:.9;color:#81161B;}"], function (props) {
   return props.color;
 }, function (props) {
   return props.margin;
@@ -43083,7 +43148,8 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 function SlideWeb(_ref) {
   var fixed = _ref.fixed,
-      images = _ref.images;
+      images = _ref.images,
+      balls = _ref.balls;
   return fixed ? __jsx(Wrapper, {
     height: "400px"
   }, __jsx(Slide, {
@@ -43095,7 +43161,8 @@ function SlideWeb(_ref) {
     images: images,
     slideWidth: "100%",
     arrows: true,
-    autoSlide: true
+    autoSlide: true,
+    balls: balls
   }) : '');
 }
 var Wrapper = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div.withConfig({
@@ -43535,7 +43602,7 @@ var UploadImageContainer = styled_components__WEBPACK_IMPORTED_MODULE_0__["defau
 
 /***/ }),
 
-/***/ 3:
+/***/ 1:
 /*!********************************************************************************************************************************************************!*\
   !*** multi next-client-pages-loader?page=%2F&absolutePagePath=C%3A%5CUsers%5CGluz%5CProjects%5Cweb%5Cmultcostura%5Cmultcostura-web%5Cpages%5Cindex.js ***!
   \********************************************************************************************************************************************************/
@@ -43558,5 +43625,5 @@ module.exports = dll_2adc2403d89adc16ead0;
 
 /***/ })
 
-},[[3,"static/runtime/webpack.js"]]]);
+},[[1,"static/runtime/webpack.js"]]]);
 //# sourceMappingURL=index.js.map

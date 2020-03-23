@@ -124,7 +124,7 @@ function NavSm({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHide
       		<img src={iconTool} style={{ width: "36px",marginRight: "10px"}} /> <span style={{ fontSize: "1.1rem"}}>Peças</span>
       	  </Row>,
           <Row key={Math.round(Math.random()*100)}  jc="flex-start" ait="center" style={{ marginTop: "13px", padding: "0 15px" }}>
-      		<FontAwesomeIcon onClick={() => Router.push("/index#map")} icon={faUsers} size="2x" style={{ marginRight: "10px"}} /> <span style={{ fontSize: "1.1rem"}}>Revendedores</span>
+      		<FontAwesomeIcon onClick={() => Router.push("/revendedores")} icon={faUsers} size="2x" style={{ marginRight: "10px"}} /> <span style={{ fontSize: "1.1rem"}}>Revendedores</span>
       	  </Row>,
       	  <Row key={Math.round(Math.random()*100)} jc="flex-start" ait="center" style={{ marginTop: "13px", padding: "0 15px" }} onClick={() => Router.push("/empresa")}>
       		<FontAwesomeIcon icon={faBuilding} size="2x" style={{ marginRight: "10px"}} /> <span style={{ fontSize: "1.1rem"}}>Empresa</span>
@@ -223,7 +223,7 @@ function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHid
 	const Router = useRouter();
 	const [doll, setDoll] = useState(0)
 	const [search, setSearch] = useState('')
-
+	console.log(Router)
 	return (
 		<Column style={{ width: "100%" }}>
 			<Row flex="5" style={{ flex: "5 1 auto",  justifyContent: "center", background: "transparent linear-gradient(180deg, #E8E8E8 0%, #E7E7E7 48%, #D6D6D6 100%) 0% 0% no-repeat padding-box"}}>
@@ -273,22 +273,22 @@ function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHid
 				</Row>
 			</Row>
 			<Row flex="1" style={{ justifyContent: "center", background: "transparent linear-gradient(180deg, #EFEFEF 0%, #E3E3E3 100%) 0% 0% no-repeat padding-box"}}>
-				<Row style={{ width: "85%", justifyContent: "space-between",}}>
+				<Row style={{ width: "85%", justifyContent: "space-between"}}>
 					<div
 						style={{
 	                  		display: "flex",
 	                  		justifyContent: "center",
 	                  		alignItems: "center",
 	                  		marginRight: "10px",
-	                  		position: "relative"
-	                	}}
+	                  		position: "relative",
+	                	}} 
 						onMouseEnter={() => setHideManufMenu(true)}
 	                	onMouseLeave={() => setHideManufMenu(false)}
 					>
-						<Hover styles="border-color: #81161B" style={{ display: "flex", alignItems: "center" }}>
-							<Item className="media-1228px">Nossas marcas <ArrowDown className="arrow-responsive" color="black" margin="0 0 1px 2px"/></Item>
+						<Hover styles="border-color: #81161B; background: #2D34B8" style={{ display: "flex", alignItems: "center" }}>
+							<Item style={{ padding: "12px 12px"}}  className="media-1228px">Nossas marcas <ArrowDown className="arrow-responsive" color="black" margin="0 0 1px 2px"/></Item>
 						</Hover>
-						<DropDownMenu  color="black" bgcolor="transparent linear-gradient(180deg, #EFEFEF 0%, #E3E3E3 100%) 0% 0% no-repeat padding-box" vis={hideManufMenu}>
+						<DropDownMenu style={{ left: 0}}  color="black" bgcolor="transparent linear-gradient(180deg, #EFEFEF 0%, #E3E3E3 100%) 0% 0% no-repeat padding-box" vis={hideManufMenu}>
 							{manufacturers.map((man, i) => <DropDownItem key={i} onClick={() => Router.push({ 
 								pathname: "/produtos",
 								query: { type: "manufacturer", id: man.id }
@@ -296,9 +296,9 @@ function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHid
 							>{man.name}</DropDownItem>)}
 						</DropDownMenu>
 					</div>
-					<Item className="media-1228px" onClick={() => Router.push("/index#map")}>Revendedores</Item>
-					<Item className="media-1228px" onClick={() => Router.push("/noticias")}>Notícias</Item>
-					<Item className="media-1228px" onClick={() => Router.push("/contato")}>Contato</Item>
+					<Item style={Router.route == '/revendedores' ? { backgroundColor: "#2D34B8", color: "white"} : {}} className="media-1228px" onClick={() => Router.push("/revendedores")}>Revendedores</Item>
+					<Item style={Router.route == '/noticias' ? { backgroundColor: "#2D34B8", color: "white"} : {}} className="media-1228px" onClick={() => Router.push("/noticias")}>Notícias</Item>
+					<Item style={Router.route == '/contato' ? { background: "#2D34B8", color: "white"} : {}} className="media-1228px" onClick={() => Router.push("/contato")}>Contato</Item>
 					<Item className="baixe-nosso-ap-responsivo" style={{ color: "#81161B" }}>BAIXE NOSSO APLICATIVO</Item>
 				</Row>
 			</Row>
@@ -307,7 +307,10 @@ function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHid
 					{categories.map((category, i) => {
 						if (i < 8) return <Item key={i} className="media-1228px" onClick={() => Router.push('/produtos?type=categories&id='+category.id)}>{category.name}</Item>
 					})}
-					<Item className="media-1228px" onClick={() => Router.push("/produtos?type=tools")}>Peças e acessórios</Item>
+					<Hover styles="border-color: #81161B" style={{ display: "flex", alignItems: "center" }}>
+						<Item className="media-1228px" onClick={() => Router.push("/produtos?type=tools")}>Peças e acessórios</Item>
+						<ArrowDown className="arrow-responsive" color="white" margin="0 0 5px 5px" />
+					</Hover>
 					<div  style={{
 	                  display: "flex",
 	                  justifyContent: "center",
@@ -377,11 +380,16 @@ const Item = styled.p`
 	transition: .4s;
 	:hover {
 		opacity: .9;
-		color: #81161B;
+		background-color: #2D34B8;
+		color: white;
+		font-weight: 200
 	}
 	z-index: 9;
 	margin: 0;
 	padding: 12px 0;
+	min-width: 120px;
+	text-align: center;
+
 `
 
 
@@ -395,7 +403,7 @@ const DropDownItem = styled.div`
 
 const DropDownMenu = styled.div`
   position: absolute;
-  left: -10px;
+  left: 0px;
   top: 40px;
   z-index:99;
   background: ${props => props.bgcolor};
@@ -413,8 +421,8 @@ const DropDownMenu = styled.div`
     cursor: pointer;
     transition: .2s;
     :hover {
-
-      color: #81161B;
+      color: white;
+      background-color: #2D34B8;
       opacity: .8 !important;
     }
   }
@@ -429,6 +437,10 @@ const ArrowDown = styled.i`
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   margin: ${props => props.margin};
+  :hover {
+		opacity: .9;
+		color: #81161B;
+	}
   
 `
 
