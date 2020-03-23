@@ -166,7 +166,7 @@ export default function ListCategories() {
           <CategoryContainer
             flexDirection="row"
             justifyContent="space-between"
-            style={{ borderBottom: "1px solid lightgrey" }}
+            style={{ borderBottom: "2px solid lightgrey", marginTop: "3%", marginBottom: "3%" }}
             key={id}
           >
             <CategoryContainer
@@ -188,12 +188,12 @@ export default function ListCategories() {
               flexDirection="column"
               style={{ marginRight: "10px", marginLeft: "10px" }}
             >
-              <Button onClick={() => handleOpen(category)}>Editar</Button>
-              <Button onClick={() => delCat(category.id)}>Apagar</Button>
+              <Button onClick={() => handleOpen(category)}>Editar Categoria</Button>
+              <Button onClick={() => delCat(category.id)}>Apagar Categoria</Button>
               <Link
                 route={`/admin/banner/category/${category.id}?name=${category.name}`}
               >
-                <Button>Banner</Button>
+                <Button>Configurar Banner</Button>
               </Link>
             </CategoryContainer>
           </CategoryContainer>

@@ -8,15 +8,18 @@ class MyDocument extends Document {
     return { ...initialProps };
   }
 
+
   render() {
     return (
       <Html>
         <Head>
           <link rel="shortcut icon" href="/favicon.ico" />
+          
         </Head>
         <body style={{ margin: 0, padding: 0}}>
           <Main />
           <NextScript />
+          
         </body>
       </Html>
     );

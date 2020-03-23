@@ -11,6 +11,7 @@ class MyApp extends App {
     const { Component, pageProps } = this.props;
     return (
       <Provider store={reduxStore}>
+
         <Component {...pageProps} />
       </Provider>
     );

@@ -11,10 +11,11 @@ const Wrapper = styled.div`
 `;
 
 const Slide = styled.div`
-	background-image: url('${props => props.src}');
-	background-size: cover;
-	background-position: center;
+	//background-image: url('${props => props.src}');
+	//background-size: 100%;
+	//background-position: center;
 	background-repeat: no-repeat;
+  background-color: #E3E3E3;
 	width: ${props => props.width};
 	height: ${props => props.height};
 	transform: translateX(${props => props.translate}px);
@@ -64,16 +65,18 @@ export default ({ link, images, autoSlide, slideCtrl, balls, arrows, height, sli
     if (autoSlide) {
       const interval = setInterval(() => {
         next();
-      }, 3000);
+      }, 4000);
 
       return () => clearInterval(interval);
     }
   }, [index]);
 
   useEffect(() => {
-    setIndex(slideCtrl);
-    if (slideCtrl != index)
-      setTranslate(getSlideWidth() - slideCtrl * getSlideWidth());
+    if (slideCtrl){
+      setIndex(slideCtrl);
+      if (slideCtrl != index)
+        setTranslate(getSlideWidth() - slideCtrl * getSlideWidth());
+    }
   }, [slideCtrl]);
 
   useLayoutEffect(() => {
@@ -87,6 +90,7 @@ export default ({ link, images, autoSlide, slideCtrl, balls, arrows, height, sli
     setIndex(index - 1);
   }
   function next() {
+    
     if (index == images.length) {
       setTranslate(1);
       setIndex(1);
@@ -110,7 +114,7 @@ export default ({ link, images, autoSlide, slideCtrl, balls, arrows, height, sli
 
   return (
     <>
-      <Wrapper height={height}>
+      <Wrapper height={"400px"}>
         {images ? (
           <>
             {arrows ? (
@@ -129,18 +133,24 @@ export default ({ link, images, autoSlide, slideCtrl, balls, arrows, height, sli
                   key={i}
                   src={img}
                   translate={translate}
-                  height={height}
+                  height={"100%"}
                   width={slideWidth}
-                />
+                >
+                  <img src={img} style={{ width: "100%", height: "100%"}} />
+                </Slide>
               ))}
             </>
           </>
         ) : (
           <p> no image</p>
         )}
+
+
+     
+
+
       </Wrapper>
-      {balls ? (
-        <div
+      {balls ? <div
           id="bolas"
           style={{
             display: "flex",
@@ -155,20 +165,20 @@ export default ({ link, images, autoSlide, slideCtrl, balls, arrows, height, sli
               key={i}
               onClick={() => suckBalls(i + 1)}
               style={{
-                width: "8px",
-                height: "8px",
-                background: index == i + 1 ? "black" : "transparent",
-                border: "1px solid black",
+                width: "14px",
+                height: "14px",
+                background: index == i + 1 ? "#242873" : "rgba(255,255,255,.5)",
+                border: index == i + 1 ? "1px solid #242873" : "1px solid rgba(255,255,255,.5)",
                 borderRadius: "100%",
                 marginRight: "10px",
-                cursor: "pointer"
+                cursor: "pointer",
+                marginTop: "-50px",
+                zIndex: 9
               }}
             />
           ))}
-        </div>
-      ) : (
-        <></>
-      )}
+        </div> : <>{balls}</>}
+
     </>
   );
 };
