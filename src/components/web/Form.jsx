@@ -51,7 +51,6 @@ export default function Form () {
 		  })
 		  .catch(err => {
 		  	setVisLoad(false)
-		  	console.log('error => ', err)
 		  })
 		} else {
 			setVisLoad(false)

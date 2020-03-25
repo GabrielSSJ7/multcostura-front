@@ -406,6 +406,9 @@ export default function HomeBanner() {
             ) : (
               ""
             )}
+
+
+            <div style={{ border: "1px solid grey", margin: "10px"}}><p style={{ textAlign: "center" }}>*As imagens devem ter 1920x400</p></div>
           </Column>
         </Row>
       </Column>

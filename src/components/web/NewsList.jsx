@@ -55,7 +55,7 @@ export default function NewsList ({ news }) {
 		  	.currentImg {
 		  	  height: auto;
 		      width: auto;
-		      max-height: 800px;
+		      max-height: 100%;
 		      max-width: 100%;
 		      margin-left: auto;
 		      margin-right: auto;
@@ -84,10 +84,35 @@ export default function NewsList ({ news }) {
 		  <Dialog
             open={openDiag}
             onClose={handleClose}
-            style={{ maxWidth: "3000px" }}
+            style={{ maxWidth: "80%", margin: "auto" }}
             aria-labelledby="form-dialog-title"
           >
-	          <DialogTitle  id="form-dialog-title">Galeria de Fotos - {newsForDiag.title}</DialogTitle>
+	          <DialogTitle  id="form-dialog-title">
+	          <Row jc="space-between">
+		          <Column>
+		          	<p style={{ color: "#707070", marginBottom: "0"}}>{newsForDiag.date}</p>
+		          	<p style={{ color: "#707070", marginTop: "0"}}>{newsForDiag.title}</p>
+		          </Column>
+
+		          <p 
+		          onClick={handleClose}
+		          style={{ 
+		          	background: "#3037C9 0% 0% no-repeat padding-box",
+		          	borderRadius: "19px",
+		          	opacity: 1, 
+		          	width: "38px", 
+		          	height: "38px", 
+		          	display:"flex", 
+		          	alignItem: "center",
+		          	justifyContent: "center", 
+		          	color: "white", 
+		          	margin: 0,
+		          	cursor: "pointer",
+		          	fontSize: "26px"
+		          }}
+		          >X</p>
+	          </Row>
+	          </DialogTitle>
 	          
 	            {translate > 665 ? 
 	            	<DialogContent style={{ display: "flex", flexDirection: "row" }}>

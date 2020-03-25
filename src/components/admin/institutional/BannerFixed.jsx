@@ -211,8 +211,8 @@ const Wrapper = styled.div`
 
 const Slide = styled.div`
 	background-image: url('${props => props.src}');
-  background-size: cover;
-  height: 400px;
+  //background-size: 100%;
+  //eight: 400px;
   width: 100%;
 	background-position: center;
 	background-repeat: no-repeat;

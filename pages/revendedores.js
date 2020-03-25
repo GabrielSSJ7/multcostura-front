@@ -1,19 +1,12 @@
-import React, { useEffect, useState } from "react";
-import Head from 'next/head'
-import { Link } from "../routes";
-import { connect } from "react-redux";
-import { Column } from '../src/static/styled-components/base'
-import Home from '../src/components/web/home/Home'
-import Map from '../src/components/web/Map'
-import SlideWeb from '../src/components/web/SlideWeb'
+import React, { useState, useEffect } from 'react'
 import Template from '../src/components/templates/Web'
+import Map from '../src/components/web/Map'
 import setApi from '../src/api'
 
 
-
-const IndexPage = () => {
+export default function Revendedores() {
   const [resellers, setResellers] = useState([]);
-	const [images, setImages] = useState([])
+  const [images, setImages] = useState([])
   const [map, setMap] = useState(null)
   const [infobox, setInfobox] = useState()
 
@@ -92,21 +85,9 @@ const IndexPage = () => {
   	}   
   	async();
   }, [])
-  
 
-  return (
-    <Template>
-      <Column style={{ width: "100%" }}>
-        <SlideWeb images={images.map(img => img.image)} balls={true} />
-        <Home />
+	return <Template>
+
         <Map map={map} resellers={resellers}/>
-      </Column>
-    </Template>
-  );
-};
-
-IndexPage.getInitialProps = ({ reduxStore }) => {
-  return {};
-};
-
-export default IndexPage
+	</Template>
+}
