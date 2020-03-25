@@ -140,7 +140,10 @@ export default function EditMachine({ id }) {
     var results = new RegExp('[\?&]' + 'v' + '=([^&#]*)')
                       .exec(url);
     if (results == null) {
+        if (url.indexOf('embed') == -1)
          return 0;
+        else 
+          return 1;
     }
     return results[1] || 0;
   }
@@ -977,7 +980,7 @@ export default function EditMachine({ id }) {
           style={{ width: "50%", margin: "auto", display: "block" }}
           onClick={() =>{
             console.log(getParam(state.videoInput), state.video)
-              if (getParam(state.videoInput) != 0){
+              if (getParam(state.videoInput) != 0 || state.videoInput == ''){
                 updateMachine(
                   state,
                   machineFiles,
