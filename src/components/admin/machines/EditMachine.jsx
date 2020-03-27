@@ -85,7 +85,7 @@ export default function EditMachine({ id }) {
         if (err) {
           setSnackBar({
             result: "error",
-            message: err,
+            message: err.toString(),
             open: true
           });
           return;

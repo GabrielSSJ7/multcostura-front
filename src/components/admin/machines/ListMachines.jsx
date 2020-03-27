@@ -76,7 +76,7 @@ export default function ListMachines() {
           setSnackBar({
             result: "error",
             open: true,
-            message: err
+            message: err.toString()
           });
           return;
         }
