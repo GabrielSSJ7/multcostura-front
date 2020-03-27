@@ -5,3 +5,4 @@ nohup.out
 build
 .vscode
 .now
+.gitignore
