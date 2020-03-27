@@ -16,4 +16,4 @@ const nextConfig = {
   	initialMapPosition: { lat:-13.6634315, lng: -69.6385312 }
   }
 };
-module.exports = withPlugins([withFonts, withImages, withCss], nextConfig);
+module.exports = withPlugins([withCss, withFonts, withImages ], nextConfig);

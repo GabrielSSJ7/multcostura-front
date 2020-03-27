@@ -187,7 +187,7 @@ export default class MapsQuest extends Component {
 						onChange={this.onChangeState.bind(this)}
 						value={`${this.state.state.id}-${this.state.state.name}`}
 					>
-						<option value={'Selecione o estado'} >Selecione um estado</option>
+						<option value={'Selecione o estado'} >Selecione o estado</option>
 						{this.state.states.map((st, i) => <option key={i} value={`${st.id}-${st.estado}`}>{st.estado}</option>)}
 					</Select>
 
@@ -203,7 +203,7 @@ export default class MapsQuest extends Component {
 						onChange={this.onChangeCity.bind(this)}
 						value={this.state.city}
 					>
-						<option value='Selecione a cidade'>Selecione uma cidade</option>
+						<option value='Selecione a cidade'>Selecione a cidade</option>
 						{this.state.cities.filter(cit => cit.estadoId == this.state.state.id ? cit : false ).map((cit, i) => <option key={i} value={cit.id}>{cit.cidade}</option>)}
 					</Select>
 					<button onClick={() => this.setViewMap(this.state.state, this.state.city)} style={{ width: "128px", height: "40px", background: "transparent linear-gradient(180deg, #242873 0%, #161848 100%) 0% 0% no-repeat padding-box",

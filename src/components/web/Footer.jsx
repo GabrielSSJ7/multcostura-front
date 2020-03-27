@@ -21,19 +21,19 @@ export default function Footer () {
 			</Column>
 			<Row flex={1}>
 				<Column style={{ marginRight: "25px"}}>
-					<Item onClick={() => Router.pushRoute('/empresa')}>
+					<Item onClick={() => window.location.href ='/empresa'}>
 						Empresa
 					</Item>
-					<Item onClick={() => Router.pushRoute('/produtos')}>
+					<Item onClick={() => window.location.href ='/produtos'}>
 						Máquinas
 					</Item>
-					<Item onClick={() => Router.pushRoute('/produtos?type=tools')}>
+					<Item onClick={() => window.location.href ='/produtos?type=tools'}>
 						Peças
 					</Item>
-					<Item onClick={() => Router.pushRoute('/noticias')}>
+					<Item onClick={() => window.location.href ='/noticias'}>
 						Notícias
 					</Item>					
-					<Item onClick={() => Router.pushRoute('/contato')}>
+					<Item onClick={() => window.location.href = '/contato'}>
 						Contato
 					</Item>
 				</Column>
@@ -70,7 +70,7 @@ export default function Footer () {
 			</Column>
 		</Row>
 		<Row jc="center" style={{ background: "#484848"}}>
-			<p style={{ color: "white", fontSize: "12px", fontFamily: "sans-serif"}}>© 2019 Todos os direitos reservados | <a href="squad.ag" target="_blank" style={{ color: "white", fontFamily: "sans-serif"}}>Desenvolvido por Squad Markting 4.0</a></p>
+			<p style={{ color: "white", fontSize: "12px", fontFamily: "sans-serif"}}>© 2019 Todos os direitos reservados | <a href="https://squad.ag" target="_blank" style={{ color: "white", fontFamily: "sans-serif"}}>Desenvolvido por Squad Marketing 4.0</a></p>
 		</Row>
 		</Column>
 	)
