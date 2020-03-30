@@ -69,9 +69,9 @@ export default function Login() {
           <hr />
           <Text>E-mail/CPF:</Text>
         
-          <InputMask
+          <Input
             style={{ flex: 1 }}
-            placeholder="E-mail ou CPF"
+            placeholder="Digite o seu usuário"
             onChange={e => setState({ ...state, login: e.target.value })}
             onKeyDown={_handleKeyDown}
             mask="999.999.999-99"
