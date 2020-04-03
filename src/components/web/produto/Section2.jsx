@@ -47,7 +47,7 @@ export default function Section2 ({ prod }) {
 		<Column jc="center" flex="1" style={{  minWidth: '250px' }}>{prod.specifications? 
 			<>
 				<MachineName style={{marginBottom: "35px"}}>Descrição Técnica</MachineName>
-				<Row style={{ flexWrap: 'wrap'}} >{specifications.map(spec => <Text style={{ width: "50%", marginBottom: "0", fontFamily:"sans-serif" }}>- {spec}</Text>)}</Row>
+				<Row style={{ flexWrap: 'wrap'}} >{specifications.map(spec => <Text style={{ width: "50%", fontSize: "16px",marginBottom: "0", fontFamily:"sans-serif" }}>- {spec}</Text>)}</Row>
 			</>
 		 : ''}
 	<Dialog

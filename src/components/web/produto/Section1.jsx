@@ -8,21 +8,22 @@ export default function Section1 ({ prod }) {
 	return <Row style={{ width: "100%", background: "#F1F1F1", paddingTop: '10.66%', flexWrap: "wrap-reverse" }}>
 		<Column flex="1" style={{ paddingLeft: '11.15%', minWidth: '250px' }}>
 			<MachineName>{prod.name}</MachineName>
-			<Category>{prod.category.name}</Category>
+			<Category>{prod.category ? prod.category.name : ''}</Category>
 			<Text>{prod.description}</Text>
 			{prod.specifications ? <Text style={{marginTop: '7px', marginBottom: '2px'}}>Modelo: {prod.specifications.modelo}</Text> : ''}
 			<Text>{prod.mainFeatures}</Text>
 
-			{prod.productRef ? <Column style={{  height: "32%", marginTop: "64px" }}>
+			{prod.productRef ? 
+			    prod.productRef.length > 0 ? <Column style={{  height: "32%", marginTop: "64px" }}>
 				<Text>Detalhes | Ideal para produzir </Text>
 
 				<Row style={{ width: "95%", height: "66.66%", minHeight: "200px"}}>
 					{prod.productRef.map(ref => <Img src={ref} width="32%" style={{ marginRight: "1.3%"}} height="66.66%" />)}
 				</Row>
-			</Column> : ''}
+			</Column> : '' : ''}
 		</Column>
 		<Column flex="1" style={{ marginRight: '11.15%', minWidth: '250px' }} ait="flex-end" jc="flex-start">
-			<img src={prod.images[0]} style={{ width: "80%", maxHeight: "600px", marginTop: "70px"}} />
+			<img src={prod.images[0]} style={{ width: "80%", maxHeight: "600px", margin: "70px auto 0", display: "block"}} />
 		</Column>
 	 </Row>
 }
