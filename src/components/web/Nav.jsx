@@ -302,31 +302,67 @@ function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHid
 					<Item className="baixe-nosso-ap-responsivo" style={{ color: "#81161B" }}>BAIXE NOSSO APLICATIVO</Item>
 				</Row>
 			</Row>
-			<Row flex="1" jc="center" style={{ color: "white", background: "transparent linear-gradient(180deg, #323AD6 0%, #242873 100%) 0% 0% no-repeat padding-box", padding: "0 100px" }}>
-				<Row style={{ width: '95%'}} jc="space-between">
-					{categories.map((category, i) => {
-						if (i < 8) return <Item key={i} className="media-1228px" onClick={() => Router.push('/produtos?type=categories&id='+category.id)}>{category.name}</Item>
-					})}
-					<Hover styles="border-color: #81161B" style={{ display: "flex", alignItems: "center" }}>
-						<Item className="media-1228px" onClick={() => Router.push("/produtos?type=tools")}>Peças e acessórios</Item>
-						<ArrowDown className="arrow-responsive" color="white" margin="0 0 5px 5px" />
-					</Hover>
-					<div  style={{
-	                  display: "flex",
-	                  justifyContent: "center",
-	                  alignItems: "center",
-	                  marginRight: "10px",
-	                  position: "relative"
-	                }}
-	                onMouseEnter={() => setHideDropMenu(true)}
-	                onMouseLeave={() => setHideDropMenu(false)}>
-						<Hover styles="border-color: #81161B" style={{ display: "flex", alignItems: "center" }}>
-							<Item className="media-1228px" onClick={() => setHideDropMenu(hideDropMenu ? false : true)}>Todas as categorias</Item><ArrowDown className="arrow-responsive" color="white" margin="0 0 5px 5px" />
-						</Hover>
-						<DropDownMenu color="white" bgcolor="transparent linear-gradient(180deg, #323AD6 0%, #242873 100%) 0% 0% no-repeat padding-box" vis={hideDropMenu}>
-							{categories.map((cat, i) => <DropDownItem key={i} onClick={() => Router.push('/produtos?type=categories&id='+cat.id)}>{cat.name}</DropDownItem>)}
-						</DropDownMenu>
-					</div>
+			<Row 
+			  flex="1"
+			  jc="center"
+			  style={{ 
+			    color: "white", 
+			    background: "transparent linear-gradient(180deg, #323AD6 0%, #242873 100%) 0% 0% no-repeat padding-box" }}
+			>
+				<Row 
+				  style={{ 
+				      width: '82%',
+				      marginRight: '2%',
+				    }}
+				  jc="space-between"
+				>
+				  {categories.map((category, i) => {
+					  if (i < 7)
+					    return (<Item 
+						    key={i}
+						    className="media-1228px"
+						    onClick={() => Router.push('/produtos?type=categories&id='+category.id)}
+						    >
+						      {category.name}
+						    </Item>)
+				  })}
+				  <Hover styles="border-color: #81161B" style={{ display: "flex", alignItems: "center" }}>
+					  <Item className="media-1228px" onClick={() => Router.push("/produtos?type=tools")}>
+					    Peças e acessórios
+					    <ArrowDown className="arrow-responsive" color="white" margin="auto 5px" />
+					  </Item>
+				  </Hover>
+				  <div  
+				      style={{
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+					marginRight: "10px",
+					position: "relative"
+				      }}
+				      onMouseEnter={() => setHideDropMenu(true)}
+				      onMouseLeave={() => setHideDropMenu(false)}
+				  >
+					  <Hover styles="border-color: #81161B" style={{ display: "flex", alignItems: "center" }}>
+						  <Item className="media-1228px" onClick={() => setHideDropMenu(hideDropMenu ? false : true)}>
+						    Todas as categorias
+						    <ArrowDown className="arrow-responsive" color="white" margin="auto 5px" />
+						  </Item>
+					  </Hover>
+					  <DropDownMenu 
+					      color="white"
+					      bgcolor="transparent linear-gradient(180deg, #323AD6 0%, #242873 100%) 0% 0% no-repeat padding-box" 
+					      vis={hideDropMenu}
+					  >
+						  {categories.map((cat, i) => 
+						      <DropDownItem 
+							  key={i} 
+							  onClick={() => 
+							    Router.push('/produtos?type=categories&id='+cat.id)}>{cat.name}
+						      </DropDownItem>
+						  )}
+					  </DropDownMenu>
+				  </div>
 				</Row>
 			</Row>
 		</Column>
@@ -386,9 +422,11 @@ const Item = styled.p`
 	}
 	z-index: 9;
 	margin: 0;
-	padding: 12px 0;
-	min-width: 120px;
+	padding: 12px 5px;
 	text-align: center;
+	margin: auto;
+	flex: 1;
+	font-size: 13px;
 
 `
 
@@ -413,7 +451,17 @@ const DropDownMenu = styled.div`
   transition: transform 0.2s !important;
   flex-direction: column;
   width: 150px;
+  max-height: 310px;
+  overflow-y: auto;
   transition: .2s;
+
+/* width */ ::-webkit-scrollbar {   width: 5px; }
+/* Track */ ::-webkit-scrollbar-track {
+background: #f1f1f1; }
+/* Handle */ ::-webkit-scrollbar-thumb {   background: #81161B }
+/* Handle on hover */ ::-webkit-scrollbar-thumb:hover {   background: #81161B }
+
+
   div {
     display: ${props => (props.vis ? "inherit" : "none")};
     color: ${props => props.color};
