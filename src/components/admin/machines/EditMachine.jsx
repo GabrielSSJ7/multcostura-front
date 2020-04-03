@@ -110,7 +110,7 @@ export default function EditMachine({ id }) {
           description: machine.description,
           mainFeatures: machine.mainFeatures,
           specifications: machine.specifications,
-          category: machine.category._id,
+          category: machine.category ?  machine.category._id : null,
           manufacturer: machine.manufacturer,
           videoInput: machine.video
         });

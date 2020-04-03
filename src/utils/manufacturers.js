@@ -30,6 +30,7 @@ export function deleteManufacturer(id, cb) {
     { name, description, file, sets, getItens, close },
     cb
   ) {
+    console.log("manufacturer")
     if (validateImage(["png", "jpg", "svg", "JPG", "jpeg", "webp", "gif", "tiff"], 10000, file)) {
       if (file) {
         const formData = new FormData();
@@ -47,7 +48,7 @@ export function deleteManufacturer(id, cb) {
           });
       } else {
         setApi()
-          .put(`/categories/${id}?name=${name}&description=${description}`)
+          .put(`/manufacturer/${id}?name=${name}&description=${description}`)
           .then(response => {
             cb(null, response.data);
           })

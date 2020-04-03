@@ -254,7 +254,7 @@ function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHid
 								</p>
 							</div>
 							<div style={{ flex: 2 }}>
-								<p className="media-1228px" style={{display: "flex", alignItems: "center", marginBottom: "0", fontFamily: "sans-serif" }}>
+								<p className="media-1228px" style={{display: "flex", alignItems: "center", marginBottom: "0", fontFamily: "sans-serif", fontSize: "93%" }}>
 									<FontAwesomeIcon icon={faEnvelope} style={{ marginRight: "5px", color: "#929292" }} />
 									<span style={{ fontSize: "98%", fontFamily: "sans-serif"}}>E-mail:</span> contato@multcostura.com.br
 								</p>
