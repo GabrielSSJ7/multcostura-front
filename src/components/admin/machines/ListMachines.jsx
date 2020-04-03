@@ -143,10 +143,10 @@ export default function ListMachines() {
             href={`/admin/machines/machine?id=${machine.id.toString()}`}
           >
             <CardContainer>
-              <img src={machine.images[0]} />
+              <img src={machine.images[0]}  />
               <div>
-                <Title> {machine.name} </Title>
-                <Subtitle>{machine.description}</Subtitle>
+                <Title style={{ fontSize: '16px'}}> {machine.name} </Title>
+                <Subtitle style={{ fontSize: '16px'}}>{machine.description}</Subtitle>
               </div>
               {/* <Description>{machine.mainFeatures}</Description> */}
             </CardContainer>
@@ -184,7 +184,8 @@ const CardContainer = styled.div`
 		width: 100%;
 		max-width: 230px;
 		display: block;
-		margin: auto
+		max-height: 75%;
+		margin: auto;
 	}
 	padding: 15px;
 	:hover {
