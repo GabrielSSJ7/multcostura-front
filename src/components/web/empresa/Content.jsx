@@ -31,8 +31,8 @@ export default function Content () {
 		</style>
 
 		<Row jc="center" style={{ width: "100%", background: "#fff", padding: "2% 0", flexWrap: "wrap-reverse" }}>
-			<Row jc="center" style={{ width: "70%"}}>
-				<iframe style={{     flex: "1 1 0%", height: "93%", marginTop: "auto", marginBottom: "auto" }} className="yt-vid" src="https://www.youtube.com/embed/tAXQhN2XdHI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			<Row jc="center" style={{ width: "70%", flexWrap: 'wrap'}}>
+				<iframe style={{     flex: "1 1 0%", height: "93%", marginTop: "auto", marginBottom: "auto", paddingBottom: "20px" }} className="yt-vid" src="https://www.youtube.com/embed/tAXQhN2XdHI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 				<Column  style={{ flex: 1, /*marginRight: "5.44%",*/ paddingLeft: "10px" }}>
 					<Title style={{ marginBotom: 0}}>VALORES CORPORATIVOS</Title>
 

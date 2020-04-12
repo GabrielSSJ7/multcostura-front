@@ -8,7 +8,7 @@ export default function Section1 ({ prod }) {
 	return <Row style={{ width: "100%", background: "#F1F1F1", paddingTop: '10.66%', flexWrap: "wrap-reverse" }}>
 		<Column flex="1" style={{ paddingLeft: '11.15%', minWidth: '250px' }}>
 			<MachineName>{prod.name}</MachineName>
-			<Category>{prod.category ? prod.category.name : ''}</Category>
+			<Category onClick={() => window.location.href = "/produtos?type=categories&id=" + prod.category._id } >{prod.category ? prod.category.name : ''}</Category>
 			<Text>{prod.description}</Text>
 			{prod.specifications ? <Text style={{marginTop: '7px', marginBottom: '2px'}}>Modelo: {prod.specifications.modelo}</Text> : ''}
 			<Text>{prod.mainFeatures}</Text>
@@ -49,7 +49,12 @@ const MachineName = styled.h1`
 `
 
 const Category = styled.h1`
-margin: 0;
+        margin: 0;
+        cursor: pointer;
+        transition: .2s;
+        :hover {
+          opacity: .6;
+        }
 	text-align: left;
 	/*font: Bold 30px/37px Myriad Pro;*/
 	font-size: 30px;

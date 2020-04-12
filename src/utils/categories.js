@@ -25,7 +25,7 @@ export function deleteCategory(id, cb) {
 
 export function editCategory(
   id,
-  { name, description, file, sets, getItens, close },
+  { name, description, file, sets, getItens, close, position, oldPosition },
   cb
 ) {
   if (validateImage(["png"], 100, file)) {
@@ -34,7 +34,7 @@ export function editCategory(
       formData.append("icon", file);
       setApi()
         .put(
-          `/categories/${id}?name=${name}&description=${description}`,
+          `/categories/${id}?name=${name}&description=${description}&position=${position}&oldPosition=${oldPosition ? oldPosition : false}`,
           formData
         )
         .then(response => {
@@ -45,7 +45,7 @@ export function editCategory(
         });
     } else {
       setApi()
-        .put(`/categories/${id}?name=${name}&description=${description}`)
+        .put(`/categories/${id}?name=${name}&description=${description}&position=${position}&oldPosition=${oldPosition ? oldPosition : false}`)
         .then(response => {
           cb(null, response.data);
         })
