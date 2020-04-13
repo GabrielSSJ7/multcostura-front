@@ -53,6 +53,10 @@ export default function ListCategories() {
   }, []);
 
   function editCat(cat) {
+    console.log(cat.position == 0)
+     // return 
+    if (cat.position == 0)
+      cat.oldPosition = 'false'
     editCategory(cat.id, { ...cat }, function(err, data) {
       if (err) {
         dispatch(UtilsCreators.changeMessage(err));
@@ -98,6 +102,7 @@ export default function ListCategories() {
   }
 
   function handleOpen(category) {
+   console.log(category) 
     setcategoryToEdit(category);
     setDiag(true);
   }
@@ -143,6 +148,26 @@ export default function ListCategories() {
               }
               fullWidth
             />
+            <p>Posição no menu:</p>
+            <select 
+              onChange={e => 
+                setcategoryToEdit({ 
+                  ...categoryToEdit, 
+                  position: e.target.value, 
+                  oldPosition: categoryToEdit.position 
+                })
+              }
+              value={categoryToEdit.position}
+              >
+              <option value={0}  >Sem posição</option>
+              <option value={1}>1</option>
+              <option value={2}>2</option>
+              <option value={3}>3</option>
+              <option value={4}>4</option>
+              <option value={5}>5</option>
+              <option value={6}>6</option>
+              <option value={7}>7</option>
+           </select>
 
             {/* <Upload
               labelInputFile="Ícone"
@@ -162,7 +187,12 @@ export default function ListCategories() {
       </div>
 
       <DivListCategories>
-        {categories.map((category, id) => (
+        {categories.sort((a,b) => {
+           if(a.position && b.position) 
+            return a.position-b.position;
+           if(!a.position && !b.position) return 0;
+             return !b.position ? -1 : 1;
+        }).map((category, id) => (
           <CategoryContainer
             flexDirection="row"
             justifyContent="space-between"
@@ -174,6 +204,7 @@ export default function ListCategories() {
               style={{ display: "flex", justifyContent: "column" }}
             >
               <p style={{ fontWeight: "200" }}>Nome: {category.name}</p>
+              <p style={{ fontWeight: "200" }}>Posição no menu: {category.position ? category.position : category.position == 0 ? 'Sem posição' : 'Sem posição' }</p>
               <p style={{ fontWeight: "200" }}>
                 Descrição: {category.description}
               </p>

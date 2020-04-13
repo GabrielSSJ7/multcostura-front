@@ -137,8 +137,8 @@ function NavSm({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHide
       	  </Row>,
 	      	<Column key={Math.round(Math.random()*100)} style={{ padding: "10px" }}>
 	      		<hr style={{ width: "100%"}} /> 
-				<div style={{ flex: 2 }}><p ><img src={iconWhatsapp} />Whatsapp: (00) 00000-0000</p></div>
-				<div style={{ flex: 2 }}><p ><FontAwesomeIcon icon={faPhone} style={{ marginRight: "5px" }} /> (00) 00000-0000</p></div>
+				<div style={{ flex: 2 }}><p ><img src={iconWhatsapp} />Whatsapp: (11) 97472-3356</p></div>
+				<div style={{ flex: 2 }}><p ><FontAwesomeIcon icon={faPhone} style={{ marginRight: "5px" }} /> (11) 2693-7212</p></div>
 				<div style={{ flex: 2 }}><p ><FontAwesomeIcon icon={faEnvelope} style={{ marginRight: "5px" }} />contato@multcostura.com.br</p></div>
 				<div style={{ flex: 1 }}><p ><FontAwesomeIcon icon={faDollarSign} style={{ marginRight: "5px" }} />Dólar: {pctChange ? <img src={arrowUp} style={{ width: "16px"}} /> : <img src={arrowDown} style={{ width: "16px"}} />} {highDolar}</p></div>
 			</Column>
@@ -150,7 +150,7 @@ function NavSm({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHide
 			...list,
 			categories: [
 			<Row key={10201210} ait="center" jc="space-around" ><FontAwesomeIcon icon={faArrowLeft} onClick={() => setListController('main')} /> <h1 style={{textAlign: "center" }}>Categorias</h1></Row>
-			,categories.map((cat, i) => <Column key={i} jc="center" ait="flex-start" style={{ marginTop: "13px", padding: "0 15px" }}>
+			,categories.map((cat, i) => <Column key={cat.id} jc="center" ait="flex-start" style={{ marginTop: "13px", padding: "0 15px" }}>
       		<span style={{ fontSize: "1.1rem"}} onClick={() => Router.push('/produtos?type=categories&id='+cat.id)}>{cat.name}</span>
       		<hr style={{ width: "100%"}} />
       		</Column>)],
@@ -245,12 +245,12 @@ function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHid
 						<Row style={{ maxWidth: "100%",     marginTop: "18px"}}>
 							<div style={{ flex: 2 }}>
 								<p className="media-1228px" style={{display: "flex", alignItems: "center", marginBottom: "0", fontFamily: "sans-serif" }}>
-									<img src={iconWhatsapp} style={{ width: "18px", marginRight: "5px" }} />Whatsapp: (00) 00000-0000
+									<img src={iconWhatsapp} style={{ width: "18px", marginRight: "5px" }} />Whatsapp: (11) 97472-3356
 								</p>
 							</div>
 							<div style={{ flex: 2 }}>
 								<p className="media-1228px" style={{display: "flex", alignItems: "center",  marginBottom: "0", fontFamily: "sans-serif" }}>
-									<FontAwesomeIcon icon={faPhone} style={{ marginRight: "5px", color: "#929292" }} /> Telefone: (00) 00000-0000
+									<FontAwesomeIcon icon={faPhone} style={{ marginRight: "5px", color: "#929292" }} /> Telefone: (11) 2693-7212
 								</p>
 							</div>
 							<div style={{ flex: 2 }}>
@@ -316,7 +316,12 @@ function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHid
 				    }}
 				  jc="space-between"
 				>
-				  {categories.map((category, i) => {
+				  {categories.sort((a,b) => {
+                                     if(a.position && b.position) 
+                                      return a.position-b.position;
+                                     if(!a.position && !b.position) return 0;
+                                       return !b.position ? -1 : 1;
+                                  }).map((category, i) => {
 					  if (i < 7)
 					    return (<Item 
 						    key={i}
@@ -354,9 +359,14 @@ function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHid
 					      bgcolor="transparent linear-gradient(180deg, #323AD6 0%, #242873 100%) 0% 0% no-repeat padding-box" 
 					      vis={hideDropMenu}
 					  >
-						  {categories.map((cat, i) => 
+						  {categories.sort((a,b) => {
+                                                     if(a.position && b.position) 
+                                                      return a.position-b.position;
+                                                     if(!a.position && !b.position) return 0;
+                                                       return !b.position ? -1 : 1;
+                                                  }).map((cat, i) => 
 						      <DropDownItem 
-							  key={i} 
+                                                            key={cat.id} 
 							  onClick={() => 
 							    Router.push('/produtos?type=categories&id='+cat.id)}>{cat.name}
 						      </DropDownItem>
