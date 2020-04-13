@@ -14,13 +14,13 @@ export default function Revendedores() {
   	async function async() {
 
       setApi()
-  			.get('/institutional/homeBanners')
-  			.then(res => {
-  				setImages(res.data)
-  			})
-  			.catch(err => {
+        .get('/institutional/homeBanners')
+        .then(res => {
+                setImages(res.data)
+        })
+        .catch(err => {
 
-  			})
+        })
 
       try{
         const response = await setApi().get('/reseller')
@@ -83,7 +83,9 @@ export default function Revendedores() {
         console.log(e)
       }
   	}   
-  	async();
+      setTimeout(() => {
+        //async();
+      }, 2000)
   }, [])
 
 	return <Template>
