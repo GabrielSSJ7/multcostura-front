@@ -31,11 +31,11 @@ export default class MapsQuest extends Component {
 			cities: response.data.cidades
 		})
 
-		if (!this.props.showMultcostura)
-			this.loadMapScenario()
-		else 
-			this.setMultViewMap()
-	}
+          setTimeout(() => {
+            //async();
+            this.loadMapScenario()
+          }, 2000)
+      }
 
 	async onChangeState(e) {
 		const value = e.target.value.split("-")
@@ -145,7 +145,6 @@ export default class MapsQuest extends Component {
 	}
 
 		async setMultViewMap() {
-			console.log("setMultViewMap")
 			map = new Microsoft.Maps.Map(document.getElementById('map'),{})
 	  		Microsoft.Maps.loadModule('Microsoft.Maps.Search', function () {
 			    var searchManager = new Microsoft.Maps.Search.SearchManager(map);
