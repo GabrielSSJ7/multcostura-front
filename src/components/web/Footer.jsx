@@ -38,11 +38,11 @@ export default function Footer () {
 					</Item>
 				</Column>
 				<Column>
-					<Item onClick={() => Router.pushRoute('/revendedores')}>
+					<Item onClick={() => window.location.href = '/revendedores'}>
 						Revendedores
 					</Item>
 					
-					<Item onClick={() => Router.pushRoute('/produtos')}>
+					<Item onClick={() => window.location.href = '/produtos'}>
 						Marcas
 					</Item>
 				</Column>

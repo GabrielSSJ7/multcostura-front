@@ -45,17 +45,17 @@ const GlobalStyle = createGlobalStyle`
 
     @media(max-width: 1228px) {
       .media-1228px {      
-        font-size: .7rem;
+        font-size: .7rem !important;
       }
     }
 
      @media(max-width: 950px) {
       .media-1228px {      
-        font-size: .6rem;
+        font-size: .6rem !important;
       }
 
       .baixe-nosso-ap-responsivo {
-        font-size: .7rem;
+        font-size: .7rem!important;
       }
 
       .arrow-responsive {
@@ -65,7 +65,7 @@ const GlobalStyle = createGlobalStyle`
 
     @media(max-width: 750px) {
       .media-1228px {      
-        font-size: .5rem;
+        font-size: .5rem !important;
       }
     }
     

@@ -6,7 +6,6 @@ import Head from 'next/head'
 
 import Template from '../src/components/templates/Web'
 import SlideWeb from '../src/components/web/SlideWeb'
-import Map from '../src/components/web/MapContato'
 import Form from '../src/components/web/Form'
 
 export default function Contato () {
