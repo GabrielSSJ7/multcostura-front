@@ -35,9 +35,9 @@ const ArrowLeft = styled.span`
   cursor: pointer;
   top: 50%;
   margin-top: -10px;
-  border-top: 30px solid transparent;
-  border-bottom: 30px solid transparent;
-  border-right: 30px solid #960d03;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-right: 20px solid #960d03;
 `;
 const ArrowRight = styled.span`
   :hover {
@@ -53,9 +53,9 @@ const ArrowRight = styled.span`
   height: 0;
   top: 50%;
   margin-top: -10px;
-  border-top: 30px solid transparent;
-  border-bottom: 30px solid transparent;
-  border-left: 30px solid #960d03;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 20px solid #960d03;
 `;
 
 export default ({ link, images, autoSlide, slideCtrl, balls, arrows, height, slideWidth }) => {

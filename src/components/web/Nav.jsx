@@ -223,7 +223,6 @@ function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHid
 	const Router = useRouter();
 	const [doll, setDoll] = useState(0)
 	const [search, setSearch] = useState('')
-	console.log(Router)
 	return (
 		<Column style={{ width: "100%" }}>
 			<Row flex="5" style={{ flex: "5 1 auto",  justifyContent: "center", background: "transparent linear-gradient(180deg, #E8E8E8 0%, #E7E7E7 48%, #D6D6D6 100%) 0% 0% no-repeat padding-box"}}>
@@ -244,19 +243,19 @@ function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHid
 						</Row>
 						<Row style={{ maxWidth: "100%",     marginTop: "18px"}}>
 							<div style={{ flex: 2 }}>
-								<p className="media-1228px" style={{display: "flex", alignItems: "center", marginBottom: "0", fontFamily: "sans-serif" }}>
+								<p className="media-1228px" style={{fontSize: "98%",display: "flex", alignItems: "center", marginBottom: "0", fontFamily: "sans-serif" }}>
 									<img src={iconWhatsapp} style={{ width: "18px", marginRight: "5px" }} />Whatsapp: (11) 97472-3356
 								</p>
 							</div>
 							<div style={{ flex: 2 }}>
-								<p className="media-1228px" style={{display: "flex", alignItems: "center",  marginBottom: "0", fontFamily: "sans-serif" }}>
+								<p className="media-1228px" style={{fontSize: "98%",display: "flex", alignItems: "center",  marginBottom: "0", fontFamily: "sans-serif" }}>
 									<FontAwesomeIcon icon={faPhone} style={{ marginRight: "5px", color: "#929292" }} /> Telefone: (11) 2693-7212
 								</p>
 							</div>
 							<div style={{ flex: 2 }}>
 								<p className="media-1228px" style={{display: "flex", alignItems: "center", marginBottom: "0", fontFamily: "sans-serif", fontSize: "93%" }}>
 									<FontAwesomeIcon icon={faEnvelope} style={{ marginRight: "5px", color: "#929292" }} />
-									<span style={{ fontSize: "98%", fontFamily: "sans-serif"}}>E-mail:</span> contato@multcostura.com.br
+									<span style={{ fontSize: "98%", fontFamily: "sans-serif"}}>E-mail:&nbsp; </span> contato@multcostura.com.br
 								</p>
 							</div>
 							<div style={{ flex: 1 }}>

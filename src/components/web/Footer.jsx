@@ -69,7 +69,7 @@ export default function Footer () {
 			</Column>
 		</Row>
 		<Row jc="center" style={{ background: "#484848" }}>
-			<p style={{ color: "white", fontSize: "12px", fontFamily: "sans-serif"}}>© 2019 Todos os direitos reservados | <a href="https://squad.ag" target="_blank" style={{ color: "white", fontFamily: "sans-serif"}}>Desenvolvido por Squad Marketing 4.0</a></p>
+			<p style={{ color: "white", fontSize: "12px", fontFamily: "sans-serif"}}>© 2020 Todos os direitos reservados | <a href="https://squad.ag" target="_blank" style={{ color: "white", fontFamily: "sans-serif"}}>Desenvolvido por Squad Marketing 4.0</a></p>
 		</Row>
 		</Column>
 	)
