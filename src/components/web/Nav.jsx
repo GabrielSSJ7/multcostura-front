@@ -295,7 +295,7 @@ function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHid
 							>{man.name}</DropDownItem>)}
 						</DropDownMenu>
 					</div>
-					<Item style={Router.route == '/revendedores' ? { backgroundColor: "#2D34B8", color: "white"} : {}} className="media-1228px" onClick={() => Router.push("/revendedores")}>Revendedores</Item>
+          {/*<Item style={Router.route == '/revendedores' ? { backgroundColor: "#2D34B8", color: "white"} : {}} className="media-1228px" onClick={() => Router.push("/revendedores")}>Revendedores</Item> */}
 					<Item style={Router.route == '/noticias' ? { backgroundColor: "#2D34B8", color: "white"} : {}} className="media-1228px" onClick={() => Router.push("/noticias")}>Notícias</Item>
 					<Item style={Router.route == '/contato' ? { background: "#2D34B8", color: "white"} : {}} className="media-1228px" onClick={() => Router.push("/contato")}>Contato</Item>
 					<Item className="baixe-nosso-ap-responsivo" style={{ color: "#81161B" }}>BAIXE NOSSO APLICATIVO</Item>
