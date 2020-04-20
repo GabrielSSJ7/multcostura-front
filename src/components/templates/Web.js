@@ -51,7 +51,7 @@ const GlobalStyle = createGlobalStyle`
 
      @media(max-width: 950px) {
       .media-1228px {      
-        font-size: .6rem !important;
+        font-size: .6rem!important;
       }
 
       .baixe-nosso-ap-responsivo {
@@ -63,9 +63,11 @@ const GlobalStyle = createGlobalStyle`
       }
     }
 
-    @media(max-width: 750px) {
+    @media(max-width: 805px) {
       .media-1228px {      
-        font-size: .5rem !important;
+
+        font-size: .5rem!important;
+
       }
     }
     
