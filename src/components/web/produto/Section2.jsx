@@ -36,7 +36,24 @@ export default function Section2 ({ prod }) {
 			const specArrayKeys = Object.keys(prod.specifications);
 			const specArray = []
 			for (let specKey in specArrayKeys) {
-				specArray.push(`${specArrayKeys[specKey].replace(/([A-Z])/g, ' $1').trim().toLowerCase()}: ${prod.specifications[specArrayKeys[specKey]]}`)
+				if (prod.specifications[specArrayKeys[specKey]]) {
+					switch (specArrayKeys[specKey]) {
+					case `alturaCalcador`:
+						specArray.push(`altura do calçador: ${prod.specifications[specArrayKeys[specKey]]}`)
+						break
+					case 'numeroDeAgulhas':
+						specArray.push(`número de agulhas: ${prod.specifications[specArrayKeys[specKey]]}`)
+						break
+						
+					case 'velocidadeMaxima':
+						specArray.push(`velocidade máxima: ${prod.specifications[specArrayKeys[specKey]]}`)
+						break
+
+					default:
+						specArray.push(`${specArrayKeys[specKey].replace(/([A-Z])/g, ' $1').trim().toLowerCase()}: ${prod.specifications[specArrayKeys[specKey]]}`)
+						break
+					}
+				}
 			}
 
 			setSpec(specArray)
@@ -44,15 +61,17 @@ export default function Section2 ({ prod }) {
 
 	}, [prod.specifications])
 	return <Row style={{ width: "77.7%", margin: '0 11.15%', flexWrap: 'wrap', marginTop: "50px" }}>
-		<Column jc="center" flex="1" style={{  minWidth: '250px' }}>{prod.specifications? 
+		<Column jc="center" style={{  minWidth: '250px', width: "40%" }}>{prod.specifications? 
 			<>
-                          <MachineName style={{marginBottom: "35px"}}>Descrição Técnica</MachineName>
-                          <Row style={{ flexWrap: 'wrap'}} >
-                            {specifications.map(spec => 
-                              <Text style={{ width: "50%", minWidth: "200px", textAlign: "left", fontSize: "16px",marginBottom: "0", fontFamily:"sans-serif" }}>
-                              - {spec}
-                              </Text>)}
-                          </Row>
+			<MachineName style={{marginBottom: "35px"}}>Descrição Técnica</MachineName>
+			<Column style={{ flexWrap: 'wrap'}} >
+				<ul style={{ padding: "0 15px" }}>
+					{specifications.map(spec => 
+					<Text style={{textAlign: "left", fontSize: "14px",marginBottom: "10px", fontFamily:"sans-serif" }}>
+					{spec}
+					</Text>)}
+				</ul>
+			</Column>
 			</>
 		 : ''}
 	<Dialog
@@ -81,9 +100,9 @@ export default function Section2 ({ prod }) {
 		 </Column>
 
 		
-		<Column flex="1" jc="center" ait="center" style={{ minWidth: '250px' }}>
-			<Row style={{ width: "85%" }} >
-				<Slider images={prod.images} arrows slideWidth="100%" height="300px" />
+		<Column jc="center" ait="center" style={{ minWidth: '250px', width: "60%" }}>
+			<Row style={{ width: "100%" }} >
+				<Slider images={prod.images} arrows slideWidth="100%" height="350px" />
 			</Row>
 		</Column>
 	</Row>
@@ -113,7 +132,7 @@ const Button = styled.div`
 `
 
 
-const Text = styled.p`
+const Text = styled.li`
 	text-align: left;
 	/*font: Regular 18px/24px Segoe UI;*/
 	font-size: 18px;

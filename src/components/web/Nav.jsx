@@ -226,7 +226,7 @@ function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHid
 	return (
 		<Column style={{ width: "100%" }}>
 			<Row flex="5" style={{ flex: "5 1 auto",  justifyContent: "center", background: "transparent linear-gradient(180deg, #E8E8E8 0%, #E7E7E7 48%, #D6D6D6 100%) 0% 0% no-repeat padding-box"}}>
-				<Row style={{ width: "90%" }}>
+				<Row style={{ width: "90%", height: "150px" }}>
 					<Link href="/"><a style={{ width: '18%', padding: "10px 0", display: "flex" }}><Logo src={logo} /></a></Link>
 					<Column style={{  width: '87%',     padding: "10px 10px 10px 0" }} jc="center" >
 						<Row style={{ maxWidth: "100%", marginTop: "5px"}} >
@@ -242,27 +242,27 @@ function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHid
 							<SearchBtn onClick={() => window.location.href = './produtos?search=' + search}>BUSCAR</SearchBtn>
 						</Row>
 						<Row style={{ maxWidth: "100%",     marginTop: "18px"}}>
-							<div style={{ flex: 2 }}>
-								<p className="media-1228px" style={{fontSize: "98%",display: "flex", alignItems: "center", marginBottom: "0", fontFamily: "sans-serif" }}>
+							<div style={{  margin: "auto 0 5px", width: "65%" }}>
+								<p className="media-1228px" style={{ margin: 0, fontSize: "98%",display: "flex", alignItems: "center", marginBottom: "0", fontFamily: "sans-serif" }}>
 									<img src={iconWhatsapp} style={{ width: "18px", marginRight: "5px" }} />Whatsapp: (11) 97472-3356
 								</p>
 							</div>
-							<div style={{ flex: 2 }}>
+							<div style={{ paddingRight: "15px", width: "55%" }}>
 								<p className="media-1228px" style={{fontSize: "98%",display: "flex", alignItems: "center",  marginBottom: "0", fontFamily: "sans-serif" }}>
 									<FontAwesomeIcon icon={faPhone} style={{ marginRight: "5px", color: "#929292" }} /> Telefone: (11) 2693-7212
 								</p>
 							</div>
-							<div style={{ flex: 2 }}>
+							<div style={{ paddingRight: "5px", width: "70%" }}>
 								<p className="media-1228px" style={{display: "flex", alignItems: "center", marginBottom: "0", fontFamily: "sans-serif", fontSize: "93%" }}>
 									<FontAwesomeIcon icon={faEnvelope} style={{ marginRight: "5px", color: "#929292" }} />
 									<span style={{ fontSize: "98%", fontFamily: "sans-serif"}}>E-mail:&nbsp; </span> contato@multcostura.com.br
 								</p>
 							</div>
-							<div style={{ flex: 1 }}>
+							<div style={{ width: "30%" }}>
 								<p className="media-1228px" style={{textAlign: "end", marginBottom: "0", fontFamily: "sans-serif", fontWeight: "bold"}}>
 									Dólar:  {pctChange ? 
 										<img src={arrowUp} style={{ width: "16px"}} /> :
-										<img src={arrowDown} style={{ width: "14px"}} />} 
+										<img src={arrowDown} style={{ width: "13%"	}} />} 
 										<FontAwesomeIcon icon={faDollarSign} style={{ color: pctChange ? "#20B138" : "red" }} />
 										<span style={{ color: pctChange ? "#20B138" : "red"}}>{highDolar}</span>
 								</p>
@@ -295,7 +295,7 @@ function NavBg ({ props: { hideDropMenu, hideManufMenu, setHideManufMenu, setHid
 							>{man.name}</DropDownItem>)}
 						</DropDownMenu>
 					</div>
-					<Item style={Router.route == '/revendedores' ? { backgroundColor: "#2D34B8", color: "white"} : {}} className="media-1228px" onClick={() => Router.push("/revendedores")}>Revendedores</Item>
+          {/*<Item style={Router.route == '/revendedores' ? { backgroundColor: "#2D34B8", color: "white"} : {}} className="media-1228px" onClick={() => Router.push("/revendedores")}>Revendedores</Item> */}
 					<Item style={Router.route == '/noticias' ? { backgroundColor: "#2D34B8", color: "white"} : {}} className="media-1228px" onClick={() => Router.push("/noticias")}>Notícias</Item>
 					<Item style={Router.route == '/contato' ? { background: "#2D34B8", color: "white"} : {}} className="media-1228px" onClick={() => Router.push("/contato")}>Contato</Item>
 					<Item className="baixe-nosso-ap-responsivo" style={{ color: "#81161B" }}>BAIXE NOSSO APLICATIVO</Item>

@@ -22,7 +22,7 @@ export default function Section1 ({ prod }) {
 				</Row>
 			</Column> : '' : ''}
 		</Column>
-		<Column flex="1" style={{ marginRight: '11.15%', minWidth: '250px' }} ait="flex-end" jc="flex-start">
+		<Column flex="1" style={{ marginRight: '11.15%', minWidth: '250px', marginBottom: '50px' }} ait="flex-end" jc="flex-start">
 			<img src={prod.images[0]} style={{ width: "80%", maxHeight: "600px", margin: "70px auto 0", display: "block"}} />
 		</Column>
 	 </Row>
