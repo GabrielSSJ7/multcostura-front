@@ -114,7 +114,7 @@ export default ({ link, images, autoSlide, slideCtrl, balls, arrows, height, sli
 
   return (
     <>
-      <Wrapper height={"400px"}>
+      <Wrapper height={height || "400px"}>
         {images ? (
           <>
             {arrows ? (

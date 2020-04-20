@@ -9,8 +9,6 @@ import SlideWeb from '../src/components/web/SlideWeb'
 import Template from '../src/components/templates/Web'
 import setApi from '../src/api'
 
-
-
 const IndexPage = () => {
   const [resellers, setResellers] = useState([]);
 	const [images, setImages] = useState([])
