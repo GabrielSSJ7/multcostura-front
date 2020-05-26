@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Router } from '../../../routes'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
+import { faPhone, faWhatsApp, faEnvelope, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 
 
 import logoMini from '../../static/images/logo-colorido.png'
@@ -10,108 +10,209 @@ import facebookIcon from '../../static/images/facebook.png'
 import instagramIcon from '../../static/images/instagram.png'
 import youtubeIcon from '../../static/images/youtube.png'
 import cartoesBndes from '../../static/images/logo bnds.png'
+import logoBranco from '../../static/images/logo-branco.png'
+import whatsapp from '../../static/images/Icon_whatsapp_rodape.svg'
+import gplay from '../../static/images/gplay.svg'
+import ig from '../../static/images/Icon_instagram_rodape.svg'
+import fb from '../../static/images/Icon_facebook_rodape.svg'
+import yt from '../../static/images/Icon_youtube_rodape.svg'
 
 export default function Footer () {
-	return (
-		<Column>
-		<Row style={{ background: "#ECECEC", padding: "35px 9.89% 15px 7%", flexWrap: "wrap" }} jc="flex-end">
-			<Column media flex={1} jc="flex-start" ait="flex-end" style={{ marginTop: '10px', minWidth: "200px" }}>
-				<img src={logoMini} style={{ marginRight: "15%", width: "35%", marginTop: "10px"}} />
-			</Column>
-			<Row flex={1} style={{ minWidth: ""}}>
-				<Column style={{ marginRight: "25px"}}>
-					<Item onClick={() => window.location.href ='/empresa'}>
-						Empresa
-					</Item>
-					<Item onClick={() => window.location.href ='/produtos'}>
-						Máquinas
-					</Item>
-					<Item onClick={() => window.location.href ='/produtos?type=tools'}>
-						Peças
-					</Item>
-					<Item onClick={() => window.location.href ='/noticias'}>
-						Notícias
-					</Item>					
-					<Item onClick={() => window.location.href = '/contato'}>
-						Contato
-					</Item>
-				</Column>
-				<Column>
-					<Item onClick={() => Router.pushRoute('/revendedores')}>
-						Revendedores
-					</Item>
-					
-					<Item onClick={() => Router.pushRoute('/produtos')}>
-						Marcas
-					</Item>
-				</Column>
-			</Row>
-			<Row flex={1} style={{ position: "relative",  }}>
-				<div style={{ paddingRight: "5px"}}><FontAwesomeIcon icon={faMapMarkerAlt} style={{ marginRight: "5px", opacity: 0 }} /></div>
-				<div style={{ position: "absolute", top: '20%', bottom: '50%', }}>
-					<FontAwesomeIcon icon={faMapMarkerAlt} style={{ marginRight: "5px", transform: { translateY: "50%" } }} />
-				</div>
-				<Column>
-					<p style={{ marginBottom: "5px", marginTop: "0px"}}>Endereço</p>
-					<p style={{ marginTop: 0, fontFamily: "sans-serif" }}>
-						Rua Newton Prado, 71<br /> Bom Retiro São Paulo SP <br /> Cep: 01127-000
-					</p>
-				</Column>
-			</Row>
-			<Column flex={1} style={{  maxWidth: "200px"}} media>
-				<p style={{ marginBottom: "5px", marginTop: "0px"}}>Sigam nossas redes sociais!</p>
-				<Row style={{ padding: "0 5px"}}>
-					<Item style={{ marginRight: "48px"}}><img src={facebookIcon} style={{ width: "30px" }} /></Item>
-					<Item style={{ marginRight: "48px"}}><img src={instagramIcon} style={{ width: "30px" }} /></Item>
-					<Item style={{ marginRight: "48px"}}><img src={youtubeIcon} style={{ width: "30px" }} /></Item>
-				</Row>
-				<img src={cartoesBndes} style={{ width: "60%" }} />
-			</Column>
-		</Row>
-		<Row jc="center" style={{ background: "#484848" }}>
-			<p style={{ color: "white", fontSize: "12px", fontFamily: "sans-serif"}}>© 2020 Todos os direitos reservados | <a href="https://squad.ag" target="_blank" style={{ color: "white", fontFamily: "sans-serif"}}>Desenvolvido por Squad Marketing 4.0</a></p>
-		</Row>
-		</Column>
-	)
+  return (
+    <Col style={{ backgroundColor: "#3C3D41", minHeight: "383px", alignItems: "center", justifyContent: "space-between" }}>
+      {/*  conteúdo */}
+      <Row className="media" style={{ maxWidth: "980px", flexWrap: "wrap" }}>
+        <div style={{ width: "194px", minWidth:"194px", marginTop: "57px" }}>
+         <GPlay 
+          onClick={() => window.location.href = "/"}
+          src={logoBranco} 
+          alt="logo multcostura negativo" 
+          style={{ width: "100%"}}
+         /> 
+        </div>
+        <Col style={{ marginTop: "57px", marginLeft: "30px" }} className="inicio">
+         <Item b style={{ marginBottom: "20px"}}>Início</Item>
+
+         <Item hover onClick={() => window.location.href = "/"}>Home</Item>
+         {/*<Item>Nossas Marcas</Item>*/}
+         <Item hover onClick={() => window.location.href = "/revendedores"}>Revendedores</Item>
+         <Item hover onClick={() => window.location.href = "/produtos"}>Máquinas</Item>
+         <Item hover onClick={() => window.location.href = "/produtos?type=tools"}>Peças e Acessórios</Item>
+         <Item hover onClick={() => window.location.href = "/noticias"}>Notícias</Item>
+         <Item hover onClick={() => window.location.href = "/contato"}>Sobre nós</Item>
+        </Col>
+        <Col className="inicio" style={{ marginTop: "57px" }} jc="space-between">
+          <Col>
+            <Item b>Endereço</Item>
+            <Row className="inicio">
+              <FontAwesomeIcon
+                icon={faMapMarkerAlt} 
+                style={{ 
+                  marginRight: "5px", 
+                  transform: { translateY: "50%" },
+                  color: "white"
+                }} 
+              />
+              <Item style={{ marginTop: 0 }}>
+                Rua Newton Prado, 71<br /> Bom Retiro São Paulo SP <br /> Cep: 01127-000
+              </Item>
+            </Row>
+          </Col>
+          <Col>
+            <Item b>Contato</Item>
+            <Row className="inicio">
+              <FontAwesomeIcon 
+                icon={faEnvelope} 
+                style={{ 
+                  color: "white",
+                  marginRight: "5px"
+                }}/>
+              <Item>contato@multcostura.com.br</Item>
+            </Row>
+            <Row className="inicio">
+              <FontAwesomeIcon 
+                icon={faPhone} 
+                style={{ 
+                  color: "white",
+                  marginRight: "5px"
+                }}/>
+              <Item>(11) 0000-0000</Item>
+            </Row>
+            <Row ait="center" className="inicio">
+              <img src={ whatsapp} />
+              <Item style={{ marginBottom: 0, marginLeft: "5px" }}>(11) 00000-0000</Item>
+            </Row>
+          </Col>
+
+        </Col>
+
+        <Col className="inicio" style={{ marginTop: "57px" }}>
+          <Item b>Redes Sociais</Item>
+          <Row className="m-auto" jc="space-between" style={{ marginBottom: "48px", maxWidth: "70%" }}>
+            <GPlay
+              src={fb}
+              alt="facebook icon"
+              style={{ width: "34px" }}
+            />
+            <GPlay
+              src={ig}
+              alt="instagram icon"
+              style={{ width: "34px" }}
+            />
+            <GPlay
+              src={yt}
+              alt="youtube icon"
+              style={{ width: "34px" }}
+            />
+          </Row>
+          <div className="m-auto" style={{ maxWidth: "209px", width: "209px" }}>
+            <GPlay
+              src={gplay} 
+              alt="dísponivel no google play"
+              style={{
+                width: "100%"
+              }}
+            />
+          </div>
+        </Col>
+      </Row>
+      {/*  direitos reservados */}
+      <Row
+        style={{ 
+          alginSelf:"flex-end", 
+          background: "#343434" 
+        }}
+        jc="center">
+        <p 
+          style={{ 
+            fontSize: "12px",
+            color: "white",
+            fontFamily: "arial",
+            opacity: .6
+          }}>
+            &copy; 2020 Todos os direitos resevados
+        </p>
+      </Row>
+    </Col>
+  )
 }
 
 
 
-const Item = styled.p`
-	font-size: 1rem;
-	cursor: pointer;
-	transition: .4s;
-	:hover {
-		opacity: .9;
-		color: #81161B;
-	}
-	z-index: 9;
-	margin: 0;
-	padding: 5px 0;
+const GPlay = styled.img`
+  cursor: pointer;
+  transition: .2s;
+  :hover {
+    opacity: .8
+  }
 `
+
+const Item = styled.p`
+  color: white;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 13px;
+
+  @media (max-width: 950px) {
+    text-align: center;
+  }
+
+  ${props => props.hover ? `
+  cursor: pointer;
+  :hover {
+    opacity: .5
+  }` : ``}
+  ${props => props.b ? `
+    font-size: 20px;
+  ` : `
+    font-family: arial;
+    font-weight: 200 !important;
+    font-size: 14px;
+    opacity: .8;
+    transition: .2s;
+  `}
+`
+
 const Row = styled.div`
   display: flex;
+  width: 100%;
   flex: ${props => props.flex};
   justify-content: ${props => props.jc};
   align-items: ${props => props.ait};
   flex-wrap: ${props => props.fw};
-  ${props => props.media ? `@media (max-width: 480px) {
-    justify-content: center !important;
-  }` : ''}
+
 `
 
-const Column = styled.div`
+const Col = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
   flex: ${props => props.flex};
   justify-content: ${props => props.jc};
   align-items: ${props => props.ait};
   flex-wrap: ${props => props.fw};
-  ${props => props.media ? `@media (max-width: 480px) {
-    align-items: center !important;
-      max-width: 100% !important;
-    img {
-      margin: 15px 0 !important
+
+  .media {
+    @media(max-width: 950px) {
+      flex-direction: column !important;
+      align-items: center;
     }
-  }` : ''}
+  }
+
+  .m-auto {
+    @media(max-width: 950px) {
+      margin: auto;
+    }
+  }
+
+  .inicio {
+    max-width: 250px;
+    @media(max-width: 950px) {
+      p{
+        text-align: center;
+      }
+      justify-content: center;
+      margin-left: 0 !important;
+    }
+  }
 `
