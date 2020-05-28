@@ -113,7 +113,7 @@ export default function Nav () {
       }} 
     /> :
     <Column>
-     <Column style={{ alignItems: "center", backgroundColor: "#1a6092" }}>
+     <Column style={{ alignItems: "center", backgroundColor: "#ddd" }}>
       {/* barra azul contato */}
       <Row style={{ 
         maxWidth: "300px", 
@@ -125,12 +125,13 @@ export default function Nav () {
           marginRight: "15px",
           fontWeight: "bold"
         }}/>*/}
-        <img src={email} style={{ marginRight: "15px" }} />
+        <img src={email} style={{ width: "14px", marginRight: "10px", filter : "invert(100%)" }} />
         <p 
           style={{ 
-            color: "white",
+            color: "#333",
             marginBottom: "5px",
-            marginTop: "8px"
+            marginTop: "8px",
+            fontSize: "14px"
           }}>
           contato@multcostura.com.br
         </p>
@@ -143,16 +144,17 @@ export default function Nav () {
         paddingBottom: "10px",
         backgroundColor: "white"
       }}>
-        <Row style={{ maxWidth: "900px", alignSelf: "center" }}>
+        <Row style={{ maxWidth: "1600px", alignSelf: "center" }}>
           <div 
-            style={{ cursor: "pointer", minWidth: "157px", width: "157px" }}
+            style={{ flex: 1, cursor: "pointer", minWidth: "157px", width: "157px", maxWidth: "157px", marginLeft: "15px" }}
             onClick={() => Router.push("/")}
           >
-            <img style={{ width: "100%" }}src={logo} alt="logo multcostura" />
+            <img style={{ width: "100%", maxWidth: "157px" }}src={logo} alt="logo multcostura" />
           </div>
 
-          <Row style={{ alignItems: "center", marginBottom: "11px", marginLeft: "5px" }}>
+          <Row style={{ flex: 2, alignItems: "center", marginBottom: "11px", marginLeft: "5px" }}>
            <Input 
+            style={{ width: "100%" }}
             placeholder="Buscar produto..." 
             onChange={e => setSearch(e.target.value)} 
             onKeyDown={(k) => {
@@ -165,6 +167,7 @@ export default function Nav () {
             style={{ 
                height: "39px", 
                width: "51px",
+               borderRadius: "5px",
                borderTopLeftRadius: 0, 
                borderBottomLeftRadius: 0 
              }}
@@ -173,7 +176,7 @@ export default function Nav () {
            </Button>
           </Row>
 
-          <Row style={{ alignItems: "center", marginLeft: "30px" }}>
+          <Row style={{ flex: 1, alignItems: "center", marginLeft: "30px" }}>
             <Row style={{ flex: 1 }}>
               <div style={{ width: "28.5px" }}>
                 <img src={phone} style={{ width: "100%"}} />
@@ -220,8 +223,7 @@ export default function Nav () {
       {/* terceira barra */}
       <Row style={{ 
         justifyContent: "center", 
-        paddingTop: "10px",
-        backgroundColor: "white"
+        backgroundColor: "#1a6092"
       }}>
         <Row style={{ maxWidth: "900px", alignSelf: "center" }}>
           <ItemPC onClick={() => Router.push("/")}>
@@ -520,9 +522,9 @@ const ItemPC = styled.div`
   cursor: pointer;
   padding: 10px 15px;
   :hover {
-    background: #1a6092;
+    background: #DFDFDF;
     p {
-      color: white;
+      color: rgb(26, 96, 146);
     }
   }
   display: flex;
@@ -530,8 +532,7 @@ const ItemPC = styled.div`
   p {
     margin: 0;
     text-transform: uppercase;
-    color: #535353;
-    opacity: .8;
+    color: #FFF;
     font-size: 14px;
   }
 `
@@ -544,7 +545,7 @@ const SimpleText = styled.p`
 `
 
 const Input = styled.input`
-  border-radius: 1px;
+  border-radius: 5px;
   border: 1px solid #DFDFDF;
   width: 280px;
   height: 37px;

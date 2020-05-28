@@ -19,7 +19,7 @@ import yt from '../../static/images/Icon_youtube_rodape.svg'
 
 export default function Footer () {
   return (
-    <Col style={{ backgroundColor: "#3C3D41", minHeight: "383px", alignItems: "center", justifyContent: "space-between" }}>
+    <Col style={{ backgroundColor: "#3C3D41", minHeight: "383px", alignItems: "center", justifyContent: "space-between", marginTop: "50px" }}>
       {/*  conteúdo */}
       <Row className="media" style={{ maxWidth: "980px", flexWrap: "wrap" }}>
         <div style={{ width: "194px", minWidth:"194px", marginTop: "57px" }}>
