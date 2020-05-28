@@ -39,7 +39,7 @@ export default function Home () {
                         </Row>
                         <p style={{ color: "#717171", opacity: .8, textAlign: "center" }}>Acesse os links abaixo para conferir todos os nossos produtos, notícias e eventos.</p>
 			<DivCards jc="space-between" style={{ width: "100%", flexWrap: "wrap" }}>
-				<Column className="div-card" style={{ width: "27.95%", minWidth: "280px", maxHeight: ""}}>
+				<Column className="div-card" style={{ width: "33%", minWidth: "280px", minHeight: "270px"}}>
 					<CardContainer className="card" onClick={() => Router.push("/produtos")}>
 						<DivImg src={state.produtos} />
                                                 <BottomCard >
@@ -48,7 +48,7 @@ export default function Home () {
                                                 </BottomCard>
 					</CardContainer>
 				</Column>
-				<Column className="div-card" style={{ width: "27.95%", minWidth: "280px" }}>
+				<Column className="div-card" style={{ width: "33%", minWidth: "280px" , minHeight: "270px"}}>
 					<CardContainer className="card" onClick={() => Router.push("/produtos?type=tools")}>
 						<DivImg src={state.pecas} />
                                                 <BottomCard >
@@ -57,7 +57,7 @@ export default function Home () {
                                                 </BottomCard>
 					</CardContainer>
 				</Column>
-				<Column className="div-card" style={{ width: "27.95%", minWidth: "280px" }}>
+				<Column className="div-card" style={{ width: "33%", minWidth: "280px", minHeight: "270px" }}>
 					<CardContainer className="card" onClick={() => Router.push("/noticias")}>
 						<DivImg src={state.noticias} />
                                                 <BottomCard >
@@ -132,7 +132,7 @@ const CardTitle = styled.p`
 `
 
 const CardContainer = styled.div`
-	height: 197px;
+	height: 100%;
         position: relative;
         border-radius: 22px;	
         border:none;

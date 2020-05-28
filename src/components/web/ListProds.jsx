@@ -187,7 +187,7 @@ export const Column = styled.div`
   align-items: ${props => props.ait};
   flex-wrap: ${props => props.fw};
   @media(max-width: 700px) {
-    width: 80% !important;
+    width: 100% !important;
     align-items: center;
   }
 `

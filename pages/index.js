@@ -195,12 +195,11 @@ const IndexPage = () => {
           <Line style={{ marginLeft: "25px", minWidth: "50px" }} />
         </Row>
         <p style={{ color: "#717171", opacity: .8, textAlign: "center" }}>Selecione a baixo seu estado e cidade para encontrar o revendedor mais próximo.</p>
-          <Row jc="center" ait="center" style={{ width: "50%", flexWrap: "wrap"}}>
+          <Row jc="center" ait="center" style={{ width: "100%", flexWrap: "wrap"}}>
                   <Select 
                           style={{ 
-                                  minWidth: "180px",
                                   margin: "0 5px",
-                                  width: "160px",
+                                  width: "100px",
                                   padding: "0",
                                   background: "transparent linear-gradient(180deg, #FCF6F6 0%, #D6D6D6 100%) 0% 0% no-repeat padding-box", 
                                   height: "40px" 
@@ -215,8 +214,7 @@ const IndexPage = () => {
 
                   <Select 
                           style={{ 
-                                  minWidth: "180px", 
-                                  width: "160px",
+                                  width: "100px",
                                   margin: "0 5px", 
                                   padding: "0",
                                   background: "transparent linear-gradient(180deg, #FCF6F6 0%, #D6D6D6 100%) 0% 0% no-repeat padding-box", 
@@ -231,8 +229,7 @@ const IndexPage = () => {
                   <button 
                     onClick={() => setViewMap(state.state, state.city)} 
                     style={{ 
-                      width: "180px", 
-                      minWidth: "180px",
+                      width: "90px", 
                       height: "40px", 
                       background: "transparent linear-gradient(180deg, #242873 0%, #161848 100%) 0% 0% no-repeat padding-box",
                       borderRadius: "4px", 
