@@ -21,64 +21,76 @@ export default function Produtos ({ id, type, search }) {
 	useEffect(() => {
 	  setVisLoading(true)
 	  async function f () {
-	  	
-		  		if(type != "tools") {
-					setApi()
-					  .get(`/${type}/${id}`)
-					  .then(res => {
-					  	setPageData(res.data)
-						setImages(res.data.bannerImages ? res.data.bannerImages : [])
-						setVisLoading(false)
-					  })
-					  .catch(err => {
-					  	setVisLoading(false)
-					  	console.log("produtos error => ", err)
-					  })
-				} else {
-					setVisLoading(false)
-				}
-			
-		}
+            if(type != "tools") {
+            setApi()
+              .get(`/${type}/${id}`)
+              .then(res => {
+                    setPageData(res.data)
+                    setImages(res.data.bannerImages ? res.data.bannerImages : [])
+                    setVisLoading(false)
+              })
+              .catch(err => {
+                    setVisLoading(false)
+                    console.log("produtos error => ", err)
+              })
+            } else {
+            setVisLoading(false)
+            }
+          }
 
-		f();
+          f();
 	}, [router.query])
 
 	function setLogo () {
-		if (pageData.logo) {
-			return <div style={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "center" }}><img src={pageData.logo} style={{ width: "120px" }} /></div>
-		} else if (pageData.name) {
-			return <div style={{ flex: 1, textAlign: "center", minWidth: "200px"}}>
-				<Title style={{ textAlign: "center", paddingLeft: "10%"}}>{pageData.name}</Title>
-			</div>
-		}
+          if (pageData.logo) {
+            return <div style={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "center" }}><img src={pageData.logo} style={{ width: "120px" }} /></div>
+          } else if (pageData.name) {
+            return (
+              <div style={{ flex: 1, textAlign: "center", minWidth: "200px"}} >
+                <div style={{ width: "70%", margin: "auto" }}>
+                  <Title style={{ textAlign: "left", paddingLeft: "10%", fontSize: "25px" }}>
+                    {pageData.name}
+                    <Line />
+                  </Title>
+                </div>
+              </div>
+            )
+          }
 	}
 
 	return (
-		<Template>
-			{visLoading ? 
-			<Row jc="center" ait="center" style={{ width: "100%" }}><img src={loading} style={{ width: "32px"}} /> </Row> : 
-			<Column style={{ width: "100%" }}>
-				<SlideWeb images={images.map(img => img.image)} />
-				<DivLogoFilters style={{ width: "100%", margin: "35px 0", flexWrap: 'wrap' }} >
-					{setLogo()}
-					<Filters type={type} S/>
-				</DivLogoFilters>
-				<ListProds id={id} type={type} search={search} />
-			</Column>}
-		</Template>
+          <Template>
+            {visLoading ? 
+            <Row jc="center" ait="center" style={{ width: "100%" }}>
+              <img src={loading} style={{ width: "32px"}} /> 
+            </Row> : 
+            <Column style={{ width: "100%" }}>
+              <SlideWeb images={images.map(img => img.image)} />
+              <DivLogoFilters style={{ width: "100%", margin: "35px 0", flexWrap: 'wrap' }} >
+                {setLogo()}
+                <Filters type={type} S/>
+              </DivLogoFilters>
+              <ListProds id={id} type={type} search={search} />
+            </Column>}
+          </Template>
 	)
 }
 
-const DivLogoFilters = styled.div`
-	@media(max-width: 1025px) {
-		flex-direction: column;
+const Line = styled.div`
+  background-color: #81161B;
+  height: 2px;
+  width: 50%;
+`
 
-		h1 {
-			padding: 0 !important
-		}
-	}
-	display: flex;
-  	flex-wrap: wrap
+const DivLogoFilters = styled.div`
+  @media(max-width: 1025px) {
+    flex-direction: column;
+    h1 {
+      padding: 0 !important
+    }
+  }
+  display: flex;
+  flex-wrap: wrap
 `
 
 

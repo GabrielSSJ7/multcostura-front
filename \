@@ -1,0 +1,243 @@
+import React, { useState, useEffect, useLayoutEffect } from 'react'
+import styled from 'styled-components'
+
+import setApi from '../../api'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { 
+  faUsers, 
+  faList, 
+  faSearch, 
+  faHome, 
+  faBuilding, 
+  faHeadset, 
+  faNewspaper, 
+  faArrowLeft, 
+  faIndustry, 
+  faPhone, 
+  faEnvelope, 
+  faDollarSign 
+} from '@fortawesome/free-solid-svg-icons'
+
+import logo from '../../static/images/logo-multcostura-(oficial).png'
+import whatsapp from '../../static/images/whatsapp.png'
+
+export default function Nav () {
+  const [categories, setCategories] = useState([])
+  const [manufacturers, setManufacturers] = useState([])
+  const [hideDropMenu, setHideDropMenu] = useState(false);
+  const [hideManufMenu, setHideManufMenu] = useState(false);
+  const [translate, setTranslate] = useState(0)
+  const [highDolar, setHighDolar] = useState(0)
+  const [pctChange, setPctChange] = useState(false)
+
+  useEffect(() => {
+    setTranslate(window.innerWidth)
+    async function async() {
+    setApi()
+    .get('/categories')
+    .then(response => {
+          setCategories(response.data)
+    })
+    .catch(err => {
+
+    })
+
+    setApi()
+    .get('/manufacturer')
+    .then(response => {
+          setManufacturers(response.data)
+    })
+    .catch(err => {
+
+    })
+
+    setApi()
+          .get("https://economia.awesomeapi.com.br/all/USD-BRL")
+          .then(response => {
+                  setHighDolar(parseFloat(response.data.USD.high).toFixed(2))
+                  setPctChange(parseFloat(response.data.USB.pctChange) > 0)
+          })
+          .catch(err => {
+          })
+    }
+  async();
+  }, [])
+
+  return (
+    <Column>
+     <Column bg="#1a6092" style={{ alignItems: "center" }}>
+      {/* barra azul contato */}
+      <Row style={{ 
+        maxWidth: "300px", 
+        alignItems: "center", 
+        justifyContent: "center" 
+      }} bg="#1a6092">
+        <FontAwesomeIcon icon={faEnvelope} style={{ 
+          color: "white", 
+          marginRight: "15px",
+          fontWeight: "bold"
+        }}/>
+        <p 
+          style={{ 
+            color: "white",
+            marginBottom: "5px",
+            marginTop: "8px"
+          }}>
+          contato@multcostura.com.br
+        </p>
+      </Row> 
+      {/* ================== */}
+      {/* barra com busca */}
+      <Row style={{ justifyContent: "center", paddingTop: "10px", paddingBottom: "10px" }}>
+        <Row style={{ maxWidth: "900px", alignSelf: "center" }}>
+          <div style={{ minWidth: "157px", width: "157px" }}>
+            <img style={{ width: "100%" }}src={logo} alt="logo multcostura" />
+          </div>
+
+          <Row style={{ alignItems: "center", marginBottom: "11px", marginLeft: "5px" }}>
+           <Input placeholder="Buscar produto..." />
+           <Button style={{ 
+             height: "39px", 
+             width: "51px",
+             borderTopLeftRadius: 0, 
+             borderBottomLeftRadius: 0 
+           }}>
+            <FontAwesomeIcon icon={faSearch} style={{ color: "white" }} size="2x" />
+           </Button>
+          </Row>
+
+          <Row style={{ alignItems: "center", marginLeft: "30px" }}>
+            <Row style={{ flex: 1 }}>
+              <div style={{ width: "28.5px" }}>
+                <img src={whatsapp} style={{ width: "100%"}} />
+              </div>
+              <Column style={{ marginLeft: "5px" }}>
+                <SimpleText>(11) 00000-0000</SimpleText>
+                <SimpleText>WhatsApp</SimpleText>
+              </Column>
+            </Row>
+            <Row style={{ flex: 1 }}>
+              <div style={{ width: "28.5px" }}>
+                <img src={whatsapp} style={{ width: "100%"}} />
+              </div>
+              <Column style={{ marginLeft: "5px" }}>
+                <SimpleText>(11) 00000-0000</SimpleText>
+                <SimpleText>WhatsApp</SimpleText>
+              </Column>
+            </Row>
+
+            <Row style={{ flex: 1 }}>
+              <div style={{ width: "28.5px" }}>
+                <img src={whatsapp} style={{ width: "100%"}} />
+              </div>
+              <Column style={{ marginLeft: "5px" }}>
+                <SimpleText>(11) 00000-0000</SimpleText>
+                <SimpleText>WhatsApp</SimpleText>
+              </Column>
+            </Row>
+          </Row>
+        </Row>
+      </Row>
+      {/* ================ */}
+
+      {/* terceira barra */}
+      <Row style={{ justifyContent: "center", paddingTop: "10px" }}>
+        <Row style={{ maxWidth: "900px", alignSelf: "center" }}>
+          <ItemPC>
+            <p>home</p>
+          </ItemPC>
+          <ItemPC>
+            <p>Nossas Marcas</p>
+          </ItemPC>
+
+          <ItemPC>
+            <p>revendedores</p>
+          </ItemPC>
+          <ItemPC>
+            <p>Máquinas</p>
+          </ItemPC>
+          <ItemPC>
+            <p>Peças e acessórios</p>
+          </ItemPC>
+          <ItemPC>
+            <p>Notícias</p>
+          </ItemPC>
+          <ItemPC>
+            <p>Sobre nós</p>
+          </ItemPC>
+          <ItemPC>
+            <p>Contato</p>
+          </ItemPC>
+        </Row>
+      </Row>
+     </Column> 
+    </Column>
+  )
+}
+
+const ItemPC = styled.div`
+  transition: .2s;
+  cursor: pointer;
+  padding: 10px 15px;
+  :hover {
+    background: grey;
+    p {
+      color: white;
+    }
+  }
+  display: flex;
+  alignItems: center;
+  p {
+    margin: 0;
+    text-transform: uppercase;
+    color: #535353;
+    opacity: .8;
+    font-size: 14px;
+  }
+`
+
+const SimpleText = styled.p`
+  margin: 0;
+  margin-bottom: 5px;
+  font-size: 11px;
+  color: #5E5E5E
+`
+
+const Input = styled.input`
+  border-radius: 1px;
+  border: 1px solid #DFDFDF;
+  width: 280px;
+  height: 37px;
+  padding: 0 10px;
+  margin-right:0;
+  border-top-right-radius:0;
+  border-bottom-right-radius:0;
+  outline: none;
+`
+
+const Button = styled.button`
+  cursor: pointer;
+  border: none;
+  margin-left:0;
+  border-radius: 1px;
+  background-color: #1a6092;
+  transition: .2s;
+  :hover {
+    opacity: .8;
+  }
+`
+
+const Row = styled.div`
+  display: flex;
+  width: 100%;
+  background: ${props => props.bg ? props.bg : "white"}
+`
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: ${props => props.bg ? props.bg : "white"}
+`
+
