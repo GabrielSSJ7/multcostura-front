@@ -252,7 +252,7 @@ export default function Nav () {
           </ItemPC>
 
           <ItemPC 
-            onClick={() => Router.push("/revendedores")}
+            onClick={() => Router.push("/#revendedores")}
           >
             <p>revendedores</p>
           </ItemPC>

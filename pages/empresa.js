@@ -35,7 +35,7 @@ export default function Empresa () {
 			  {visLoad ? 
 			  	<Column style={{ width: "100%" }} jc="center" ait="center"><img src={loading} style={{ width: "32px", height: "32px" }} /></Column> :
 			  	<Column style={{ width: "100%" }}>
-			  	  <SlideWeb images={banner} fixed />
+			  	  {/* <SlideWeb images={banner} fixed /> */}
 			      <Content />
 			    </Column>
 			  }
