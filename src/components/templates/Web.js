@@ -5,6 +5,7 @@ import Head from "next/head";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import Navbar from "../web/Nav";
 import Footer from '../web/Footer'
+import Splash from '../web/Splash'
 
 const GlobalStyle = createGlobalStyle`
     @font-face {
@@ -77,31 +78,39 @@ class Template extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nick: ""
+      nick: "",
+      loading: true
     };
   }
 
   componentDidMount() {
    //new Microsoft.Maps.Map(document.getElementById('map'), {})
-   
+    setTimeout(() => {
+      this.setState({
+        loading: false
+      })
+    }, 1200)
   }
 
  
 
   render() {
     return (
-      <div style={{ margin: 0, padding: 0 }}>
-        <Head>
-          <title>Multcostura</title>
-          <script src={`http://www.bing.com/api/maps/mapcontrol?callback=loadMapScenario&key=${process.env.mapsKey}`} defer />
-        </Head>
-        <GlobalStyle />
-        <Navbar />
-        <div style={{ margin: 0, padding: 0, display: "flex", minHeight: '100vh' }}>
-          {this.props.children}
+      <>
+        {this.state.loading ? <Splash /> : null}
+        <div style={{ display: this.state.loading ? "none" : "inherit", margin: 0, padding: 0 }}>
+          <Head>
+            <title>Multcostura</title>
+            <script src={`http://www.bing.com/api/maps/mapcontrol?callback=loadMapScenario&key=${process.env.mapsKey}`} defer />
+          </Head>
+          <GlobalStyle />
+          <Navbar />
+          <div style={{ margin: 0, padding: 0, display: "flex", minHeight: '100vh' }}>
+            {this.props.children}
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
+      </>
     );
   }
 }

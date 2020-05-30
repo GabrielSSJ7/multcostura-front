@@ -27,18 +27,21 @@ export default function Produto ({ id }) {
         if (prod.specifications[specArrayKeys[specKey]]) {
           switch (specArrayKeys[specKey]) {
             case `alturaCalcador`:
-              specArray.push(`altura do calçador: ${prod.specifications[specArrayKeys[specKey]]}`)
+              specArray.push({ key: `altura do calçador`, value: prod.specifications[specArrayKeys[specKey]] })
               break
             case 'numeroDeAgulhas':
-              specArray.push(`número de agulhas: ${prod.specifications[specArrayKeys[specKey]]}`)
+              specArray.push({ key: `número de agulhas`, value: prod.specifications[specArrayKeys[specKey]]})
               break
                     
             case 'velocidadeMaxima':
-              specArray.push(`velocidade máxima: ${prod.specifications[specArrayKeys[specKey]]}`)
+              specArray.push({ key: `velocidade máxima`, value: prod.specifications[specArrayKeys[specKey]]})
               break
 
             default:
-              specArray.push(`${specArrayKeys[specKey].replace(/([A-Z])/g, ' $1').trim().toLowerCase()}: ${prod.specifications[specArrayKeys[specKey]]}`)
+              specArray.push({ 
+                key: `${specArrayKeys[specKey].replace(/([A-Z])/g, ' $1').trim().toLowerCase()}`,
+                value: prod.specifications[specArrayKeys[specKey]]
+              })
               break
           }
       }
@@ -133,16 +136,22 @@ return (
                 Descrição
               </h4>
             </div>
-            <Column style={{ flexWrap: 'wrap'}} >
-              <ul 
-                style={{ padding: "0 15px" }}>
-                  {specifications.map(spec => ( 
-                    <Text style={{textAlign: "left", fontSize: "14px",marginBottom: "10px", fontFamily:"sans-serif" }}>
-                    {spec}
-                    </Text>
-                  )
-                  )}
-              </ul>
+            <Column style={{ flexWrap: 'wrap', marginBottom: "65px" }} >
+              {specifications.map((spec, i) => ( 
+                <Row 
+                ait="center"
+                style={{
+                  textAlign: "left", 
+                  fontSize: "14px",
+                  fontFamily:"sans-serif",
+                  backgroundColor: i % 2 == 0 ? '#EEE' : 'white',
+                  minHeight: "40px"
+                }}>
+                  <Text style={{ flex: "1", marginLeft: "15px"}}>{spec.key}</Text>
+                  <Text style={{ flex: "1" }}>{spec.value}</Text>
+                </Row>
+              )
+              )}
             </Column>
           </Column>
         </Row>
@@ -306,13 +315,14 @@ const Arrow = styled.img`
     opacity: .6;
   }
 `
-const Text = styled.li`
+const Text = styled.p`
   text-align: left;
   /*font: Regular 18px/24px Segoe UI;*/
   font-size: 18px;
   letter-spacing: 0;
   color: #5B5B5B;
   opacity: 1;
+  margin:0
 `
 const Img = styled.div`
 	background-image: url('${props => props.src}');

@@ -5,7 +5,7 @@ import { Row, Column } from '../../../static/styled-components/base'
 
 export default function Content () {
 	return <Column style={{ width: "100%", background: "#F1F1F1" }}>
-		<Column style={{ width: "69.11%", margin: "auto", paddingTop: "5%",paddingBottom: '2%' }}>
+		<Column style={{ width: "69.11%", margin: "auto", paddingTop: "1%",paddingBottom: '2%' }}>
 			<h1 style={{ marginTop: "25px", marginBottom: 0, color: "#5B5B5B" }}>MULTCOSTURA</h1>
 			<Text className="textos"  style={{  color: "#5B5B5B" }}>Somos um empresa especializada em comércio de máquinas de costura, acessórios e peças para o mercado têxtil. <br /><br />
 			 Comercializamos as melhores marcas do mercado têxtil como a BAOYU, TECHOOK, HIKARI e QXYUN, conosco você encontra 
