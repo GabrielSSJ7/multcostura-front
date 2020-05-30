@@ -1,6 +1,7 @@
 import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import App from "./_app";
+import Splash from '../src/components/web/Splash'
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -8,6 +9,19 @@ class MyDocument extends Document {
     return { ...initialProps };
   }
 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      loading: true
+    }
+  }
+
+  componentDidMount() {
+    this.setState({
+      loading: false
+    })
+  }
 
   render() {
     return (
