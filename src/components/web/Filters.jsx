@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-
+import axios from "../../api";
 import { Creators } from "../../ducks/machines";
 import {
   Column,
@@ -17,57 +17,22 @@ export default function Filters({ type }) {
   const dispatch = useDispatch();
   const [filters, setFilters] = useState({});
   const [filtersSelecteds, setFiltersSelecteds] = useState({});
-  const [filtersElement, setFiltersElement] = useState([]);
+  const [settings, setSettings] = useState([])
 
-  function configFilters() {
+  function settingFilters(machines) {
     let _filters = {};
     let _filtersSelected = {};
-
-    if (machines.length > 1) {
-      machines.forEach((machine, a) => {
-        const specKeys = machine.specifications
-          ? Object.keys(machine.specifications)
-          : [];
+    machines.forEach((machine, a) => {
+      const specKeys = machine.specifications
+        ? Object.keys(machine.specifications)
+        : [];
+      if (specKeys.length > 0) {
         specKeys.forEach((k, i) => {
-          _filtersSelected = {
-            ..._filtersSelected,
-            [k]: null,
-          };
-          if (machine.specifications[k]) {
-            _filters = {
-              ..._filters,
-              [k]: _filters[k]
-                ? _filters[k].includes(machine.specifications[k])
-                  ? _filters[k]
-                  : [..._filters[k], machine.specifications[k]]
-                : [machine.specifications[k]],
+          if (checkFilterActivated(settings, k)) {
+            _filtersSelected = {
+              ..._filtersSelected,
+              [k]: null,
             };
-          }
-        });
-      });
-      setFiltersSelecteds(_filtersSelected);
-      dispatch(Creators.loadFilters(_filtersSelected));
-      setFilters(_filters);
-    }
-  }
-
-  useEffect(() => {
-    if (type == "categories" || type == "manufacturer") configFilters();
-  }, []);
-
-  useEffect(() => {
-    if (type == "tools") {
-      setFilters({});
-      setFiltersSelecteds({});
-    }
-    if (type == "categories") {
-      let _filters = {};
-      if (machines.length >= 1) {
-        machines.forEach((machine, a) => {
-          const specKeys = machine.specifications
-            ? Object.keys(machine.specifications)
-            : [];
-          specKeys.forEach((k, i) => {
             if (machine.specifications[k]) {
               _filters = {
                 ..._filters,
@@ -78,10 +43,62 @@ export default function Filters({ type }) {
                   : [machine.specifications[k]],
               };
             }
-          });
+          }
         });
-        setFilters(_filters);
       }
+    });
+    return {
+      _filters,
+      _filtersSelected,
+    };
+  }
+
+  function checkFilterActivated(filters, name) {
+    let status = false;
+    //console.log("[Filters] checkFilterActivated", filters, name);
+    filters.forEach((f) => {
+      //console.log("[Filters] checkFilterActivated", f, name);
+      if (f.name == name) status = f.status;
+    });
+    return status;
+  }
+
+  function getSettings(cb = function () {}) {
+    axios()
+      .get("/settings")
+      .then((response) => {
+        const s = response.data[0].desativatedFilters;
+        //console.log("[Filters] ", s)
+        cb(s);
+      })
+      .catch((err) => {});
+  }
+
+  useEffect(() => {
+    getSettings(function (s) {
+      setSettings(s)
+      if (type == "categories" || type == "manufacturer") {
+        const _ = settingFilters(machines, sÎ);
+        setFiltersSelecteds(_._filtersSelected);
+        dispatch(Creators.loadFilters(_._filtersSelected));
+        setFilters(_._filters);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    console.log("[Filters] changing machines", machines.length, machines.length >= 1);
+    setFilters({});
+    setFiltersSelecteds({});
+    if (machines.length >= 1) {
+      const _ = settingFilters(machines, settings);
+      setFilters(_._filters);
+    } else {
+      setFilters({});
+      setFiltersSelecteds({});
+    }
+    return () => {
+  
     }
   }, [machines]);
 
@@ -106,34 +123,6 @@ export default function Filters({ type }) {
       });
     }
   }
-
-  // function filterMachines () {
-  // 	const keys = Object.keys(filtersSelecteds)
-  // 	let filtersAreEmpty = true
-
-  // 	keys.forEach(k => {
-  // 		if (filtersSelecteds[k]) filtersAreEmpty = false
-  // 	})
-
-  // 	if (!filtersAreEmpty) {
-  // 		const machinesFiltereds = machinesForFilters.filter((m, i) => {
-  // 			let r = false
-  // 			keys.forEach(k => {
-  // 				if (m.specifications[k]){
-  // 					if (m.specifications[k] == filtersSelecteds[k])
-  // 						r = true
-  // 				}
-  // 			})
-
-  // 			return r
-  // 		})
-  // 		dispatch(Creators.loadMachines(machinesFiltereds))
-  // 	} else {
-  // 		dispatch(Creators.loadMachines(machinesForFilters))
-  // 	}
-
-  // }
-
   function handleDelete(i) {
     if (i) {
       const keys = Object.keys(filtersSelecteds);

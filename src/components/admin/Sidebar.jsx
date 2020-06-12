@@ -10,7 +10,8 @@ import {
   faDoorOpen,
   faHome,
   faHandshake,
-  faTools
+  faTools,
+  faCogs
 } from "@fortawesome/free-solid-svg-icons";
 import { removeItem } from "../../utils/local";
 
@@ -55,6 +56,11 @@ export default () => (
       <FontAwesomeIcon icon={faTools} size="2x" />
 
       <NavLink>Peças</NavLink>
+    </DivItem>
+    <DivItem onClick={() => navigate("settings")}>
+      <FontAwesomeIcon icon={faCogs} size="2x" />
+
+      <NavLink>Configurações</NavLink>
     </DivItem>
     <DivItem onClick={() => logout()}>
       <FontAwesomeIcon icon={faDoorOpen} size="2x" />
