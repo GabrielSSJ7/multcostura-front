@@ -1,338 +1,356 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 
-import setApi from '../src/api'
-import styled from 'styled-components'
-import { Row, Column } from '../src/static/styled-components/base'
-import { useRouter } from 'next/router'
-import Template from '../src/components/templates/Web'
-import Section1 from '../src/components/web/produto/Section1'
-import Section2 from '../src/components/web/produto/Section2'
-import SlideSmall from '../src/components/web/SlideSmall'
+import setApi from "../src/api";
+import styled from "styled-components";
+import { Row, Column } from "../src/static/styled-components/base";
+import { useRouter } from "next/router";
+import Template from "../src/components/templates/Web";
+import Section1 from "../src/components/web/produto/Section1";
+import Section2 from "../src/components/web/produto/Section2";
+import SlideSmall from "../src/components/web/SlideSmall";
 
-import loading from '../src/static/images/loading.gif'
+import loading from "../src/static/images/loading.gif";
 
-import leftArrow from '../src/static/images/seta_banner_esquerda.svg'
-import rightArrow from '../src/static/images/Icon_seta_banner.svg'
+import leftArrow from "../src/static/images/seta_banner_esquerda.svg";
+import rightArrow from "../src/static/images/Icon_seta_banner.svg";
 
-export default function Produto ({ id }) {
-  const Router = useRouter()
-  const [prod, setProd] = useState({ category: {}, specifications: null, images: [] })
-  const [visLoading, setVisLoading] = useState(false)
-  const [specifications, setSpec] = useState([])
+export default function Produto({ id }) {
+  const Router = useRouter();
+  const [prod, setProd] = useState({
+    category: {},
+    specifications: null,
+    images: [],
+  });
+  const [visLoading, setVisLoading] = useState(false);
+  const [specifications, setSpec] = useState([]);
   useEffect(() => {
-    if (prod.specifications){ 
+    if (prod.specifications) {
       const specArrayKeys = Object.keys(prod.specifications);
-      const specArray = []
+      const specArray = [];
       for (let specKey in specArrayKeys) {
         if (prod.specifications[specArrayKeys[specKey]]) {
           switch (specArrayKeys[specKey]) {
             case `alturaCalcador`:
-              specArray.push({ key: `altura do calçador`, value: prod.specifications[specArrayKeys[specKey]] })
-              break
-            case 'numeroDeAgulhas':
-              specArray.push({ key: `número de agulhas`, value: prod.specifications[specArrayKeys[specKey]]})
-              break
-                    
-            case 'velocidadeMaxima':
-              specArray.push({ key: `velocidade máxima`, value: prod.specifications[specArrayKeys[specKey]]})
-              break
+              specArray.push({
+                key: `altura do calçador`,
+                value: prod.specifications[specArrayKeys[specKey]],
+              });
+              break;
+            case "numeroDeAgulhas":
+              specArray.push({
+                key: `número de agulhas`,
+                value: prod.specifications[specArrayKeys[specKey]],
+              });
+              break;
+
+            case "velocidadeMaxima":
+              specArray.push({
+                key: `velocidade máxima`,
+                value: prod.specifications[specArrayKeys[specKey]],
+              });
+              break;
 
             default:
-              specArray.push({ 
-                key: `${specArrayKeys[specKey].replace(/([A-Z])/g, ' $1').trim().toLowerCase()}`,
-                value: prod.specifications[specArrayKeys[specKey]]
-              })
-              break
+              specArray.push({
+                key: `${specArrayKeys[specKey]
+                  .replace(/([A-Z])/g, " $1")
+                  .trim()
+                  .toLowerCase()}`,
+                value: prod.specifications[specArrayKeys[specKey]],
+              });
+              break;
           }
+        }
       }
+
+      setSpec(specArray);
     }
-
-    setSpec(specArray)
-    }
-  }, [prod])
-
-
+  }, [prod]);
 
   useEffect(() => {
     async function f() {
-      setVisLoading(true)
-      
+      setVisLoading(true);
+
       setApi()
         .get(`/machine/${id}`)
-        .then(response => {
-          console.log("machine => ",response.data)
-          setProd(response.data)
-          setVisLoading(false)
+        .then((response) => {
+          console.log("machine => ", response.data);
+          setProd(response.data);
+          setVisLoading(false);
         })
-        .catch(err => {
+        .catch((err) => {
           setApi()
             .get(`/tools/${id}`)
-            .then(response => {
-                  console.log("tools",response.data)
-                  setProd({...response.data, category: {}})
-                  setVisLoading(false)
+            .then((response) => {
+              console.log("tools", response.data);
+              setProd({ ...response.data, category: {} });
+              setVisLoading(false);
             })
-            .catch(err => {
-                  setVisLoading(false)
-            })
-        })
+            .catch((err) => {
+              setVisLoading(false);
+            });
+        });
     }
     f();
-  }, [])
-
+  }, []);
 
   function navigate(route) {
-    Router.push(route)
+    Router.push(route);
   }
-return (
-  <Template>
-    {visLoading ? 
-     <Row style={{ width: "100%" }} jc="center" ait="center"><img src={loading} style={{ width: "32px", height: "32px" }} /></Row> :
-     <Column style={{ width: "100%", paddingBottom: "55px" }}>
-       <HistoryBar 
-        style={{
-          width: "100%", 
-          background:"#F1F1F1", 
-          display:"flex", 
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "15px"
-        }}>
-        <Link onClick={() => navigate("/")}>home</Link>
-        >
-        <Link 
-          onClick={() => 
-            navigate("/produtos?type=categories&id="+prod.category._id)} 
-        >
-          Máquinas
-        </Link>
-        >
-        <Link 
-          onClick={() => 
-            navigate("/produtos?type=categories&id="+prod.category._id)}  
-        >
-          {prod.category ? prod.category.name : ''}
-        </Link>
-        >
-        <Link>modelo {prod.description}</Link>
-      </HistoryBar>
-       <Section1 prod={prod} />
-       <Row>
-                    
-        <Column 
-          style={{ 
-            maxWidth: "1000px", 
-            margin: "auto",
-            width: "80%"
-          }}>
-            <div style={{ maxWidth: "130px"}}>
-              <h4 style={{
-                backgroundColor: "#81161B",
-                padding: "10px 15px",
-                textTransform: "uppercase",
-                color: "white",
-                fontFamily: "arial"
-              }}>
-                Descrição
-              </h4>
-            </div>
-            <Column style={{ flexWrap: 'wrap', marginBottom: "65px" }} >
-              {specifications.map((spec, i) => ( 
-                <Row 
-                ait="center"
-                style={{
-                  textAlign: "left", 
-                  fontSize: "14px",
-                  fontFamily:"sans-serif",
-                  backgroundColor: i % 2 == 0 ? '#EEE' : 'white',
-                  minHeight: "40px"
-                }}>
-                  <Text style={{ flex: "1", marginLeft: "15px"}}>{spec.key}</Text>
-                  <Text style={{ flex: "1" }}>{spec.value}</Text>
-                </Row>
-              )
-              )}
-            </Column>
-          </Column>
+  return (
+    <Template>
+      {visLoading ? (
+        <Row style={{ width: "100%" }} jc="center" ait="center">
+          <img src={loading} style={{ width: "32px", height: "32px" }} />
         </Row>
-
-        <Column >
-          <div style={{ maxWidth: "1000px", margin: "auto", width: "90%" }} >
-            <h3 style={{ 
-              color: "#5B5B5B", 
-              borderBottom: "1px solid #81161B", 
-              maxWidth: "180px" }}
+      ) : (
+        <Column style={{ width: "100%", paddingBottom: "55px" }}>
+          <HistoryBar
+            style={{
+              width: "100%",
+              background: "#F1F1F1",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "15px",
+            }}
+          >
+            <Link onClick={() => navigate("/")}>home</Link>>
+            <Link
+              onClick={() =>
+                navigate("/produtos?type=categories&id=" + prod.category._id)
+              }
             >
-              Mesma categoria
-            </h3>
-          </div>
-          <div style={{ maxWidth: "1030px", margin: "auto", width: "90%" }} >
-            <SameCategory id={prod.category ? prod.category._id : ''} />
-          </div>
+              Máquinas
+            </Link>
+            >
+            <Link
+              onClick={() =>
+                navigate("/produtos?type=categories&id=" + prod.category._id)
+              }
+            >
+              {prod.category ? prod.category.name : ""}
+            </Link>
+            ><Link>modelo {prod.description}</Link>
+          </HistoryBar>
+          <Section1 prod={prod} />
+          <Row>
+            <Column
+              style={{
+                maxWidth: "1000px",
+                margin: "auto",
+                width: "80%",
+              }}
+            >
+              <div style={{ maxWidth: "130px" }}>
+                <h4
+                  style={{
+                    backgroundColor: "#81161B",
+                    padding: "10px 15px",
+                    textTransform: "uppercase",
+                    color: "white",
+                    fontFamily: "arial",
+                  }}
+                >
+                  Descrição
+                </h4>
+              </div>
+              <Column style={{ flexWrap: "wrap", marginBottom: "65px" }}>
+                {specifications.map((spec, i) => (
+                  <Row
+                    ait="center"
+                    style={{
+                      textAlign: "left",
+                      fontSize: "14px",
+                      fontFamily: "sans-serif",
+                      backgroundColor: i % 2 == 0 ? "#EEE" : "white",
+                      minHeight: "40px",
+                    }}
+                  >
+                    <Text style={{ flex: "1", marginLeft: "15px" }}>
+                      {spec.key}
+                    </Text>
+                    <Text style={{ flex: "1" }}>{spec.value}</Text>
+                  </Row>
+                ))}
+              </Column>
+            </Column>
+          </Row>
+
+          <Column>
+            <div style={{ maxWidth: "1000px", margin: "auto", width: "90%" }}>
+              <h3
+                style={{
+                  color: "#5B5B5B",
+                  borderBottom: "1px solid #81161B",
+                  maxWidth: "180px",
+                }}
+              >
+                Mesma categoria
+              </h3>
+            </div>
+            <div style={{ maxWidth: "1030px", margin: "auto", width: "90%" }}>
+              <SameCategory id={prod.category ? prod.category._id : ""} />
+            </div>
+          </Column>
         </Column>
-         </Column>
-      }
-  </Template>
-  )
+      )}
+    </Template>
+  );
 }
 
-
-function SameCategory ({ id }) {
-  const router = useRouter()
-  const [products, setProducts] = useState([])
-  const [components, setComponents] = useState([])
+function SameCategory({ id }) {
+  const router = useRouter();
+  const [products, setProducts] = useState([]);
+  const [components, setComponents] = useState([]);
 
   useEffect(() => {
-    console.log("components => ", components)
-  }, [components])
+    console.log("components => ", components);
+  }, [components]);
 
   useEffect(() => {
     async function doSomething() {
       try {
-        const machines = 
-          await setApi().get(`/machine?categories=${id}`)
-        const screenW = window.innerWidth
-        const _components = []
+        const machines = await setApi().get(`/machine?categories=${id}`);
+        const screenW = window.innerWidth;
+        const _components = [];
         for (let i = 0; i <= 5; i++) {
-          const prod = machines.data[i] 
+          const prod = machines.data[i];
           if (prod) {
-          _components.push(
-            <Column 
-              key={prod.id}
-              style={{ 
-                width: `${(screenW - ((screenW / 100) * 20)) / 3 - 40}px`,
-                cursor: "pointer", 
-                margin: "15px",
-                border: "1px solid #DFDFDF",
-                marginBottom: "15px",
-                minWidth: "270px"
-              }} 
-              className="media-p"
-              onClick={() => window.location.href = "/produto?id=" + prod.id } 
-              ait="center"
-            >
-            <Img 
-              src={prod.images.length > 0 ?
-                prod.images[0] : ''} 
-              width="100%" 
-              height="280px" 
-            />
-            <div 
-              style={{ 
-                background: "#EEEEEE", 
-                padding: "3px 10px", 
-                maxWidth: "85%", 
-                marginTop: "10px", 
-                width: "85%" 
-              }}>
-            <Name>{prod.name}</Name>
-            </div>
+            _components.push(
+              <Column
+                key={prod.id}
+                style={{
+                  width: `${(screenW - (screenW / 100) * 20) / 3 - 40}px`,
+                  cursor: "pointer",
+                  margin: "15px",
+                  border: "1px solid #DFDFDF",
+                  marginBottom: "15px",
+                  minWidth: "270px",
+                }}
+                className="media-p"
+                onClick={() =>
+                  (window.location.href = "/produto?id=" + prod.id)
+                }
+                ait="center"
+              >
+                <Img
+                  src={prod.images.length > 0 ? prod.images[0] : ""}
+                  width="100%"
+                  height="280px"
+                />
+                <div
+                  style={{
+                    background: "#EEEEEE",
+                    padding: "3px 10px",
+                    maxWidth: "85%",
+                    marginTop: "10px",
+                    width: "85%",
+                  }}
+                >
+                  <Name>{prod.name}</Name>
+                </div>
 
-            <p 
-              style={{ 
-                maxWidth: "80%", 
-                fontFamily: "arial", 
-                lineHeight: "25px", 
-                minHeight: "90px" 
-              }}
-            >
-              {prod.mainFeatures.length > 40 ? 
-                prod.mainFeatures.substr(0, 100) + "..." : 
-                prod.mainFeatures
-              }
-            </p>
-            <Line />
+                <p
+                  style={{
+                    maxWidth: "80%",
+                    fontFamily: "arial",
+                    lineHeight: "25px",
+                    minHeight: "90px",
+                  }}
+                >
+                  {prod.mainFeatures.length > 40
+                    ? prod.mainFeatures.substr(0, 100) + "..."
+                    : prod.mainFeatures}
+                </p>
+                <Line />
 
-            <RedButton>Ver mais</RedButton>                
-            </Column>
-          )
+                <RedButton>Ver mais</RedButton>
+              </Column>
+            );
           }
         }
-        setComponents(_components)
+        setComponents(_components);
       } catch (e) {
-        console.log("e >> ", e)
-      } 
+        console.log("e >> ", e);
+      }
     }
-    doSomething()
-  }, [])
-  const [slideCtrl, setSlideCtrl] = useState(1)
+    doSomething();
+  }, []);
+  const [slideCtrl, setSlideCtrl] = useState(1);
   const next = () => {
-    if (slideCtrl >= components.length)
-      return setSlideCtrl(1)
-    setSlideCtrl(slideCtrl + 1)
-  }
+    if (slideCtrl >= components.length) return setSlideCtrl(1);
+    setSlideCtrl(slideCtrl + 1);
+  };
   const prev = () => {
-    if (slideCtrl <= 1)
-      return setSlideCtrl(1)
-    setSlideCtrl(slideCtrl - 1)
-  }
+    if (slideCtrl <= 1) return setSlideCtrl(1);
+    setSlideCtrl(slideCtrl - 1);
+  };
   return (
     <div style={{ position: "relative" }}>
-      <SlideSmall 
-        images={components} 
+      <SlideSmall
+        images={components}
         customContent
         slideCtrl={slideCtrl}
         height="auto"
-       slideClass="mesma-categoria"
+        slideClass="mesma-categoria"
       />
-      <Arrow 
+      <Arrow
         onClick={prev}
         src={leftArrow}
         style={{
           top: "50%",
-          left: "-40px"
-        }}  
+          left: "-40px",
+        }}
       />
-      <Arrow 
+      <Arrow
         onClick={next}
         src={rightArrow}
         style={{
           top: "50%",
-          right: "-35px"
+          right: "-35px",
         }}
       />
     </div>
-  )
+  );
 }
-
-
 
 const Link = styled.p`
   margin: 10px;
   text-transform: uppercase;
   cursor: pointer;
-  transition: .2s;
+  transition: 0.2s;
   :hover {
-    opacity: .8;
+    opacity: 0.8;
   }
-`
+`;
 
 const Arrow = styled.img`
   position: absolute;
   cursor: pointer;
-  transition: .2s;
+  transition: 0.2s;
   :hover {
-    opacity: .6;
+    opacity: 0.6;
   }
-`
+`;
 const Text = styled.p`
   text-align: left;
   /*font: Regular 18px/24px Segoe UI;*/
   font-size: 18px;
   letter-spacing: 0;
-  color: #5B5B5B;
+  color: #5b5b5b;
   opacity: 1;
-  margin:0
-`
+  margin: 0;
+`;
 const Img = styled.div`
-	background-image: url('${props => props.src}');
+	background-image: url('${(props) => props.src}');
 	// background-size: cover;
 	background-size: 80%;
 	background-position: center;
 	background-repeat: no-repeat;
-	width: ${props => props.width};
-	height: ${props => props.height};
-	transform: translateX(${props => props.translate}px);
+	width: ${(props) => props.width};
+	height: ${(props) => props.height};
+	transform: translateX(${(props) => props.translate}px);
 	transition: transform 0.2s ease-in-out;
 
 	position: relative;
@@ -342,23 +360,23 @@ const Img = styled.div`
 `;
 
 const Name = styled.p`
-	text-align: center;
-	font-family: Segoe UI;
-	letter-spacing: 0;
-	color: #000000;
-	opacity: 1;
-`
+  text-align: center;
+  font-family: Segoe UI;
+  letter-spacing: 0;
+  color: #000000;
+  opacity: 1;
+`;
 
 const Line = styled.div`
-  background: #AAAAAA;
+  background: #aaaaaa;
   width: 85%;
   height: 1px;
   margin-top: 5px;
   margin-bottom: 25px;
-`
+`;
 const RedButton = styled.div`
   border: none;
-  background: #81161B;
+  background: #81161b;
   color: white;
   height: 37px;
   width: 123px;
@@ -368,19 +386,19 @@ const RedButton = styled.div`
   align-items: center;
   text-transform: uppercase;
   margin-bottom: 15px;
-  transition: .2s;
+  transition: 0.2s;
   :hover {
-    opacity: .8;
+    opacity: 0.8;
   }
-`
+`;
 const HistoryBar = styled.div`
   @media (max-width: 500px) {
     p {
       font-size: 80%;
-    }    
+    }
   }
-`
+`;
 
 Produto.getInitialProps = ({ query }) => {
-	return { id: query.id }
-}
+  return { id: query.id };
+};
