@@ -115,12 +115,12 @@ export default function Footer() {
                   marginRight: "5px",
                 }}
               />
-              <Item>(11) 0000-0000</Item>
+              <Item>(11) 2693-7212</Item>
             </Row>
             <Row ait="center" className="inicio">
               <img src={whatsapp} />
               <Item style={{ marginBottom: 0, marginLeft: "5px" }}>
-                (11) 00000-0000
+                (11) 97472-3356
               </Item>
             </Row>
           </Col>
