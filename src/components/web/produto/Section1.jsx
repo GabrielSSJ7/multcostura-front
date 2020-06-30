@@ -2,33 +2,39 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import SlideSmall from "../SlideSmall";
-
+import Dialog from "./DialogVideo";
 import leftArrow from "../../../static/images/seta_banner_esquerda.svg";
 import rightArrow from "../../../static/images/Icon_seta_banner.svg";
 
 export default function Section1({ prod }) {
   const [slideCtrl, setSlideCtrl] = useState(0);
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const [currentImage, setCurrentImage] = useState(prod.images[0]);
   const prev = () => {
     if (slideCtrl > 0) {
-      setCurrentImage(prod.images[slideCtrl - 1])
-      setSlideCtrl(slideCtrl - 1)
+      setCurrentImage(prod.images[slideCtrl - 1]);
+      setSlideCtrl(slideCtrl - 1);
     } else {
-      setCurrentImage(prod.images[prod.images.length - 1])
-      setSlideCtrl(prod.images.length - 1)
+      setCurrentImage(prod.images[prod.images.length - 1]);
+      setSlideCtrl(prod.images.length - 1);
     }
-
-  }
+  };
   const next = () => {
     if (slideCtrl < prod.images.length - 1) {
-      setCurrentImage(prod.images[slideCtrl + 1])
-      setSlideCtrl(slideCtrl + 1)
+      setCurrentImage(prod.images[slideCtrl + 1]);
+      setSlideCtrl(slideCtrl + 1);
     } else {
-      setCurrentImage(prod.images[0])
-      setSlideCtrl(0)
+      setCurrentImage(prod.images[0]);
+      setSlideCtrl(0);
     }
-
-  }
+  };
   return (
     <Row
       style={{
@@ -64,24 +70,24 @@ export default function Section1({ prod }) {
         />
         <div style={{ display: "flex", width: "80.2%", marginTop: "5px" }}>
           {prod.images.map((image, id) => (
-            <Image 
+            <Image
               onClick={() => {
-                setCurrentImage(image)
-                setSlideCtrl(id)
+                setCurrentImage(image);
+                setSlideCtrl(id);
               }}
               onMouseEnter={() => {
-                setCurrentImage(image)
-                setSlideCtrl(id)
+                setCurrentImage(image);
+                setSlideCtrl(id);
               }}
-              src={image} 
+              src={image}
               key={id}
               selected={image == currentImage}
-              style={{ 
-                width: "85px", 
-                margin: "0 2px", 
-                height: "80px"
+              style={{
+                width: "85px",
+                margin: "0 2px",
+                height: "80px",
               }}
-           />
+            />
           ))}
         </div>
       </Column>
@@ -124,16 +130,16 @@ export default function Section1({ prod }) {
                 style={{
                   width: "95%",
                   height: "66.66%",
-                  minHeight: "200px",
+                  minHeight: "80px",
+                  marginTop: "45px"
                 }}
               >
                 {prod.productRef.map((ref) => (
                   <Img
                     src={ref}
-                    
-                    width="32%"
+                    width="22%"
                     style={{ marginRight: "1.3%" }}
-                    height="66.66%"
+                    height="80%"
                   />
                 ))}
               </Row>
@@ -150,7 +156,7 @@ export default function Section1({ prod }) {
           style={{ margin: "40px 0 0 ", maxWidth: "350px" }}
         >
           {prod.video ? (
-            <Button onClick={() => setOpen(true)}>Vídeo</Button>
+            <Button onClick={handleClickOpen}>Vídeo</Button>
           ) : null}
           {prod.manual ? (
             <Button
@@ -172,22 +178,24 @@ export default function Section1({ prod }) {
           ) : null}
         </Row>
       </Column>
+
+      <Dialog state={{ video: prod.video, open, handleClose }} />
     </Row>
   );
 }
 
 const Image = styled.div`
   background-color: white;
-  background-image: url(${props => props.src});
+  background-image: url(${(props) => props.src});
   background-size: auto 100%;
   background-repeat: no-repeat;
   background-position: left top;
   cursor: pointer;
-  border: 1px solid ${props => props.selected ? 'blue' : '#DFDFDF'};
+  border: 1px solid ${(props) => (props.selected ? "blue" : "#DFDFDF")};
   :hover {
-    opacity: .5;
+    opacity: 0.5;
   }
-`
+`;
 
 const Button = styled.div`
   height: 56px;
@@ -331,5 +339,7 @@ const Img = styled.div`
 	position: relative;
 	:hover {
 		transform: scale(1.1); -webkit-transform: scale(1.1);
+    width: 45%;
+    height: 200%;
 	}
 `;
