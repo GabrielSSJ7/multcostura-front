@@ -231,7 +231,7 @@ export default function EditMachine({ id }) {
   function sewingHandleChange(e) {
     if (validateImage(process.env.imageExtensionPermitted, 10000, e.target.files[0])) {
       const newName = parseInt(e.target.name[e.target.name.length - 1]) - 1;
-      setSewingTypeFile(changeFileName(e.target.files[0], newName));
+      setSewingFile(changeFileName(e.target.files[0], newName));
     } else {
       setSnackBar({
         open: true,

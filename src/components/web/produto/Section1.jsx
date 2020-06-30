@@ -131,7 +131,7 @@ export default function Section1({ prod }) {
                   width: "95%",
                   height: "66.66%",
                   minHeight: "80px",
-                  marginTop: "45px"
+                  marginTop: "45px",
                 }}
               >
                 {prod.productRef.map((ref) => (
@@ -151,13 +151,35 @@ export default function Section1({ prod }) {
           ""
         )}
 
+        {prod.sewingType ? (
+          <Column style={{ height: "32%" }}>
+            <Text>Tipo de costura </Text>
+            <Row
+              style={{
+                width: "95%",
+                height: "66.66%",
+                minHeight: "80px",
+                marginTop: "45px",
+              }}
+            >
+              <Img
+                src={prod.sewingType}
+                width="22%"
+                style={{ marginRight: "1.3%" }}
+                height="80%"
+              />
+              ))
+            </Row>
+          </Column>
+        ) : (
+          ""
+        )}
+
         <Row
           jc="space-between"
           style={{ margin: "40px 0 0 ", maxWidth: "350px" }}
         >
-          {prod.video ? (
-            <Button onClick={handleClickOpen}>Vídeo</Button>
-          ) : null}
+          {prod.video ? <Button onClick={handleClickOpen}>Vídeo</Button> : null}
           {prod.manual ? (
             <Button
               onClick={() => {
@@ -244,7 +266,7 @@ export const Row = styled.div`
 
   @media(max-width: 1100px) {
     .prod-wrapper {
-      margin 0 35px 0 0 !important;
+      /* margin: 0 35px 0 0 !important; */
     }
 
     .prod-name-div {
@@ -342,10 +364,35 @@ const Img = styled.div`
 	transform: translateX(${(props) => props.translate}px);
 	transition: transform 0.2s ease-in-out;
 
+  @media (max-width: 1100px) {
+    min-height: 200px;
+    :hover {
+      transform: scale(1.1); -webkit-transform: scale(1.1);
+      width: 105%;
+      height: 300%;
+      min-height: 300px;
+      max-height: 300px;
+      z-index: 999999999;
+	  }
+  }
+
+  @media (max-width: 600px) {
+    min-height: 100px;
+
+
+    :hover {
+      transform: scale(1.1); -webkit-transform: scale(1.1);
+      width: 105%;
+      height: 300%;
+      z-index: 999999999;
+
+	  }
+  }
 	position: relative;
 	:hover {
 		transform: scale(1.1); -webkit-transform: scale(1.1);
     width: 45%;
     height: 200%;
+    z-index: 999999999;
 	}
 `;
