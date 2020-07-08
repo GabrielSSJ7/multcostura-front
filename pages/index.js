@@ -225,7 +225,7 @@ const IndexPage = () => {
           }}
         >
           <Row
-          id="revendedores"
+            id="revendedores"
             style={{
               alignItems: "center",
               maxWidth: "800px",
@@ -247,12 +247,12 @@ const IndexPage = () => {
           <Row
             jc="center"
             ait="center"
-            style={{ width: "100%", flexWrap: "wrap" }}
+            style={{ width: "100%", flexWrap: "wrap", maxWidth: '30%' }}
           >
             <Select
               style={{
                 margin: "0 5px",
-                width: "100px",
+                flex: 1,
                 padding: "0",
                 background:
                   "transparent linear-gradient(180deg, #FCF6F6 0%, #D6D6D6 100%) 0% 0% no-repeat padding-box",
@@ -271,9 +271,9 @@ const IndexPage = () => {
 
             <Select
               style={{
-                width: "100px",
                 margin: "0 5px",
                 padding: "0",
+                flex: 1,
                 background:
                   "transparent linear-gradient(180deg, #FCF6F6 0%, #D6D6D6 100%) 0% 0% no-repeat padding-box",
                 height: "40px",
