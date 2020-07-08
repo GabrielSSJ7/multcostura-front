@@ -108,7 +108,7 @@ export default function Nav() {
     />
   ) : (
     <Column>
-      <Column style={{ alignItems: "center", backgroundColor: "#ddd" }}>
+      <Column style={{ alignItems: "center", backgroundColor: "#1a6092" }}>
         {/* barra azul contato */}
         <Row
           style={{
@@ -127,12 +127,12 @@ export default function Nav() {
             style={{
               width: "14px",
               marginRight: "10px",
-              filter: "invert(100%)",
+              
             }}
           />
           <p
             style={{
-              color: "#333",
+              color: "#fff",
               marginBottom: "5px",
               marginTop: "8px",
               fontSize: "14px",
@@ -151,7 +151,7 @@ export default function Nav() {
             backgroundColor: "white",
           }}
         >
-          <Row style={{ maxWidth: "1600px", alignSelf: "center" }}>
+          <Row style={{ maxWidth: "920px", alignSelf: "center" }}>
             <div
               style={{
                 flex: 1,
@@ -207,7 +207,7 @@ export default function Nav() {
               </Button>
             </Row>
 
-            <Row style={{ flex: 1, alignItems: "center", marginLeft: "30px" }}>
+            <Row style={{ flex: 2, alignItems: "center", marginLeft: "30px" }}>
               <Row style={{ flex: 1 }}>
                 <div style={{ width: "28.5px" }}>
                   <img src={phone} style={{ width: "100%" }} />
@@ -258,7 +258,7 @@ export default function Nav() {
         <Row
           style={{
             justifyContent: "center",
-            backgroundColor: "#1a6092",
+            backgroundColor: "#fff",
           }}
         >
           <Row style={{ maxWidth: "900px", alignSelf: "center" }}>
@@ -668,7 +668,7 @@ const Triangle = styled.div`
 const DropDownItem = styled.div`
   background: white;
   position: relative;
-  font-size: 12px;
+  font-size: 16px;
   color: #5e5e5e;
   opacity: 0.8;
   z-index: 9;
@@ -692,7 +692,7 @@ const DropDownMenu = styled.div`
   max-height: 350px;
   flex-wrap: wrap;
   min-width: 150px;
-  width: 499px;
+  width: 699px;
   transition: 0.2s;
 
   /* width */
@@ -742,7 +742,7 @@ const ItemPC = styled.div`
   p {
     margin: 0;
     text-transform: uppercase;
-    color: #fff;
+    color: #535353;
     font-size: 14px;
   }
 `;
