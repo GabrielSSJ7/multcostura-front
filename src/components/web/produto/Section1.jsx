@@ -168,7 +168,7 @@ export default function Section1({ prod }) {
                 style={{ marginRight: "1.3%" }}
                 height="80%"
               />
-              ))
+              
             </Row>
           </Column>
         ) : (
