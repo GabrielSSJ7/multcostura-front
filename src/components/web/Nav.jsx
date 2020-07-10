@@ -85,6 +85,7 @@ export default function Nav() {
       setApi()
         .get("https://economia.awesomeapi.com.br/all/USD-BRL")
         .then((response) => {
+          console.log("response >>", response.data);
           setHighDolar(parseFloat(response.data.USD.high).toFixed(2));
           setPctChange(parseFloat(response.data.USB.pctChange) > 0);
         })
@@ -115,6 +116,7 @@ export default function Nav() {
             maxWidth: "300px",
             alignItems: "center",
             justifyContent: "center",
+            backgroundColor: "#1a6092",
           }}
         >
           {/*<FontAwesomeIcon icon={faEnvelope} style={{ 
@@ -127,11 +129,11 @@ export default function Nav() {
             style={{
               width: "14px",
               marginRight: "10px",
-              
             }}
           />
           <p
             style={{
+              backgroundColor: "#1a6092",
               color: "#fff",
               marginBottom: "5px",
               marginTop: "8px",
@@ -161,7 +163,7 @@ export default function Nav() {
                 maxWidth: "157px",
                 marginLeft: "15px",
               }}
-              onClick={() => Router.push("/")}
+              onClick={() => (window.location = "/")}
             >
               <img
                 style={{ width: "100%", maxWidth: "157px" }}
@@ -209,7 +211,7 @@ export default function Nav() {
 
             <Row style={{ flex: 2, alignItems: "center", marginLeft: "30px" }}>
               <Row style={{ flex: 1 }}>
-                <div style={{ width: "28.5px" }}>
+                <div style={{ width: "35.5px" }}>
                   <img src={phone} style={{ width: "100%" }} />
                 </div>
                 <Column style={{ marginLeft: "5px" }}>
@@ -218,7 +220,7 @@ export default function Nav() {
                 </Column>
               </Row>
               <Row style={{ flex: 1 }}>
-                <div style={{ width: "28.5px" }}>
+                <div style={{ width: "35.5px" }}>
                   <img src={whatsapp} style={{ width: "100%" }} />
                 </div>
                 <Column style={{ marginLeft: "5px" }}>
@@ -228,7 +230,7 @@ export default function Nav() {
               </Row>
 
               <Row style={{ flex: 1 }}>
-                <div style={{ width: "30.5px" }}>
+                <div style={{ width: "40.5px" }}>
                   <img src={dollar} style={{ width: "100%" }} />
                 </div>
                 <Column style={{ marginLeft: "5px" }}>
@@ -336,6 +338,10 @@ export default function Nav() {
   );
 }
 
+import MainDrawer from "./NavComponents/MainMenu";
+import CategoriesDrawer from "./NavComponents/Categories";
+import ManufacturersDrawer from "./NavComponents/Manufacturers";
+
 //NAV MOBILE
 function NavSm({
   props: {
@@ -351,225 +357,44 @@ function NavSm({
 }) {
   const Router = useRouter();
   const classes = useStyles();
+  const [dola, setdola] = useState(5);
   const [left, setLeft] = useState(false);
   const [search, setSearch] = useState(false);
   const [searchKey, setSearchKey] = useState("");
-
-  const [list, setList] = useState({
+  const [state, setState] = useState({
     categories: [],
     manufacturers: [],
-    main: [
-      <Row
-        key={Math.round(Math.random() * 100)}
-        jc="flex-start"
-        ait="center"
-        style={{ marginTop: "13px", padding: "0 15px" }}
-        onClick={() => Router.push("/")}
-      >
-        <FontAwesomeIcon
-          icon={faHome}
-          size="2x"
-          style={{ marginRight: "10px" }}
-        />{" "}
-        <span style={{ fontSize: "1.1rem" }}>Inicio</span>
-      </Row>,
-      <Row
-        key={Math.round(Math.random() * 100)}
-        onClick={() => setListController("categories")}
-        jc="flex-start"
-        ait="center"
-        style={{ marginTop: "13px", padding: "0 15px" }}
-      >
-        <img src={iconMachine} style={{ width: "36px", marginRight: "10px" }} />{" "}
-        <span style={{ fontSize: "1.1rem" }}>Categorias</span>
-      </Row>,
-      <Row
-        key={Math.round(Math.random() * 100)}
-        onClick={() => setListController("manufacturers")}
-        jc="flex-start"
-        ait="center"
-        style={{ marginTop: "13px", padding: "0 15px" }}
-      >
-        <FontAwesomeIcon
-          icon={faIndustry}
-          size="2x"
-          style={{ marginRight: "10px" }}
-        />{" "}
-        <span style={{ fontSize: "1.1rem" }}>Fabricantes</span>
-      </Row>,
-      <Row
-        key={Math.round(Math.random() * 100)}
-        jc="flex-start"
-        ait="center"
-        style={{ marginTop: "13px", padding: "0 15px" }}
-        onClick={() => Router.push("/produtos?type=tools")}
-      >
-        <img src={iconTool} style={{ width: "36px", marginRight: "10px" }} />{" "}
-        <span style={{ fontSize: "1.1rem" }}>Peças</span>
-      </Row>,
-      <Row
-        key={Math.round(Math.random() * 100)}
-        jc="flex-start"
-        ait="center"
-        style={{ marginTop: "13px", padding: "0 15px" }}
-      >
-        <FontAwesomeIcon
-          onClick={() => Router.push("/revendedores")}
-          icon={faUsers}
-          size="2x"
-          style={{ marginRight: "10px" }}
-        />{" "}
-        <span style={{ fontSize: "1.1rem" }}>Revendedores</span>
-      </Row>,
-      <Row
-        key={Math.round(Math.random() * 100)}
-        jc="flex-start"
-        ait="center"
-        style={{ marginTop: "13px", padding: "0 15px" }}
-        onClick={() => Router.push("/empresa")}
-      >
-        <FontAwesomeIcon
-          icon={faBuilding}
-          size="2x"
-          style={{ marginRight: "10px" }}
-        />{" "}
-        <span style={{ fontSize: "1.1rem" }}>Empresa</span>
-      </Row>,
-      <Row
-        key={Math.round(Math.random() * 100)}
-        jc="flex-start"
-        ait="center"
-        style={{ marginTop: "13px", padding: "0 15px" }}
-        onClick={() => Router.push("/contato")}
-      >
-        <FontAwesomeIcon
-          icon={faHeadset}
-          size="2x"
-          style={{ marginRight: "10px" }}
-        />{" "}
-        <span style={{ fontSize: "1.1rem" }}>Contato</span>
-      </Row>,
-      <Row
-        key={Math.round(Math.random() * 100)}
-        jc="flex-start"
-        ait="center"
-        style={{ marginTop: "13px", padding: "0 15px" }}
-        onClick={() => Router.push("/noticias")}
-      >
-        <FontAwesomeIcon
-          icon={faNewspaper}
-          size="2x"
-          style={{ marginRight: "10px" }}
-        />{" "}
-        <span style={{ fontSize: "1.1rem" }}>Notícias</span>
-      </Row>,
-      <Column key={Math.round(Math.random() * 100)} style={{ padding: "10px" }}>
-        <hr style={{ width: "100%" }} />
-        <div style={{ flex: 2 }}>
-          <p>
-            <img
-              src={iconWhatsapp}
-              style={{
-                marginRight: "5px",
-                maxWidth: "16px",
-              }}
-            />{" "}
-            Whatsapp: (11) 97472-3356
-          </p>
-        </div>
-        <div style={{ flex: 2 }}>
-          <p>
-            <FontAwesomeIcon icon={faPhone} style={{ marginRight: "5px" }} />{" "}
-            (11) 2693-7212
-          </p>
-        </div>
-        <div style={{ flex: 2 }}>
-          <p>
-            <FontAwesomeIcon icon={faEnvelope} style={{ marginRight: "5px" }} />
-            contato@multcostura.com.br
-          </p>
-        </div>
-        <div style={{ flex: 1 }}>
-          <p>
-            <FontAwesomeIcon
-              icon={faDollarSign}
-              style={{ marginRight: "5px" }}
-            />
-            Dólar:
-            {pctChange ? (
-              <img src={arrowUp} style={{ width: "16px" }} />
-            ) : (
-              <img src={arrowDown} style={{ width: "16px" }} />
-            )}
-            {highDolar}
-          </p>
-        </div>
-      </Column>,
-    ],
   });
 
   useEffect(() => {
-    setList({
-      ...list,
-      categories: [
-        <Row key={10201210} ait="center" jc="space-around">
-          <FontAwesomeIcon
-            icon={faArrowLeft}
-            onClick={() => setListController("main")}
-          />{" "}
-          <h1 style={{ textAlign: "center" }}>Categorias</h1>
-        </Row>,
-        categories.map((cat, i) => (
-          <Column
-            key={cat.id}
-            jc="center"
-            ait="flex-start"
-            style={{ marginTop: "13px", padding: "0 15px" }}
-          >
-            <span
-              style={{ fontSize: "1.1rem" }}
-              onClick={() =>
-                Router.push("/produtos?type=categories&id=" + cat.id)
-              }
-            >
-              {cat.name}
-            </span>
-            <hr style={{ width: "100%" }} />
-          </Column>
-        )),
-      ],
-      manufacturers: [
-        <Row key={1020121} ait="center" jc="space-around">
-          <FontAwesomeIcon
-            icon={faArrowLeft}
-            onClick={() => setListController("main")}
-          />{" "}
-          <h1 style={{ textAlign: "center" }}>Fabricantes</h1>
-        </Row>,
-        manufacturers.map((man, i) => (
-          <Column
-            key={i}
-            jc="center"
-            ait="flex-start"
-            style={{ marginTop: "13px", padding: "0 15px" }}
-            onClick={() =>
-              Router.push({
-                pathname: "/produtos",
-                query: { type: "manufacturer", id: man.id },
-              })
-            }
-          >
-            <span style={{ fontSize: "1.1rem" }}>{man.name}</span>
-            <hr style={{ width: "100%" }} />
-          </Column>
-        )),
-      ],
-    });
+    setState((state) => ({
+      ...state,
+      categories,
+      manufacturers,
+    }));
   }, [categories, manufacturers]);
 
   const [listController, setListController] = useState("main");
 
-  const sideList = (side) => (
+  function CurrentList({ list }) {
+    return (
+      <>
+        {list == "manufacturers" && (
+          <ManufacturersDrawer state={{ ...state, setListController }} />
+        )}
+        {list == "categories" && (
+          <CategoriesDrawer state={{ ...state, setListController }} />
+        )}
+        {list == "main" && (
+          <MainDrawer
+            state={{ ...state, setListController, highDolar, pctChange }}
+          />
+        )}
+      </>
+    );
+  }
+
+  const SideList = (side) => (
     <div className={classes.list} role="presentation">
       <List style={{ padding: 0 }}>
         <div
@@ -582,7 +407,7 @@ function NavSm({
         >
           <LogoMaior src={logoMaior} />
         </div>
-        <>{list[listController]}</>
+        <CurrentList list={listController} />
       </List>
     </div>
   );
@@ -645,7 +470,7 @@ function NavSm({
       )}
 
       <Drawer open={left} onClose={toggleDrawer("left", false)}>
-        {sideList("left")}
+        <SideList />
       </Drawer>
     </div>
   );
@@ -781,22 +606,22 @@ const Button = styled.button`
 const Row = styled.div`
   display: flex;
   width: 100%;
-  background: ${(props) => (props.bg ? props.bg : "white")}
+  background: ${(props) => (props.bg ? props.bg : "white")};
   flex: ${(props) => props.flex};
   justify-content: ${(props) => props.jc};
   align-items: ${(props) => props.ait};
-  flex-wrap: ${(props) => props.fw}
+  flex-wrap: ${(props) => props.fw};
 `;
 
 const Column = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  background: ${(props) => (props.bg ? props.bg : "white")}
+  background: ${(props) => (props.bg ? props.bg : "white")};
   flex: ${(props) => props.flex};
   justify-content: ${(props) => props.jc};
   align-items: ${(props) => props.ait};
-  flex-wrap: ${(props) => props.fw}
+  flex-wrap: ${(props) => props.fw};
 `;
 
 //Mobile

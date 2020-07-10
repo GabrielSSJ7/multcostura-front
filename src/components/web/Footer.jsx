@@ -1,6 +1,6 @@
-import React from "react";
+import React, { Functioncomponent, useEffect, useRef } from "react";
 import styled from "styled-components";
-import { Router } from "../../../routes";
+import { Router, Link } from "../../../routes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPhone,
@@ -54,9 +54,9 @@ export default function Footer() {
             Home
           </Item>
           {/*<Item>Nossas Marcas</Item>*/}
-          <Item hover onClick={() => (window.location.href = "/revendedores")}>
-            Revendedores
-          </Item>
+          <Link href="/#revendedores">
+            <Item hover>Revendedores</Item>
+          </Link>
           <Item hover onClick={() => (window.location.href = "/produtos")}>
             Máquinas
           </Item>
@@ -69,7 +69,7 @@ export default function Footer() {
           <Item hover onClick={() => (window.location.href = "/noticias")}>
             Notícias
           </Item>
-          <Item hover onClick={() => (window.location.href = "/contato")}>
+          <Item hover onClick={() => (window.location.href = "/empresa")}>
             Sobre nós
           </Item>
         </Col>
@@ -162,6 +162,7 @@ export default function Footer() {
         style={{
           alginSelf: "flex-end",
           background: "#343434",
+          flexWrap: "wrap",
         }}
         jc="center"
         ait="center"
@@ -172,6 +173,8 @@ export default function Footer() {
             color: "white",
             fontFamily: "arial",
             opacity: 0.6,
+            minWidth: "320px",
+            textAlign: "center",
           }}
         >
           &copy; 2020 Todos os direitos reservados.
@@ -183,6 +186,8 @@ export default function Footer() {
             color: "white",
             fontFamily: "arial",
             opacity: 0.6,
+            minWidth: "320px",
+            textAlign: "center",
           }}
         >
           Criado por{" "}
@@ -197,11 +202,13 @@ export default function Footer() {
           </a>
         </p>
         &nbsp;
-        <img
-          style={{ maxWidth: "50px" }}
-          src="https://www.squad.ag/wp-content/uploads/2020/03/cropped-logo-squad.png"
-          alt="logo squad marketing"
-        />
+        <div style={{ minWidth: "320px" }}>
+          <img
+            style={{ maxWidth: "50px", margin: "auto", display: "block" }}
+            src="https://www.squad.ag/wp-content/uploads/2020/03/cropped-logo-squad.png"
+            alt="logo squad marketing"
+          />
+        </div>
       </Row>
     </Col>
   );

@@ -292,6 +292,9 @@ const MainImage = styled.div`
   background-color: white;
   background-image: url(${(props) => props.src});
   background-size: auto 85%;
+  @media(max-width: 600px) {
+    background-size: auto 65%;
+  }
   background-repeat: no-repeat;
   background-position: center;
   width: 80%;

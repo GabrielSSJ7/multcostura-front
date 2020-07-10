@@ -17,7 +17,7 @@ export default function Filters({ type }) {
   const dispatch = useDispatch();
   const [filters, setFilters] = useState({});
   const [filtersSelecteds, setFiltersSelecteds] = useState({});
-  const [settings, setSettings] = useState([])
+  const [settings, setSettings] = useState([]);
 
   function settingFilters(machines) {
     let _filters = {};
@@ -76,7 +76,7 @@ export default function Filters({ type }) {
 
   useEffect(() => {
     getSettings(function (s) {
-      setSettings(s)
+      setSettings(s);
       if (type == "categories" || type == "manufacturer") {
         const _ = settingFilters(machines, sÎ);
         setFiltersSelecteds(_._filtersSelected);
@@ -87,7 +87,11 @@ export default function Filters({ type }) {
   }, []);
 
   useEffect(() => {
-    console.log("[Filters] changing machines", machines.length, machines.length >= 1);
+    console.log(
+      "[Filters] changing machines",
+      machines.length,
+      machines.length >= 1
+    );
     setFilters({});
     setFiltersSelecteds({});
     if (machines.length >= 1) {
@@ -97,9 +101,7 @@ export default function Filters({ type }) {
       setFilters({});
       setFiltersSelecteds({});
     }
-    return () => {
-  
-    }
+    return () => {};
   }, [machines]);
 
   function handleChange(e) {
@@ -197,9 +199,16 @@ export default function Filters({ type }) {
   }
 
   return (
-    <Row style={{ flex: 2, flexWrap: "wrap", padding: "10px" }}>
+    <Row
+      style={{
+        flex: 2,
+        flexWrap: "wrap",
+        padding: "10px",
+        justifyContent: "center",
+      }}
+    >
       {renderSelect().length > 0 ? (
-        <Column>
+        <Column style={{ alignItems: "center" }}>
           {/*<Title>Filtros</Title>*/}
           <Row style={{ flexWrap: "wrap" }} jc="space-between">
             {" "}

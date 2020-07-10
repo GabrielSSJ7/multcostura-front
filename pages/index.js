@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useLayoutEffect } from "react";
+import React, { useEffect, useState, useLayoutEffect, useRef } from "react";
 import Head from "next/head";
 import { Link } from "../routes";
 import { connect } from "react-redux";
@@ -12,6 +12,13 @@ import setApi from "../src/api";
 import styled from "styled-components";
 
 const IndexPage = () => {
+  const ref = React.createRef();
+
+  const handleClick = () =>
+    ref.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   const [resellers, setResellers] = useState([]);
   const [images, setImages] = useState([]);
   const [map, setMap] = useState(null);
@@ -71,6 +78,12 @@ const IndexPage = () => {
       }
     }
   }
+
+  useEffect(() => {
+    if (location.hash) {
+      handleClick();
+    }
+  }, [ref]);
 
   useEffect(() => {
     async function async() {
@@ -168,6 +181,7 @@ const IndexPage = () => {
 
   useLayoutEffect(() => {
     setPageLoading(false);
+    document.querySelector("body").scrollTo(1655, 0);
   }, []);
 
   /*async function loadMapScenario() {
@@ -225,6 +239,7 @@ const IndexPage = () => {
           }}
         >
           <Row
+            ref={ref}
             id="revendedores"
             style={{
               alignItems: "center",
@@ -247,7 +262,7 @@ const IndexPage = () => {
           <Row
             jc="center"
             ait="center"
-            style={{ width: "100%", flexWrap: "wrap", maxWidth: '30%' }}
+            style={{ width: "100%", flexWrap: "wrap", maxWidth: "40%" }}
           >
             <Select
               style={{
@@ -255,7 +270,7 @@ const IndexPage = () => {
                 flex: 1,
                 padding: "0",
                 background:
-                  "transparent linear-gradient(180deg, #FCF6F6 0%, #D6D6D6 100%) 0% 0% no-repeat padding-box",
+                  "#fff",
                 height: "40px",
               }}
               onChange={onChangeState}
@@ -275,7 +290,7 @@ const IndexPage = () => {
                 padding: "0",
                 flex: 1,
                 background:
-                  "transparent linear-gradient(180deg, #FCF6F6 0%, #D6D6D6 100%) 0% 0% no-repeat padding-box",
+                  "#fff",
                 height: "40px",
               }}
               onChange={onChangeCity}
@@ -322,7 +337,6 @@ const IndexPage = () => {
         <Row style={{ flexWrap: "wrap", maxWidth: "70%", margin: "auto" }}>
           {resellers
             .filter((resel) => {
-              console.log("STATE", typeof state, state);
               if (state) {
                 if (
                   (new RegExp(state.state.id).test(resel.address) ||
