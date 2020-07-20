@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useEffect, useState } from "react";
+import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
@@ -12,6 +12,7 @@ import {
   faEnvelope,
   faDollarSign,
 } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
 // import { Container } from './styles';
 import iconMachine from "../../../static/images/maquina-icon.png";
 import iconTool from "../../../static/images/peca-icon.png";
@@ -22,7 +23,14 @@ import arrowUp from "../../../static/images/arrow-up.png";
 import arrowDown from "../../../static/images/arrow-down.png";
 
 function MainMenu({ state }) {
+  const router = useRouter();
   const { highDolar, pctChange, setListController } = state;
+  const [routePath, setRoutePath] = useState("");
+
+  useEffect(() => {
+    setRoutePath(router.query.type || router.pathname);
+  }, [router]);
+
   return (
     <Column>
       <Row
@@ -31,6 +39,7 @@ function MainMenu({ state }) {
         ait="center"
         style={{ marginTop: "13px", padding: "0 15px" }}
         onClick={() => (window.location = "/")}
+        activated={routePath == "/"}
       >
         <FontAwesomeIcon
           icon={faHome}
@@ -45,6 +54,7 @@ function MainMenu({ state }) {
         jc="flex-start"
         ait="center"
         style={{ marginTop: "13px", padding: "0 15px" }}
+        activated={routePath == "categories"}
       >
         <img src={iconMachine} style={{ width: "36px", marginRight: "10px" }} />{" "}
         <span style={{ fontSize: "1.1rem" }}>Categorias</span>
@@ -55,6 +65,7 @@ function MainMenu({ state }) {
         jc="flex-start"
         ait="center"
         style={{ marginTop: "13px", padding: "0 15px" }}
+        activated={routePath == "manufacturer"}
       >
         <FontAwesomeIcon
           icon={faIndustry}
@@ -69,6 +80,7 @@ function MainMenu({ state }) {
         ait="center"
         style={{ marginTop: "13px", padding: "0 15px" }}
         onClick={() => (window.location = "/produtos?type=tools")}
+        activated={routePath == "tools"}
       >
         <img src={iconTool} style={{ width: "36px", marginRight: "10px" }} />{" "}
         <span style={{ fontSize: "1.1rem" }}>Peças</span>
@@ -78,6 +90,7 @@ function MainMenu({ state }) {
         jc="flex-start"
         ait="center"
         style={{ marginTop: "13px", padding: "0 15px" }}
+        activated={routePath == "/revendedores"}
       >
         <FontAwesomeIcon
           onClick={() => (window.location = "/revendedores")}
@@ -93,6 +106,7 @@ function MainMenu({ state }) {
         ait="center"
         style={{ marginTop: "13px", padding: "0 15px" }}
         onClick={() => (window.location = "/empresa")}
+        activated={routePath == "/empresa"}
       >
         <FontAwesomeIcon
           icon={faBuilding}
@@ -107,6 +121,7 @@ function MainMenu({ state }) {
         ait="center"
         style={{ marginTop: "13px", padding: "0 15px" }}
         onClick={() => (window.location = "/contato")}
+        activated={routePath == "/contato"}
       >
         <FontAwesomeIcon
           icon={faHeadset}
@@ -121,6 +136,7 @@ function MainMenu({ state }) {
         ait="center"
         style={{ marginTop: "13px", padding: "0 15px" }}
         onClick={() => (window.location = "/noticias")}
+        activated={routePath == "/noticias"}
       >
         <FontAwesomeIcon
           icon={faNewspaper}
@@ -129,7 +145,7 @@ function MainMenu({ state }) {
         />{" "}
         <span style={{ fontSize: "1.1rem" }}>Notícias</span>
       </Row>
-      ,
+
       <Column key={Math.round(Math.random() * 100)} style={{ padding: "10px" }}>
         <hr style={{ width: "100%" }} />
         <div style={{ flex: 2 }}>
@@ -303,6 +319,11 @@ const Button = styled.button`
   }
 `;
 
+const itemActivated = css`
+  color: #2548f3;
+  fill: #2548f3;
+`;
+
 const Row = styled.div`
   display: flex;
   width: 100%;
@@ -311,6 +332,10 @@ const Row = styled.div`
   justify-content: ${(props) => props.jc};
   align-items: ${(props) => props.ait};
   flex-wrap: ${(props) => props.fw};
+
+  span {
+    ${(props) => props.activated && itemActivated}
+  }
 `;
 
 const Column = styled.div`

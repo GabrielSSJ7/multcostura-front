@@ -26,10 +26,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import logoMaior from "../../static/images/logo-multcostura--horizontal.png";
-import iconMachine from "../../static/images/maquina-icon.png";
-import iconTool from "../../static/images/peca-icon.png";
-import iconFab from "../../static/images/fab-icon.png";
-import iconWhatsapp from "../../static/images/whatsapp.png";
 
 import arrowUp from "../../static/images/arrow-up.png";
 import arrowDown from "../../static/images/arrow-down.png";
@@ -38,6 +34,7 @@ import whatsapp from "../../static/images/whatsapp.png";
 import dollar from "../../static/images/dollar.svg";
 import phone from "../../static/images/phone-icon.svg";
 import email from "../../static/images/email-icon.svg";
+import close from "../../static/images/close.png";
 
 const useStyles = makeStyles({
   list: {
@@ -443,12 +440,11 @@ function NavSm({
           ait="center"
           style={{ background: "#EDEDED", width: "100%", height: "84px" }}
         >
-          <span
+          <img
+            src={close}
             onClick={() => setSearch(false)}
-            style={{ padding: "10px", fontSize: "1.3rem" }}
-          >
-            X
-          </span>
+            style={{ padding: "10px", width: "18px" }}
+          />
           <SearchInput
             style={{ width: "70%", padding: "0 5px" }}
             placeholder="Buscar"
@@ -635,7 +631,7 @@ const LogoMaior = styled.img`
 `;
 const SearchInput = styled.input`
   background: #ffffff 0% 0% no-repeat padding-box;
-  border: 1px solid #707070;
+  border: 0;
   border-radius: 3px;
   opacity: 1;
   height: 32px;

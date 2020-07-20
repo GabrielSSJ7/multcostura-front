@@ -1,30 +1,30 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
 import styled from "styled-components";
 import { Link } from "../../../routes";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 
 const Image = styled.div`
   background-color: white;
-  background-image: url(${props => props.src});
+  background-image: url(${(props) => props.src});
   background-size: auto 100%;
   background-repeat: no-repeat;
   background-position: left top;
   width: 100%;
   height: 100%;
-  min-height: 120px; 
+  min-height: 120px;
   cursor: pointer;
   :hover {
-    opacity: .5;
+    opacity: 0.5;
   }
-`
+`;
 
 const Wrapper = styled.div`
-  width: ${props => props.width};
-  height: ${props => props.height};
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
   overflow: hidden;
   display: -webkit-box;
   position: relative;
-  margin: ${props => props.margin};
+  margin: ${(props) => props.margin};
   padding-bottom: 20px;
   min-height: 133px;
 `;
@@ -32,17 +32,20 @@ const Wrapper = styled.div`
 const Slide = styled.div`
   background-repeat: no-repeat;
   background-color: #fff;
-  border: ${props => props.customContent ? '' : '1px solid #DFDFDF' };
-  margin: 5px;
-  width: ${props => props.width};
-  height: ${props => props.height};
-  transform: translateX(${props => props.translate}px);
+  border: ${(props) => (props.customContent ? "" : "1px solid #DFDFDF")};
+  margin: auto;
+  @media (min-width: 600px) {
+    margin: 5px;
+  }
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  transform: translateX(${(props) => props.translate}px);
   transition: transform 0.4s ease-in-out;
   position: relative;
   img {
     cursor: pointer;
     :hover {
-      opacity:.5
+      opacity: 0.5;
     }
   }
 `;
@@ -82,26 +85,26 @@ const ArrowRight = styled.span`
   border-left: 20px solid #960d03;
 `;
 
-export default ({ 
+export default ({
   eventClick,
-  wMargin, 
-  wrapperWidth, 
-  link, 
-  images, 
-  autoSlide, 
-  slideCtrl, 
-  balls, 
-  arrows, 
-  height, 
+  wMargin,
+  wrapperWidth,
+  link,
+  images,
+  autoSlide,
+  slideCtrl,
+  balls,
+  arrows,
+  height,
   slideWidth,
   customContent,
   slideClass,
-  wrapperClass
+  wrapperClass,
 }) => {
-  const router = useRouter()
+  const router = useRouter();
   useEffect(() => {
-    console.log("images", images)
-  }, [images])
+    console.log("images", images);
+  }, [images]);
   const [index, setIndex] = useState(1);
   const [translate, setTranslate] = useState(0);
   useEffect(() => {
@@ -115,7 +118,7 @@ export default ({
   }, [index]);
 
   useEffect(() => {
-    if (slideCtrl){
+    if (slideCtrl) {
       setIndex(slideCtrl);
       if (slideCtrl != index)
         setTranslate(getSlideWidth() - slideCtrl * getSlideWidth());
@@ -133,19 +136,20 @@ export default ({
     setIndex(index - 1);
   }
   function next() {
-    console.log("slide width >> ",getSlideWidth()) 
+    console.log("slide width >> ", getSlideWidth());
     if (index == images.length) {
       setTranslate(1);
       setIndex(1);
     } else {
       setTranslate(getSlideWidth() - (index + 1) * getSlideWidth());
 
-      setIndex(index => index + 1);
+      setIndex((index) => index + 1);
     }
   }
   function getSlideWidth() {
     return document.querySelector(slideClass ? "." + slideClass : ".slide")
-      ? document.querySelector(slideClass ? "." + slideClass : ".slide").clientWidth
+      ? document.querySelector(slideClass ? "." + slideClass : ".slide")
+          .clientWidth
       : 0;
   }
   function suckBalls(i) {
@@ -157,7 +161,12 @@ export default ({
 
   return (
     <>
-      <Wrapper className={wrapperClass} margin={wMargin} width={wrapperWidth || "100%"} height={height || "400px"}>
+      <Wrapper
+        className={wrapperClass}
+        margin={wMargin}
+        width={wrapperWidth || "100%"}
+        height={height || "400px"}
+      >
         {images ? (
           <>
             {arrows ? (
@@ -179,12 +188,16 @@ export default ({
                   customContent={customContent}
                   height={"100%"}
                   width={slideWidth}
-                  onClick={() => eventClick ? eventClick(img) : {}}
+                  onClick={() => (eventClick ? eventClick(img) : {})}
                 >
-                  {!customContent ? 
-                    <Image src={img} style={{ width: "100%", height: "100%"}} /> :
+                  {!customContent ? (
+                    <Image
+                      src={img}
+                      style={{ width: "100%", height: "100%" }}
+                    />
+                  ) : (
                     img
-                  }
+                  )}
                 </Slide>
               ))}
             </>
@@ -193,14 +206,15 @@ export default ({
           <p> no image</p>
         )}
       </Wrapper>
-      {balls ? <div
+      {balls ? (
+        <div
           id="bolas"
           style={{
             display: "flex",
             flexDirection: "row",
             width: "50%",
             justifyContent: "center",
-            margin: "10px auto"
+            margin: "10px auto",
           }}
         >
           {images.map((img, i) => (
@@ -211,18 +225,22 @@ export default ({
                 width: "14px",
                 height: "14px",
                 background: index == i + 1 ? "#242873" : "rgba(255,255,255,.5)",
-                border: index == i + 1 ? "1px solid #242873" : "1px solid rgba(255,255,255,.5)",
+                border:
+                  index == i + 1
+                    ? "1px solid #242873"
+                    : "1px solid rgba(255,255,255,.5)",
                 borderRadius: "100%",
                 marginRight: "10px",
                 cursor: "pointer",
                 marginTop: "-50px",
-                zIndex: 9
+                zIndex: 9,
               }}
             />
           ))}
-        </div> : <>{balls}</>}
-
+        </div>
+      ) : (
+        <>{balls}</>
+      )}
     </>
   );
 };
-
