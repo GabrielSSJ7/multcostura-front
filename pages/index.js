@@ -4,13 +4,24 @@ import { Link } from "../routes";
 import { connect } from "react-redux";
 import Splash from "../src/components/web/Splash";
 import { Select, Column, Row } from "../src/static/styled-components/base";
+import { Line, Item, CardContainer } from "../src/styles";
 import Home from "../src/components/web/home/Home";
 import Map from "../src/components/web/Map";
 import SlideWeb from "../src/components/web/SlideWeb";
 import Template from "../src/components/templates/Web";
 import setApi from "../src/api";
 import styled from "styled-components";
-
+const RowSelect = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  max-width: 40%;
+  @media (max-width: 600px) {
+    max-width: 93%;
+  }
+`;
 const IndexPage = () => {
   const ref = React.createRef();
 
@@ -259,18 +270,13 @@ const IndexPage = () => {
             Selecione a baixo seu estado e cidade para encontrar o revendedor
             mais próximo.
           </p>
-          <RowSelect
-            jc="center"
-            ait="center"
-            style={{ width: "100%", flexWrap: "wrap"  }}
-          >
+          <RowSelect>
             <Select
               style={{
                 margin: "0 5px",
                 flex: 1,
                 padding: "0",
-                background:
-                  "#fff",
+                background: "#fff",
                 height: "40px",
               }}
               onChange={onChangeState}
@@ -289,8 +295,7 @@ const IndexPage = () => {
                 margin: "0 5px",
                 padding: "0",
                 flex: 1,
-                background:
-                  "#fff",
+                background: "#fff",
                 height: "40px",
               }}
               onChange={onChangeCity}
@@ -375,48 +380,4 @@ IndexPage.getInitialProps = ({ reduxStore }) => {
   return {};
 };
 
-const Line = styled.div`
-  flex: 1;
-  background: #81161b;
-  height: 2px;
-  min-width: 50px;
-`;
-
-const Item = styled.p`
-  margin: 0;
-`;
-
-const RowSelect = styled(Row)`
-max-width: 40% !important;
-	@media(max-width: 600px) {
-		max-width: 93% !important;
-	}
-`
-
-const CardContainer = styled.div`
-	flex: 1;
-  	min-width: 250px;
-  	max-width: 250px;
-	max-height: 300px;
-	overflow: hidden;
-	cursor: pointer;
-	display: flex;
-	flex-direction: column;
-	padding: 15px;
-	flex-wrap: no-wrap;
-	margin-bottom: 10px;
-	margin-right: 10px;
-	img {
-		width: 100%;
-		max-width: 230px;
-		display: block;
-		margin: auto
-	}
-	:hover {
-		box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-	}
-	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-
-}
-`;
 export default IndexPage;
