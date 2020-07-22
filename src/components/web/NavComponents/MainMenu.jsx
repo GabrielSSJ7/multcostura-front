@@ -46,7 +46,7 @@ function MainMenu({ state }) {
           size="2x"
           style={{ marginRight: "10px", maxWidth: '36px', width: '36px' }}
         />{" "}
-        <span style={{ fontSize: "1.1rem" }}>Inicio</span>
+        <span style={{ fontSize: "1.1rem" }}>Início</span>
       </Row>
       <Row
         key={Math.round(Math.random() * 100)}
@@ -57,7 +57,7 @@ function MainMenu({ state }) {
         activated={routePath == "categories"}
       >
         <img src={iconMachine} style={{ width: "36px", marginRight: "10px", maxWidth: '36px', width: '36px' }} />{" "}
-        <span style={{ fontSize: "1.1rem" }}>Categorias</span>
+        <span style={{ fontSize: "1.1rem" }}>Máquinas</span>
       </Row>
       <Row
         key={Math.round(Math.random() * 100)}
@@ -72,7 +72,7 @@ function MainMenu({ state }) {
           size="2x"
           style={{ marginRight: "10px" , maxWidth: '36px', width: '36px'}}
         />{" "}
-        <span style={{ fontSize: "1.1rem" }}>Fabricantes</span>
+        <span style={{ fontSize: "1.1rem" }}>Nossas Marcas</span>
       </Row>
       <Row
         key={Math.round(Math.random() * 100)}
@@ -83,7 +83,7 @@ function MainMenu({ state }) {
         activated={routePath == "tools"}
       >
         <img src={iconTool} style={{ width: "36px", marginRight: "10px", maxWidth: '36px' }} />{" "}
-        <span style={{ fontSize: "1.1rem" }}>Peças</span>
+        <span style={{ fontSize: "1.1rem" }}>Peças e Acessórios</span>
       </Row>
       <Row
         key={Math.round(Math.random() * 100)}
@@ -114,7 +114,7 @@ function MainMenu({ state }) {
           size="2x"
           style={{ marginRight: "10px", maxWidth: '36px', width: '36px' }}
         />{" "}
-        <span style={{ fontSize: "1.1rem" }}>Empresa</span>
+        <span style={{ fontSize: "1.1rem" }}>Sobre nós</span>
       </Row>
       <Row
         key={Math.round(Math.random() * 100)}

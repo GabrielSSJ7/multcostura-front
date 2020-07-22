@@ -25,7 +25,7 @@ import {
   faDollarSign,
 } from "@fortawesome/free-solid-svg-icons";
 
-import logoMaior from "../../static/images/logo-multcostura--horizontal.png";
+import logoMaior from "../../static/images/logo-multcostura-(oficial).png";
 
 import arrowUp from "../../static/images/arrow-up.png";
 import arrowDown from "../../static/images/arrow-down.png";
@@ -419,17 +419,37 @@ function NavSm({
     setLeft(open);
   };
   return (
-    <div>
+    <Column>
+      <Row style={{ width: "100%", background: "rgb(26, 96, 146)", justifyContent: "center" }}>
+        <img
+          src={email}
+          style={{
+            width: "14px",
+            marginRight: "10px",
+          }}
+        />
+        <p
+          style={{
+            backgroundColor: "#1a6092",
+            color: "#fff",
+            marginBottom: "5px",
+            marginTop: "8px",
+            fontSize: "14px",
+          }}
+        >
+          contato@multcostura.com.br
+        </p>
+      </Row>
       {!search ? (
         <Row
           jc="space-around"
           ait="center"
-          style={{ background: "#EDEDED", width: "100%", height: "84px" }}
+          style={{ background: "#fff", width: "100%", height: "84px" }}
         >
           <span onClick={toggleDrawer("left", true)}>
             <FontAwesomeIcon icon={faList} size="2x" />
           </span>
-          <LogoMobile src={logo} onClick={() => window.location = "/"} />
+          <LogoMobile src={logo} onClick={() => (window.location = "/")} />
           <span onClick={() => setSearch(true)}>
             <FontAwesomeIcon icon={faSearch} size="2x" />
           </span>
@@ -438,7 +458,7 @@ function NavSm({
         <Row
           jc="center"
           ait="center"
-          style={{ background: "#EDEDED", width: "100%", height: "84px" }}
+          style={{ background: "#fff", width: "100%", height: "84px" }}
         >
           <img
             src={close}
@@ -446,7 +466,11 @@ function NavSm({
             style={{ padding: "10px", width: "18px" }}
           />
           <SearchInput
-            style={{ width: "70%", padding: "0 5px" }}
+            style={{
+              width: "70%",
+              padding: "0 5px",
+              border: "1px solid #EDEDED",
+            }}
             placeholder="Buscar produto..."
             value={searchKey}
             onChange={(e) => setSearchKey(e.target.value)}
@@ -468,7 +492,7 @@ function NavSm({
       <Drawer open={left} onClose={toggleDrawer("left", false)}>
         <SideList />
       </Drawer>
-    </div>
+    </Column>
   );
 }
 
