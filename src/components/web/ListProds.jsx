@@ -216,7 +216,7 @@ export default function ListProd({ id, type, search }) {
           </Row>
         </Column>
       ) : (
-        <Name style={{ margin: "auto" }}>Nenhuma máquina encontrada</Name>
+        <Name style={{ margin: "auto" }}>Nenhum resultado encontrado</Name>
       )}
     </Column>
   );

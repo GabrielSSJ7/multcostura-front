@@ -429,7 +429,7 @@ function NavSm({
           <span onClick={toggleDrawer("left", true)}>
             <FontAwesomeIcon icon={faList} size="2x" />
           </span>
-          <LogoMobile src={logo} />
+          <LogoMobile src={logo} onClick={() => window.location = "/"} />
           <span onClick={() => setSearch(true)}>
             <FontAwesomeIcon icon={faSearch} size="2x" />
           </span>
@@ -447,7 +447,7 @@ function NavSm({
           />
           <SearchInput
             style={{ width: "70%", padding: "0 5px" }}
-            placeholder="Buscar"
+            placeholder="Buscar produto..."
             value={searchKey}
             onChange={(e) => setSearchKey(e.target.value)}
             onKeyDown={(k) => {
