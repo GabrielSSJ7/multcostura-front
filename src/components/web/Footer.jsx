@@ -34,7 +34,7 @@ export default function Footer() {
     >
       {/*  conteúdo */}
       <Row className="media" style={{ maxWidth: "980px", flexWrap: "wrap" }}>
-        <div style={{ width: "194px", minWidth: "194px", marginTop: "57px" }}>
+        <div className="menu-itens" style={{ width: "194px", minWidth: "194px", marginTop: "57px" }}>
           <GPlay
             onClick={() => (window.location.href = "/")}
             src={logoBranco}
@@ -44,7 +44,7 @@ export default function Footer() {
         </div>
         <Col
           style={{ marginTop: "57px", marginLeft: "30px" }}
-          className="inicio"
+          className="inicio menu-itens"
         >
           <Item b style={{ marginBottom: "20px" }}>
             Início
@@ -74,7 +74,7 @@ export default function Footer() {
           </Item>
         </Col>
         <Col
-          className="inicio"
+          className="inicio menu-itens"
           style={{ marginTop: "57px" }}
           jc="space-between"
         >
@@ -95,7 +95,7 @@ export default function Footer() {
               </Item>
             </Row>
           </Col>
-          <Col>
+          <Col className="menu-itens">
             <Item b>Contato</Item>
             <Row className="inicio">
               <FontAwesomeIcon
@@ -126,7 +126,7 @@ export default function Footer() {
           </Col>
         </Col>
 
-        <Col className="inicio" style={{ marginTop: "57px" }}>
+        <Col className="inicio menu-itens" style={{ marginTop: "57px" }}>
           <Item b>Redes Sociais</Item>
           <Row
             className="m-auto"
@@ -261,6 +261,12 @@ const Row = styled.div`
   justify-content: ${(props) => props.jc};
   align-items: ${(props) => props.ait};
   flex-wrap: ${(props) => props.fw};
+
+  .menu-itens {
+    @media(max-width: 500px) {
+      margin-top: 35px !important;
+    }
+  }
 `;
 
 const Col = styled.div`

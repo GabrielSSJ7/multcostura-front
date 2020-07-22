@@ -44,7 +44,7 @@ function MainMenu({ state }) {
         <FontAwesomeIcon
           icon={faHome}
           size="2x"
-          style={{ marginRight: "10px" }}
+          style={{ marginRight: "10px", maxWidth: '36px', width: '36px' }}
         />{" "}
         <span style={{ fontSize: "1.1rem" }}>Inicio</span>
       </Row>
@@ -56,7 +56,7 @@ function MainMenu({ state }) {
         style={{ marginTop: "13px", padding: "0 15px" }}
         activated={routePath == "categories"}
       >
-        <img src={iconMachine} style={{ width: "36px", marginRight: "10px" }} />{" "}
+        <img src={iconMachine} style={{ width: "36px", marginRight: "10px", maxWidth: '36px', width: '36px' }} />{" "}
         <span style={{ fontSize: "1.1rem" }}>Categorias</span>
       </Row>
       <Row
@@ -70,7 +70,7 @@ function MainMenu({ state }) {
         <FontAwesomeIcon
           icon={faIndustry}
           size="2x"
-          style={{ marginRight: "10px" }}
+          style={{ marginRight: "10px" , maxWidth: '36px', width: '36px'}}
         />{" "}
         <span style={{ fontSize: "1.1rem" }}>Fabricantes</span>
       </Row>
@@ -82,7 +82,7 @@ function MainMenu({ state }) {
         onClick={() => (window.location = "/produtos?type=tools")}
         activated={routePath == "tools"}
       >
-        <img src={iconTool} style={{ width: "36px", marginRight: "10px" }} />{" "}
+        <img src={iconTool} style={{ width: "36px", marginRight: "10px", maxWidth: '36px' }} />{" "}
         <span style={{ fontSize: "1.1rem" }}>Peças</span>
       </Row>
       <Row
@@ -91,12 +91,13 @@ function MainMenu({ state }) {
         ait="center"
         style={{ marginTop: "13px", padding: "0 15px" }}
         activated={routePath == "/revendedores"}
+        onClick={() => (window.location = "/#revendedores")}
       >
         <FontAwesomeIcon
-          onClick={() => (window.location = "/revendedores")}
+         
           icon={faUsers}
           size="2x"
-          style={{ marginRight: "10px" }}
+          style={{ marginRight: "10px", maxWidth: '36px', width: '36px' }}
         />{" "}
         <span style={{ fontSize: "1.1rem" }}>Revendedores</span>
       </Row>
@@ -111,7 +112,7 @@ function MainMenu({ state }) {
         <FontAwesomeIcon
           icon={faBuilding}
           size="2x"
-          style={{ marginRight: "10px" }}
+          style={{ marginRight: "10px", maxWidth: '36px', width: '36px' }}
         />{" "}
         <span style={{ fontSize: "1.1rem" }}>Empresa</span>
       </Row>
@@ -119,16 +120,16 @@ function MainMenu({ state }) {
         key={Math.round(Math.random() * 100)}
         jc="flex-start"
         ait="center"
-        style={{ marginTop: "13px", padding: "0 15px" }}
+        style={{ marginTop: "13px", padding: "0 15px", maxWidth: '36px' }}
         onClick={() => (window.location = "/contato")}
         activated={routePath == "/contato"}
       >
         <FontAwesomeIcon
           icon={faHeadset}
           size="2x"
-          style={{ marginRight: "10px" }}
+          style={{ marginRight: "10px", maxWidth: '36px', width: '36px'  }}
         />{" "}
-        <span style={{ fontSize: "1.1rem" }}>Contato</span>
+        <span style={{ fontSize: "1.1rem"}}>Contato</span>
       </Row>
       <Row
         key={Math.round(Math.random() * 100)}
@@ -141,7 +142,7 @@ function MainMenu({ state }) {
         <FontAwesomeIcon
           icon={faNewspaper}
           size="2x"
-          style={{ marginRight: "10px" }}
+          style={{ marginRight: "10px", width: '36px', maxWidth: '36px' }}
         />{" "}
         <span style={{ fontSize: "1.1rem" }}>Notícias</span>
       </Row>

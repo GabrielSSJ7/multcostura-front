@@ -288,20 +288,30 @@ export default function NewsList({ news }) {
 
 function News({ news, openDiagVideos, openDiag }) {
   return (
-    <Row
-      className="newsCard"
-    >
+    <Row className="newsCard">
       <Column
-        style={{ background: "#D6D6D6 0% 0% no-repeat padding-box", width: "30%" }}
-				jc="center"
+        style={{
+          background: "#D6D6D6 0% 0% no-repeat padding-box",
+          width: "40%",
+        }}
+        jc="center"
       >
-        <img src={news.gallery.images[0]} style={{ width: "100%" }} />
+        <img
+          src={news.gallery.images[0]}
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
       </Column>
-      <Column  style={{ paddingLeft: "12px", position: "relative", width: "70%" }}>
+      <Column
+        style={{ paddingLeft: "12px", position: "relative", width: "60%" }}
+      >
         <NewsTitle>{news.date}</NewsTitle>
         <NewsTitle>{news.title}</NewsTitle>
-        <Text>{news.description}</Text>
-        <Row style={{ }}>
+        <Text>
+          {news.description.length > 81
+            ? news.description.substr(0, 81) + '...'
+            : news.description}
+        </Text>
+        <Row style={{}}>
           <Btn onClick={openDiag}>Fotos</Btn>
           <Btn onClick={openDiagVideos}>Videos</Btn>
         </Row>
@@ -309,6 +319,16 @@ function News({ news, openDiagVideos, openDiag }) {
     </Row>
   );
 }
+
+const Thumbnail = styled.div`
+  background-image: url(${(props) => props.src});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  width: 100%;
+  height: 100%;
+`;
 
 const Btn = styled.span`
   cursor: pointer;

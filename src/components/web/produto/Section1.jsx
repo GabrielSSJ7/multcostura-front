@@ -44,14 +44,8 @@ export default function Section1({ prod }) {
         minWidth: "350px",
       }}
     >
-      <Column
-        style={{
-          width: "50%",
-          minWidth: "350px",
-          marginBottom: "50px",
-          height: "600px",
-          position: "relative",
-        }}
+      <MainCol
+        style={{}}
         className="col-image-prod"
         ait="flex-end"
         jc="flex-start"
@@ -90,7 +84,7 @@ export default function Section1({ prod }) {
             />
           ))}
         </div>
-      </Column>
+      </MainCol>
       <Column
         style={{
           width: "45%",
@@ -246,25 +240,24 @@ export const Row = styled.div`
   justify-content: ${(props) => props.jc};
   align-items: ${(props) => props.ait};
   flex-wrap: ${(props) => props.fw};
-  @media(max-width: 1100px) {
+  @media (max-width: 1100px) {
     .col-image-prod {
       justify-content: center !important;
       align-items: center !important;
       width: 100% !important;
-     }
+    }
 
-     #prod-left-arrow {
-        left: -10px !important
-     }
+    #prod-left-arrow {
+      left: -10px !important;
+    }
 
-     .prod-wrapper {
-        margin: 0!important;
-        width: 63% !important;
-     }
+    .prod-wrapper {
+      margin: 0 !important;
+      width: 63% !important;
+    }
   }
 
-
-  @media(max-width: 1100px) {
+  @media (max-width: 1100px) {
     .prod-wrapper {
       /* margin: 0 35px 0 0 !important; */
     }
@@ -276,13 +269,24 @@ export const Row = styled.div`
       margin-bottom: 50px !important;
     }
   }
+`;
 
-  @media (max-width: 600px) {
-    .prod-wrapper {
-      margin 0 0 0 0 !important;
-    }
+export const MainCol = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: ${(props) => props.flex};
+  justify-content: ${(props) => props.jc};
+  align-items: ${(props) => props.ait};
+  flex-wrap: ${(props) => props.fw};
+
+  width: 50%;
+  min-width: 350px;
+  margin-bottom: 50px;
+  height: 320px;
+  @media(min-width: 600px) {
+    height: 600px;
   }
-
+  position: relative;
 `;
 
 export const Column = styled.div`
@@ -298,8 +302,9 @@ const MainImage = styled.div`
   background-color: white;
   background-image: url(${(props) => props.src});
   background-size: auto 85%;
-  @media(max-width: 600px) {
+  @media (max-width: 600px) {
     background-size: auto 65%;
+    height: 300px;
   }
   background-repeat: no-repeat;
   background-position: center;
