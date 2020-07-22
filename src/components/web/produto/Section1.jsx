@@ -39,7 +39,7 @@ export default function Section1({ prod }) {
     <Row
       style={{
         width: "100%",
-        flexWrap: "wrap-reverse",
+        flexWrap: "wrap",
         marginTop: "30px",
         minWidth: "350px",
       }}

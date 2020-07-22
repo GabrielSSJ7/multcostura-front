@@ -4,7 +4,7 @@ import { Link } from "../routes";
 import { connect } from "react-redux";
 import Splash from "../src/components/web/Splash";
 import { Select, Column, Row } from "../src/static/styled-components/base";
-import { Line, Item, CardContainer } from "../src/styles";
+import { Line as SLine, Item, CardContainer } from "../src/styles";
 import Home from "../src/components/web/home/Home";
 import Map from "../src/components/web/Map";
 import SlideWeb from "../src/components/web/SlideWeb";
@@ -253,18 +253,15 @@ const IndexPage = () => {
             ref={ref}
             id="revendedores"
             style={{
-              alignItems: "center",
               maxWidth: "800px",
               width: "80%",
               margin: "auto",
             }}
             jc="center"
           >
-            <Line style={{ marginRight: "25px", minWidth: "50px" }} />
-            <h1 style={{ color: "#5B5B5B", textAlign: "center" }}>
-              Encontre um revendedor próximo a você!
-            </h1>
-            <Line style={{ marginLeft: "25px", minWidth: "50px" }} />
+            <Line style={{ minWidth: "5px" }} />
+            <H1 style={{}}>Encontre um revendedor próximo a você!</H1>
+            <Line style={{ minWidth: "5px" }} />
           </Row>
           <p style={{ color: "#717171", opacity: 0.8, textAlign: "center" }}>
             Selecione a baixo seu estado e cidade para encontrar o revendedor
@@ -277,7 +274,9 @@ const IndexPage = () => {
                 flex: 1,
                 padding: "0",
                 background: "#fff",
-                height: "40px",
+                height: "25px",
+                fontSize: ".6rem",
+                borderColor: "#707070",
               }}
               onChange={onChangeState}
               value={`${state.state.id}-${state.state.name}`}
@@ -296,7 +295,9 @@ const IndexPage = () => {
                 padding: "0",
                 flex: 1,
                 background: "#fff",
-                height: "40px",
+                height: "25px",
+                fontSize: ".6rem",
+                borderColor: "#707070",
               }}
               onChange={onChangeCity}
               value={state.city}
@@ -314,7 +315,7 @@ const IndexPage = () => {
               onClick={() => setViewMap(state.state, state.city)}
               style={{
                 width: "90px",
-                height: "40px",
+                height: "25px",
                 background:
                   "transparent linear-gradient(180deg, #242873 0%, #161848 100%) 0% 0% no-repeat padding-box",
                 borderRadius: "4px",
@@ -325,18 +326,7 @@ const IndexPage = () => {
               BUSCAR
             </button>
           </RowSelect>
-          <div
-            key="as"
-            id="map"
-            style={{
-              width: "80%",
-              height: "500px",
-              marginBottom: "10px",
-              marginTop: "10px",
-              border: "7px solid #DCDCDC",
-              borderRadius: "10px",
-            }}
-          />
+          <DivMap key="as" id="map" style={{}} />
         </div>
 
         <Row style={{ flexWrap: "wrap", maxWidth: "70%", margin: "auto" }}>
@@ -375,6 +365,39 @@ const IndexPage = () => {
     </Template>
   );
 };
+
+const DivMap = styled.div`
+  width: 92%;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 7px solid #dcdcdc;
+  border-radius: 10px;
+  height: 250px;
+
+  @media (min-width: 600px) {
+    height: 500px;
+    width: 80%;
+  }
+`;
+
+const H1 = styled.h1`
+  color: #5b5b5b;
+  text-align: center;
+  font-size: 1rem;
+  width: 80%;
+  @media (min-width: 700px) {
+    font-size: 2rem;
+  }
+`;
+
+const Line = styled(SLine)`
+  width: 5%;
+  margin-top: 18px;
+
+  @media (min-width: 700px) {
+    margin-top: 38px;
+  }
+`;
 
 IndexPage.getInitialProps = ({ reduxStore }) => {
   return {};

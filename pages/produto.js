@@ -123,7 +123,7 @@ export default function Produto({ id }) {
             >
               Máquinas
             </Link>
-            >
+            
             <Link
               onClick={() =>
                 navigate("/produtos?type=categories&id=" + prod.category._id)
