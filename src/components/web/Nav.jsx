@@ -371,9 +371,8 @@ function NavSm({
     }));
   }, [categories, manufacturers]);
 
-  const [listController, setListController] = useState("main");
 
-  function CurrentList({ list }) {
+  function CurrentList({ list, setListController }) {
     return (
       <>
         {list == "manufacturers" && (
@@ -391,6 +390,7 @@ function NavSm({
     );
   }
 
+  const [listController, setListController] = useState("main");
   const SideList = (side) => (
     <div className={classes.list} role="presentation">
       <List style={{ padding: 0 }}>
@@ -404,7 +404,7 @@ function NavSm({
         >
           <LogoMaior src={logoMaior} />
         </div>
-        <CurrentList list={listController} />
+        <CurrentList list={listController} setListController={setListController} />
       </List>
     </div>
   );

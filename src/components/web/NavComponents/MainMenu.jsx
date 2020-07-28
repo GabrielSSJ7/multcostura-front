@@ -34,7 +34,6 @@ function MainMenu({ state }) {
   return (
     <Column>
       <Row
-        key={Math.round(Math.random() * 100)}
         jc="flex-start"
         ait="center"
         style={{ marginTop: "13px", padding: "0 15px" }}
@@ -49,7 +48,6 @@ function MainMenu({ state }) {
         <span style={{ fontSize: "1.1rem" }}>Início</span>
       </Row>
       <Row
-        key={Math.round(Math.random() * 100)}
         onClick={() => setListController("categories")}
         jc="flex-start"
         ait="center"
@@ -60,7 +58,6 @@ function MainMenu({ state }) {
         <span style={{ fontSize: "1.1rem" }}>Máquinas</span>
       </Row>
       <Row
-        key={Math.round(Math.random() * 100)}
         onClick={() => setListController("manufacturers")}
         jc="flex-start"
         ait="center"
@@ -75,7 +72,6 @@ function MainMenu({ state }) {
         <span style={{ fontSize: "1.1rem" }}>Nossas Marcas</span>
       </Row>
       <Row
-        key={Math.round(Math.random() * 100)}
         jc="flex-start"
         ait="center"
         style={{ marginTop: "13px", padding: "0 15px" }}
@@ -86,7 +82,6 @@ function MainMenu({ state }) {
         <span style={{ fontSize: "1.1rem" }}>Peças e Acessórios</span>
       </Row>
       <Row
-        key={Math.round(Math.random() * 100)}
         jc="flex-start"
         ait="center"
         style={{ marginTop: "13px", padding: "0 15px" }}
@@ -102,7 +97,6 @@ function MainMenu({ state }) {
         <span style={{ fontSize: "1.1rem" }}>Revendedores</span>
       </Row>
       <Row
-        key={Math.round(Math.random() * 100)}
         jc="flex-start"
         ait="center"
         style={{ marginTop: "13px", padding: "0 15px" }}
@@ -117,7 +111,6 @@ function MainMenu({ state }) {
         <span style={{ fontSize: "1.1rem" }}>Sobre nós</span>
       </Row>
       <Row
-        key={Math.round(Math.random() * 100)}
         jc="flex-start"
         ait="center"
         style={{ marginTop: "13px", padding: "0 15px", maxWidth: '36px' }}
@@ -132,7 +125,6 @@ function MainMenu({ state }) {
         <span style={{ fontSize: "1.1rem"}}>Contato</span>
       </Row>
       <Row
-        key={Math.round(Math.random() * 100)}
         jc="flex-start"
         ait="center"
         style={{ marginTop: "13px", padding: "0 15px" }}
