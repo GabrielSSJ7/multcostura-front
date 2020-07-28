@@ -87,13 +87,6 @@ export default function Filters({ type }) {
   }, []);
 
   useEffect(() => {
-    console.log(
-      "[Filters] changing machines",
-      machines.length,
-      machines.length >= 1
-    );
-    setFilters({});
-    setFiltersSelecteds({});
     if (machines.length >= 1) {
       const _ = settingFilters(machines, settings);
       setFilters(_._filters);
