@@ -34,6 +34,7 @@ export default function ListProd({ id, type, search }) {
       let machines = { data: [] };
       let tools = { data: [] };
       try {
+        console.log("filtrando maquinas...")
         machines = await setApi().get(
           `/machine?search=${search}&filters=${JSON.stringify(filters)}`
         );
