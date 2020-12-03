@@ -125,8 +125,8 @@ export default ({
                 <Arrow right src={rightArrow} onClick={() => next()}></Arrow>
               </>
             ) : (
-              <></>
-            )}
+                <></>
+              )}
 
             <>
               {images.map((img, i) => (
@@ -135,7 +135,7 @@ export default ({
                   key={i}
                   src={img}
                   translate={translate}
-                  height={"100%"}
+                  height={height}
                   width={slideWidth}
                 >
                   <img src={img} style={{ width: "100%", height: "100%" }} />
@@ -144,8 +144,8 @@ export default ({
             </>
           </>
         ) : (
-          <p> no image</p>
-        )}
+            <p> no image</p>
+          )}
       </Wrapper>
       {balls ? (
         <div
@@ -180,8 +180,8 @@ export default ({
           ))}
         </div>
       ) : (
-        <>{balls}</>
-      )}
+          <>{balls}</>
+        )}
     </>
   );
 };

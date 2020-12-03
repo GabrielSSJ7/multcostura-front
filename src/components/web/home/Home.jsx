@@ -19,10 +19,13 @@ export default function Home() {
       const prod = await setApi().get("/institutional/produtos");
       const pecas = await setApi().get("/institutional/pecas");
       const noticias = await setApi().get("/institutional/noticias");
+      const bndes = await setApi().get("/institutional/bndes");
+      console.log('INSTITUTIONAL BNDES', bndes)
       setState({
         produtos: prod.data,
         pecas: pecas.data,
         noticias: noticias.data,
+        bndes: bndes.data
       });
     }
 
@@ -95,7 +98,7 @@ export default function Home() {
         </Column>
       </DivCards>
       <Row jc="center" style={{ marginTop: "65px" }}>
-        <img style={{ width: "100%" }} src={BannerBNDES} alt="bndes" />
+        <img style={{ width: "100%" }} src={state.bndes} alt="bndes" />
       </Row>
     </Column>
   );

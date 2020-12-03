@@ -75,10 +75,10 @@ export default function HomeBanner() {
           if (image.pos == index) {
             return file
               ? {
-                  image: URL.createObjectURL(file),
-                  pos: index,
-                  name: newFile.name
-                }
+                image: URL.createObjectURL(file),
+                pos: index,
+                name: newFile.name
+              }
               : { image: imageNotFound, pos: index, name: file.name };
           }
           return image;
@@ -90,10 +90,10 @@ export default function HomeBanner() {
       setSlideControl(index + 1);
     } else {
       setSnackBar({
-          open: true,
-          result: 'error',
-          message: imageMessageError
-        })
+        open: true,
+        result: 'error',
+        message: imageMessageError
+      })
     }
   }
 
@@ -128,7 +128,7 @@ export default function HomeBanner() {
   useEffect(() => {
     setName(router.query.name);
     function asyncFunc() {
-    getSlide("institutional", "homeBanners", function(err, response) {
+      getSlide("institutional", "homeBanners", function (err, response) {
         if (err) {
           setSnackBar({
             open: true,
@@ -163,7 +163,7 @@ export default function HomeBanner() {
 
     asyncFunc();
 
-    return () => {};
+    return () => { };
   }, []);
 
   function makeBannerFirst() {
@@ -216,7 +216,7 @@ export default function HomeBanner() {
           open: true
         });
 
-      saveSlide(null, images, files, "homeBanners", function(err, response) {
+      saveSlide(null, images, files, "homeBanners", function (err, response) {
         if (err) {
           setSnackBar({
             result: "error",
@@ -245,7 +245,7 @@ export default function HomeBanner() {
       </Snackbar>
 
       <Column>
-        <div onClick={() => location.reload()} className="arrow-back" style={{ background:"#960d03", borderRadius: "5px", padding: "5px", maxWidth: "60px", marginLeft: "10px", marginBottom: "5px", display: 'flex', flexDirection: "row" }}>
+        <div onClick={() => location.reload()} className="arrow-back" style={{ background: "#960d03", borderRadius: "5px", padding: "5px", maxWidth: "60px", marginLeft: "10px", marginBottom: "5px", display: 'flex', flexDirection: "row" }}>
           <FontAwesomeIcon icon={faArrowLeft} style={{ color: "white" }} />
           <span style={{ color: "white" }}>Voltar</span>
         </div>
@@ -287,81 +287,80 @@ export default function HomeBanner() {
                 </div>
               </>
             ) : (
-              <>
-                {slideControl - 1 != 0 ? (
-                  <Button
-                    style={{
-                      width: "50%",
-                      display: "block",
-                      margin: "10px auto"
-                    }}
-                    onClick={makeBannerFirst}
-                  >
-                    Tornar este banner o principal
-                  </Button>
-                ) : (
-                  <span style={{ width: "20px", height: "64px" }}></span>
-                )}
-                <div style={{ position: "relative", width: "100%" }}>
-                  <ArrowLeft
-                    onClick={() => {
-                      setSlideControl(sl => {
-                        if (sl == 1) return 1;
-                        return sl - 1;
-                      });
-                    }}
-                  />
-                  <ArrowRight
-                    onClick={() => {
-                      setSlideControl(sl => {
-                        if (sl == images.length) return 1;
-                        return sl + 1;
-                      });
-                    }}
-                  />
-                  <Slide
-                    slideCtrl={slideControl}
-                    images={images.map(image => image.image)}
-                    height="400px"
-                    slideWidth="100%"
-                  />
-                </div>
-
-                <div
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    flexWrap: "wrap",
-                    marginLeft: "5px",
-                    padding: "2px 0"
-                  }}
-                >
-                  {images.map((image, id) => (
-                    <ThumbnailBanner
+                <>
+                  {slideControl - 1 != 0 ? (
+                    <Button
                       style={{
-                        border: `${
-                          id == slideControl - 1
-                            ? "2px solid #960d03"
-                            : "2px solid transparent"
-                        }`
+                        width: "50%",
+                        display: "block",
+                        margin: "10px auto"
                       }}
-                      onClick={() => {
-                        setSlideControl(parseInt(id + 1));
-                      }}
+                      onClick={makeBannerFirst}
                     >
-                      <img src={image.image} style={{ width: "100%" }} />
-                    </ThumbnailBanner>
-                  ))}
-                </div>
+                      Tornar este banner o principal
+                    </Button>
+                  ) : (
+                      <span style={{ width: "20px", height: "64px" }}></span>
+                    )}
+                  <div style={{ position: "relative", width: "100%" }}>
+                    <ArrowLeft
+                      onClick={() => {
+                        setSlideControl(sl => {
+                          if (sl == 1) return 1;
+                          return sl - 1;
+                        });
+                      }}
+                    />
+                    <ArrowRight
+                      onClick={() => {
+                        setSlideControl(sl => {
+                          if (sl == images.length) return 1;
+                          return sl + 1;
+                        });
+                      }}
+                    />
+                    <Slide
+                      slideCtrl={slideControl}
+                      images={images.map(image => image.image)}
+                      height="700px"
+                      slideWidth="100%"
+                    />
+                  </div>
 
-                <h2 style={{ textAlign: "center" }}>
-                  Posição do banner {slideControl}
-                </h2>
-                <h4 style={{ textAlign: "center" }}>
-                  Total de banners {inputs.length}
-                </h4>
-              </>
-            )}
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      flexWrap: "wrap",
+                      marginLeft: "5px",
+                      padding: "2px 0"
+                    }}
+                  >
+                    {images.map((image, id) => (
+                      <ThumbnailBanner
+                        style={{
+                          border: `${id == slideControl - 1
+                              ? "2px solid #960d03"
+                              : "2px solid transparent"
+                            }`
+                        }}
+                        onClick={() => {
+                          setSlideControl(parseInt(id + 1));
+                        }}
+                      >
+                        <img src={image.image} style={{ width: "100%" }} />
+                      </ThumbnailBanner>
+                    ))}
+                  </div>
+
+                  <h2 style={{ textAlign: "center" }}>
+                    Posição do banner {slideControl}
+                  </h2>
+                  <h4 style={{ textAlign: "center" }}>
+                    Total de banners {inputs.length}
+                  </h4>
+                </>
+              )}
           </Column>
           <Column style={{ width: "100%" }}>
             <div
@@ -381,8 +380,8 @@ export default function HomeBanner() {
                   Remover banner
                 </Button>
               ) : (
-                ""
-              )}
+                  ""
+                )}
             </div>
 
             <Button
@@ -404,11 +403,11 @@ export default function HomeBanner() {
                 Salvar
               </Button>
             ) : (
-              ""
-            )}
+                ""
+              )}
 
 
-            <div style={{ border: "1px solid grey", margin: "10px"}}><p style={{ textAlign: "center" }}>*As imagens devem ter 1920x400</p></div>
+            <div style={{ border: "1px solid grey", margin: "10px" }}><p style={{ textAlign: "center" }}>*As imagens devem ter 1920x400</p></div>
           </Column>
         </Row>
       </Column>

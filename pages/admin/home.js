@@ -16,6 +16,7 @@ function Home() {
     produtos: <BannerFixed type="produtos" />,
     pecas: <BannerFixed type="pecas" />,
     noticias: <BannerFixed type="noticias" />,
+    bndes: <BannerFixed type="bndes" />
   });
 
   const [componentsKey, setComponentsKey] = useState("");
@@ -88,6 +89,16 @@ function Home() {
                 </RedPartCardContainer>
               </CardContainer>
 
+              <CardContainer onClick={() => setMenu("bndes")}>
+                <Row style={{ margin: "5px", alignItems: "center" }}>
+                  {/* <FontAwesomeIcon icon={faHome} size="4x" /> */}
+                  <p style={{ margin: "0 20px" }}>BNDES</p>
+                </Row>
+                <RedPartCardContainer className="red-part">
+                  <p style={{ color: "white" }}>Alterar banner fixo</p>
+                </RedPartCardContainer>
+              </CardContainer>
+
               <h1>Lançamentos</h1>
               <CardContainer onClick={() => setMenu("produtos")}>
                 <Row style={{ margin: "5px", alignItems: "center" }}>
@@ -119,8 +130,8 @@ function Home() {
             </Column>
           </Row>
         ) : (
-          components[componentsKey]
-        )}
+            components[componentsKey]
+          )}
       </Container>
     </Template>
   );

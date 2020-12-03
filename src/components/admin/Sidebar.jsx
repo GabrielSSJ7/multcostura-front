@@ -19,7 +19,7 @@ export default () => (
   <DivRoot>
     <DivHeader>
       <ImageHeader
-        src={require("../../static/images/logo-multcostura-opção-3.png")}
+        src={require("../../static/images/logo-branco.png")}
       />
     </DivHeader>
     <hr style={{ width: "80%" }} />

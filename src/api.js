@@ -1,8 +1,12 @@
 import axios from "axios";
+import constants from './constants';
+
+const { PRODUCTION, URL_BASE, URL_BASE_DEVELOP } = constants;
 
 function setApi(headers) {
+  console.log(PRODUCTION, URL_BASE_DEVELOP, URL_BASE)
   return axios.create({
-    baseURL: "http://187.108.207.29:4000/",
+    baseURL: PRODUCTION ? URL_BASE : URL_BASE_DEVELOP,
     headers: { ...headers }
     //baseURL: "http://localhost:4000/",
   });

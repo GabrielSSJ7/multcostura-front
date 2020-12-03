@@ -8,10 +8,7 @@ import Footer from '../web/Footer'
 import Splash from '../web/Splash'
 
 const GlobalStyle = createGlobalStyle`
-    @font-face {
-      font-family: LithosPro
-      src: url(${require("../../static/fonts/lithos-pro/LithosPro-Light.otf")})
-    }    
+
 
     @font-face {
       font-family: Myriad
@@ -19,11 +16,11 @@ const GlobalStyle = createGlobalStyle`
     }
 
     .main-title {
-      font-family: LithosPro !important;
+      font-family: Myriad !important;
       
     }
     * {
-      font-family: Myriad
+      font-family: Myriad !important
     }
 
     body {
@@ -84,7 +81,7 @@ class Template extends React.Component {
   }
 
   componentDidMount() {
-   //new Microsoft.Maps.Map(document.getElementById('map'), {})
+    //new Microsoft.Maps.Map(document.getElementById('map'), {})
     setTimeout(() => {
       this.setState({
         loading: false
@@ -92,7 +89,7 @@ class Template extends React.Component {
     }, 1200)
   }
 
- 
+
 
   render() {
     return (

@@ -6,10 +6,6 @@ import { createGlobalStyle, ThemeProvider } from "styled-components";
 import Sidebar from "../admin/Sidebar";
 
 const GlobalStyle = createGlobalStyle`
-    @font-face {
-      font-family: LithosPro
-      src: url(${require("../../static/fonts/lithos-pro/LithosPro-Light.otf")})
-    }    
 
     @font-face {
       font-family: Myriad
@@ -17,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     .main-title {
-      font-family: LithosPro !important;
+      font-family: Myriad !important;
       
     }
     * {
@@ -67,7 +63,7 @@ class Template extends React.Component {
             this.props.temApelido();
           }
         })
-        .catch(erro => {});
+        .catch(erro => { });
     }
 
 
@@ -96,7 +92,7 @@ class Template extends React.Component {
         <div style={{ margin: 0, padding: 0, display: "flex" }}>
           {this.props.children}
         </div>
-       
+
       </div>
     );
   }
