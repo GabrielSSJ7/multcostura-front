@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "node ./server.js",
     "build": "next build",
-    "start": "next start -p $PORT",
+    "start": "next start",
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
@@ -55,8 +55,5 @@
     "eslint-plugin-standard": "^4.0.1",
     "typings-for-css-modules-loader": "^1.7.0",
     "val-loader": "^1.1.1"
-  },
-  "engines": {
-    "node": "12.16.2"
   }
 }

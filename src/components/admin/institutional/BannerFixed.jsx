@@ -49,7 +49,7 @@ export default function BannerFixed({ type }) {
   }
   useEffect(() => {
     function asynFunc() {
-      getBannerFixed(type, function(err, d) {
+      getBannerFixed(type, function (err, d) {
         if (err) {
           setSnackbar({
             open: true,
@@ -65,11 +65,11 @@ export default function BannerFixed({ type }) {
 
     asynFunc();
 
-    return () => {};
+    return () => { };
   }, []);
 
   function saveBanner() {
-    saveBannerFixed(type, file, function(err, r) {
+    saveBannerFixed(type, file, function (err, r) {
       if (err) {
         setSnackBar({
           open: true,
@@ -90,7 +90,7 @@ export default function BannerFixed({ type }) {
   }
 
   function deleteBanner() {
-    deleteBannerFixed(type, function(err, r) {
+    deleteBannerFixed(type, function (err, r) {
       if (err) {
         setSnackBar({
           open: true,
@@ -111,12 +111,13 @@ export default function BannerFixed({ type }) {
   }
   return (
     <Column>
-      <div onClick={() => location.reload()} className="arrow-back" style={{ background:"#960d03", borderRadius: "5px", padding: "5px", maxWidth: "60px", marginLeft: "10px", marginBottom: "5px", display: 'flex', flexDirection: "row" }}>
-          <FontAwesomeIcon icon={faArrowLeft} style={{ color: "white" }} />
-          <span style={{ color: "white" }}>Voltar</span>
-        </div>
-        <style>
-          {`  
+      <h1 style={{ textAlign: "center", textTransform: 'uppercase' }}>{type}</h1>
+      <div onClick={() => location.reload()} className="arrow-back" style={{ background: "#960d03", borderRadius: "5px", padding: "5px", maxWidth: "60px", marginLeft: "10px", marginBottom: "5px", display: 'flex', flexDirection: "row" }}>
+        <FontAwesomeIcon icon={faArrowLeft} style={{ color: "white" }} />
+        <span style={{ color: "white" }}>Voltar</span>
+      </div>
+      <style>
+        {`  
 
             .arrow-back {
               transition: .5s;
@@ -127,14 +128,14 @@ export default function BannerFixed({ type }) {
               opacity: .8;
             }
           `}
-        </style>
+      </style>
       <Row>
-        <Wrapper>
+        <Wrapper height="700px">
           {banner != imageNotFound ? (
             <BtnDelete onClick={deleteBanner}>Excluir banner</BtnDelete>
           ) : (
-            ""
-          )}
+              ""
+            )}
           <Snackbar
             open={snackBar.open}
             autoHideDuration={2500}
@@ -143,7 +144,7 @@ export default function BannerFixed({ type }) {
             <Alert severity={snackBar.result}>{snackBar.message}</Alert>
           </Snackbar>
 
-          <Slide src={banner} />
+          <Slide height="700px" src={banner} />
         </Wrapper>
       </Row>
       <Row>
@@ -202,11 +203,12 @@ const Row = styled.div`
 
 const Wrapper = styled.div`
   width: 100%;
+  height: 400px;
   height: ${props => props.height};
   overflow: hidden;
   display: -webkit-box;
   position: relative;
-  height: 400px;
+ 
 `;
 
 const Slide = styled.div`
