@@ -11,6 +11,8 @@ import SlideWeb from "../src/components/web/SlideWeb";
 import Template from "../src/components/templates/Web";
 import setApi from "../src/api";
 import styled from "styled-components";
+
+
 const RowSelect = styled.div`
   display: flex;
   justify-content: center;

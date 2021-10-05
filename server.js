@@ -8,6 +8,14 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handler = routes.getRequestHandler(app)
 
+app.use(function (req, res, next) {
+res.setHeader('Access-Control-Allow-Origin', '*');
+res.setHeader('Access-Control-Allow-Methods', '*');
+res.setHeader('Access-Control-Allow-Headers', '*');
+res.setHeader('Access-Control-Allow-Credentials', true);
+next();
+});
+
 // app.prepare().then(() => {
 //   createServer(handler).listen(port, err => {
 //     if (err) throw err
